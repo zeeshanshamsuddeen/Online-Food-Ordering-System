@@ -1,0 +1,48 @@
+<html>
+<head>
+<body>
+<script>
+
+function required()
+{
+var name=document.forms["form1"]["name"].value;
+if(name=="")
+{
+	alert("please input name");
+	document.form1.action="http://localhost:5000/login";
+}
+var password=document.forms["form1"]["password"].value;
+if(password=="")
+{
+	alert("enter password");
+	document.form1.action="http://localhost:5000/login"
+}
+else
+{
+	document.form1.action="http://localhost:5000/success"
+	document.form1.method="post";
+}
+}
+
+
+</script>
+</head>
+
+
+<body>
+
+<form name="form1" onsubmit="required()">
+
+ name:
+<input type='text' name='name'>
+<br>
+password:
+<input type='text' name='password'>
+<br>
+<input type="submit" name="submit" value="Submit" />
+
+
+      
+</form>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<html>
+<body>
+
+
+
+{% for x in var %}
+ 
+<table>
+
+<tr>
+<td><a href="/quantity/{{x['item']}}/{{x['price']}}">{{x['item']}} </a>
+<td>{{x['def']}} </td>
+<td>{{x['price']}} </td>
+
+{% endfor %}
+ 
+
+
+</body>
+</html>

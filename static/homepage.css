@@ -1,0 +1,140 @@
+
+.last{										
+		background-color:rgb(70,70,70);
+		color:white;
+		font-family: "Times New Roman",Times,serif;
+		font-size:20px;
+		text-align:center;
+		margin-top:10px;
+		/* for gray background area*/
+ 
+	}
+.definition{														
+				font-family: "Times New Roman",Times,serif;
+				font-size:17px;
+				color:rgb(180,180,180);
+				/*for dark grey handwriting */
+			}
+
+			/* footers */
+.homeul {
+    
+		list-style-type: none;
+		margin-left:350px;
+		padding: 0;
+		overflow: hidden;
+
+    
+		}
+
+.homeli {
+		float: left;
+		}
+
+.homea{
+		display: block;
+		color: white;
+		text-align: center;
+		padding: 16px;
+		text-decoration: none;
+	}
+
+
+img {
+    opacity: 1;
+    filter: alpha(opacity=50); 
+   
+    
+	}
+	
+	
+h1 {  	font-family:"Comic Sans MS";
+		background-color:black;
+		color:white;
+		font-size:60px;
+		margin:0;
+		/*online food header */
+
+}
+
+.h1span{
+			position: relative;
+			bottom: 20px;
+	
+}
+.login{
+		margin-left:500px;
+		
+		font-family:'Times New Roman';
+		font-size:20px;
+		color:rgb(130,130,130);
+		text-decoration: none;
+		}
+
+.help {
+		
+		
+		font-family:'Times New Roman';
+		font-size:20px;
+		color:rgb(130,130,130);
+		text-decoration: none;
+		}
+
+
+
+.content{	
+			background-image:url("chicken.jpg");
+			background-size: contain;
+			background-size: cover;
+			 background-color: rgba(255,255,255,0.6);
+			background-blend-mode: lighten;
+			
+
+
+
+	
+		}
+
+
+
+.order1{		font-family: "Times New Roman",Times,serif;
+				font-weight:bold;
+				color:black;
+				margin-top:250px;
+				margin-left:400px;
+				font-size:50px;
+			
+
+		}
+		
+
+.order2{  		 font-family: "Times New Roman",Times,serif;
+				font-size:30px;
+				color:black;
+				margin-top:100px;
+				margin-left:375px;
+				
+
+
+
+}
+
+.place{
+			font-family: "Times New Roman",Times,serif;
+			font-size:30px;
+			color:black;
+			margin-left:550px;
+			margin-top:50px
+			
+		}
+
+.showrestaurants{
+					font-family: "Times New Roman",Times,serif;
+					font-size:25px;
+					color:black;
+					margin-left:500px;
+			
+	
+				}
+
+
