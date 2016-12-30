@@ -50,6 +50,7 @@ def quantity(item,price):
 	#goes to /postquantity/<item>/<price>
 
 
+
 #to insert quantity in CART 
 @app.route('/postquantity/<item>/<price>',methods=['GET','POST'])
 def postquantity(item,price):
