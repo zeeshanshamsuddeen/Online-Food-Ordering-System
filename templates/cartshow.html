@@ -1,0 +1,23 @@
+<html>
+<body>
+<br>
+<a href="/">go back to home</a>
+<br>
+<!--displays items in cart-->
+
+{%for x in var%}
+{{x[0]}}
+{{x[1]}}
+{{x[2]}}
+
+<!--to remove an item-->
+<a href="/cartremove/{{x[0]}}">remove</a>
+<br>
+{%endfor%}
+
+
+<a href="/cartpay">proceed to pay</a>
+<br>
+
+</body>
+</html>

@@ -1,10 +1,13 @@
 <html>
 <body>
 
+
+
+<!--displays different restaurants in current place -->
 <ul>
 {%for x in var%}
 <li>
-<a href="/menu/{{x[0]}}">{{x[0]}}</a>
+<a href="/{{place}}/menu/{{x[0]}}">{{x[0]}}</a>
 
 </li>
 {%endfor%}

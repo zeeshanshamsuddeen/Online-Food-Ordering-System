@@ -1,16 +1,28 @@
 <html>
 <head>
 <script>
+function required()
+{
+var qty=document.forms["form1"]["qty"].value;
+if(qty=="")
+{
+	alert("please input quantity");
+	document.form1.action="";
+}
+else
+	document.form1.action="http://localhost:5000/postquantity/{{item}}/{{price}}"
 
+}
 </script>
 </head>
 <body>
 
 
+<!--displays form to select quantity of items -->
 
-<form name='form1' action="http://localhost/postquantity/{{item}}/{{price}}">
- name:
-<input  type='number' name='qty' min='1' max='100'>
+<form name='form1'  method="post" onsubmit="required()">
+ quantity:
+<input type='number' name='qty' min='1' max='100'>
 <br>
 <input type="submit" name="submit" value="Submit" />
 

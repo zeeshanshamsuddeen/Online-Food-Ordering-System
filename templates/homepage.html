@@ -2,8 +2,12 @@
 <html>
 <head>
 <link type="text/css" href="{{url_for('static',filename='homepage.css')}}" rel="stylesheet"/>
+<script>
+var makePath = function(form) {
+ form.action = document.getElementById('location').value;
+};
+</script>
 <title> ONLINE FOOD </title>
-
 </head>
 
 
@@ -48,15 +52,19 @@ Order food online from the best restaurants near you
 </span>	
 
 <br>
-<select class="place">
-  <option value="invalid">-select any-</option>
-  <option value="tly">Thalassery</option>
-  <option value="kannur">Kannur</option>
-  <option value="calicut">Calicut</option>
+<form onsubmit='makePath(this);'>
+
+<select id="location" class="place">
+  <option value="#">-select any-</option>
+  <option value="/TLY">Thalassery</option>
+  <option value="/KANNUR">Kannur</option>
+  <option value="/CALICUT">Calicut</option>
 </select>
 
+<button class="showrestaurants">SHOW RESTAURANTS</button>
+</form>
 <br>
-<button onclick="location.href = '/TLY';" name="button" value="Thalassery" type="button" class="showrestaurants">SHOW RESTAURANTS</button>
+
 <br>
 <br>
 <br>

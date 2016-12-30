@@ -1,0 +1,44 @@
+<html>
+<body>
+<script>
+
+function required()
+{
+var cardnumber=document.forms["form1"]["cardnumber"].value;
+var name=document.forms["form1"]["name"].value;
+var cvv=document.forms["form1"]["cvv"].value;
+if(((cardnumber=="")||(name==""))||(cvv==""))
+{
+	alert("fill all fields");
+	document.form1.action="";
+}	
+else 
+document.form1.action="";
+
+}
+
+</script>
+
+
+
+
+
+<form name="form1" onsubmit="required()">
+
+card number:
+<input type='number' name='cardnumber'>
+<br>
+car holder name
+<input type='text' name='name'>
+<br>
+cvv:
+<input type='number' name='cvv' maxlenght='3'>
+<br>
+
+<br>
+<input type="submit" name="submit" value="Submit" />
+
+</form>
+
+</body>
+</html>
