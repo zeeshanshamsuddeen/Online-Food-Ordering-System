@@ -1,0 +1,42 @@
+<html>
+<body>
+<script>
+function required()
+{
+	var item=document.forms["form1"]["item"].value;
+	var def=document.forms["form1"]["def"].value;
+	var price=document.forms["form1"]["price"].value;
+	if((item=="")||(price==""))
+	{
+		alert("invalid fields")
+		document.form1.action=""
+	}
+	else
+	{
+		alert("items successfully added")
+		document.form1.action="http://localhost:5000/manager_add/{{place}}/{{username}}"
+	}
+}
+
+</script>
+
+<form name="form1" onsubmit="required()" method="post">
+
+item:
+<input type='text' name='item'>
+<br>
+definition:
+<input type='text' name='def'>
+<br>
+price:
+<input type='number' name='price'>
+<br>
+<input type="submit" name="submit" value="Submit" />
+
+
+      
+</form>
+
+
+</body>
+</html>

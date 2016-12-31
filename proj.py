@@ -7,7 +7,7 @@ app.secret_key = 'any random string'
 
 
 @app.route('/')
-def home():
+def homepage():
 	return render_template('homepage.html')
 
 
@@ -120,13 +120,41 @@ def cartpay():
 	conn=sqlite3.connect('bucket.db')
 	cur=conn.cursor()
 	cur.execute("SELECT COUNT(*) FROM CART")
-	vartemp=cur.fetchone()
-	nitem=vartemp[0]
+	var=cur.fetchone()
+	nitem=var[0]
 	cur.execute("SELECT SUM(total) FROM CART")
-	vartemp=cur.fetchone()
-	ntotal=vartemp[0]
+	var=cur.fetchone()
+	ntotal=var[0]
+	return render_template('cartpay.html',nitem=nitem,ntotal=ntotal)
+	#two options in cartpay, card and COD
 
-	return ''
+#to access if card is selected as mode of paymeny
+@app.route('/paycard')
+def paycard():
+	return render_template('paycard.html')
+	#from paycard.html , goes to /cartclear
+
+#to access if COD is selected as mode of payment
+@app.route('/paycash')
+def paycash():
+	return render_template('paycash.html')	
+	#from paycash.html , goes to /cartclear
+
+#clear items in cart
+@app.route('/cartclear')
+def cartclear():
+	conn=sqlite3.connect('bucket.db')
+	cur=conn.cursor()
+	cur.execute("DELETE FROM CART")
+	conn.commit()
+	conn.close()
+	return redirect(url_for('homepage'))
+
+
+
+
+
+
 
 
 
@@ -141,12 +169,84 @@ def cartpay():
 @app.route('/login')
 def login():
 	return render_template('login.html')
-	
-		
+	#from login.html , if valid username , goes to /success	
+
+#to check for table in place
 @app.route('/success',methods=['GET','POST'])
 def success():
-	print(request.form['password'])
-	return render_template('success.html')
+	username=request.form['username']
+	place=request.form['location']
+	if(place=='TLY'):
+		conn=sqlite3.connect('TLY.db')
+	elif(place=='KANNUR'):
+		conn=sqlite3.connect('KANNUR.db')
+	else:
+		conn.sqlite3.connect('CALICUT.db')	
+	cur=conn.cursor()
+	#to select all table names in database
+	cur.execute("SELECT name FROM sqlite_master WHERE type = 'table'")
+	var=cur.fetchall()
+	conn.close()
+	for x in var:
+		if(username==x[0]):
+			#if username table is present in database
+			return redirect(url_for('manager_menu',place=place,username=username))
+			break
+	return render_template('nomanager.html')
+
+
+@app.route('/manager_menu/<place>/<username>')
+def manager_menu(place,username):
+	if(place=='TLY'):
+		conn=sqlite3.connect('TLY.db')
+	elif(place=='KANNUR'):
+		conn=sqlite3.connect('KANNUR.db')
+	else:
+		conn.sqlite3.connect('CALICUT.db')	
+	cur=conn.cursor()
+	cur.execute("SELECT * FROM {}".format(username))	#username is table name
+	var=cur.fetchall()
+	conn.close()
+	return render_template('manager_menu.html',var=var,place=place,username=username)
+	#from manager_menu.html , goes to manager_edit based on action choice
+
+@app.route('/manager_edit/<place>/<username>/<action>')
+def manager_edit(place,username,action):
+	if(action=="add"):
+		return render_template('manager_add.html',place=place,username=username)
+	#elif(action=="delete"):
+	#	return render_template('manager_delete.html',place=place,username=username)
+	#else:
+	#	return render_template('manager_update',palce=place,username=username)	
+
+
+@app.route('/manager_add/<place>/<username>',methods=['GET','POST'])
+def manager_add(place,username):
+	if(place=='TLY'):
+		conn=sqlite3.connect('TLY.db')
+	elif(place=='KANNUR'):
+		conn=sqlite3.connect('KANNUR.db')
+	else:
+		conn=sqlite3.connect('CALICUT.db')	
+	cur=conn.cursor()
+	item=request.form['item']
+	def1=request.form['def'] 
+	price=request.form['price']
+	print(username)
+	cur.execute("INSERT INTO {}(item,def,price) VALUES(?,?,?); ".format(username) ,(item,def1,price))
+	conn.commit()
+	conn.close()
+	return redirect(url_for('manager_menu',place=place,username=username))
+
+
+@app.route('/manager_delete/<place>/<username>',methods=['GET','POST'])
+def manager_delete(place,username):
+	return render_template('manager_delete',place=place,username=username)
+
+
+
+
+
 
 
 if __name__ == '__main__':

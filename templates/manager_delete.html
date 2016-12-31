@@ -1,0 +1,31 @@
+<html>
+<body>
+<script>
+function required()
+{
+	var item=document.forms["form1"]["item"].value;
+	if(item=="")
+	{
+		alert("enter item")
+		document.form1.action="";
+	}
+	else
+	{
+		alert("item successfullt deleted");
+		document.form1.action="http://localhost:5000/manager_menu/{{place}}/{{username}}
+	}
+}
+
+</script>
+<form name='form1' onsubmit="required()">
+
+item:
+<input type='text' name='item'>
+
+
+
+
+</form>
+
+</body>
+</html>

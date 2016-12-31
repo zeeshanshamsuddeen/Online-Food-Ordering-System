@@ -1,0 +1,19 @@
+<html>
+<body>
+
+{%for x in var%}
+{{x[0]}}
+{{x[1]}}
+{{x[2]}}
+<br>
+{%endfor%}
+
+EDIT
+<a href="/manager_edit/{{place}}/{{username}}/add">add more items</a>
+<a href="/manager_edit/{{place}}/{{username}}/delete">delete items</a>
+<a href="/manager_edit/{{place}}/{{username}}/update">update existing item</a>
+
+
+
+</body>
+</html>

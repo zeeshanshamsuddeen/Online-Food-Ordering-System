@@ -12,9 +12,11 @@ if(((cardnumber=="")||(name==""))||(cvv==""))
 	alert("fill all fields");
 	document.form1.action="";
 }	
-else 
-document.form1.action="";
-
+else
+{
+	alert("order successfully placed")
+	document.form1.action="http://localhost:5000/cartclear";
+}
 }
 
 </script>

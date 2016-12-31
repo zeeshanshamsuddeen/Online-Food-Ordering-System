@@ -1,0 +1,49 @@
+<html>
+<head>
+<script>
+function required()
+{
+var name=document.forms["form1"]["name"].value;
+var address1=document.forms["form1"]["address1"].value;
+var address2=document.forms["form1"]["address2"].value;
+var mobile=document.forms["form1"]["mobile"].value
+if((name=="")||(address1=="")||(address2=="")||(mobile==""))
+{
+	alert("All fields are required");
+	document.form1.action="";
+}
+else
+{
+	alert("order successfully placed")
+	document.form1.action="http://localhost:5000/cartclear";
+}
+}
+
+</script>
+</head>
+<body>
+
+
+
+<form name='form1' onsubmit='required()'>
+
+name:
+<input type='text' name='name'>
+<br>
+address field1 :
+<input type='text' name='address1'>
+<br>
+address field2 :
+<input type='text' name='address2'>
+<br>
+mobile number :
+<input type='number' name='mobile'>
+
+<br>
+<input type="submit" name="submit" value="Submit" />
+
+
+</form>
+
+</body>
+</html>
