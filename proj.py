@@ -81,7 +81,7 @@ def postquantity(item,price):
 	cur.execute("INSERT INTO CART(item,price,qty,total) VALUES(?,?,?,?); " ,(item,price,qty,var))
 	conn.commit()
 	conn.close()
-	return ''
+	return redirect(url_for('homepage'))
 
 
 
@@ -108,11 +108,15 @@ def cartshow():
 def cartremove(item):
 	conn=sqlite3.connect('bucket.db')
 	cur=conn.cursor()
-	cur.execute("DELETE FROM CART WHERE item=?",(item,))
-	conn.commit()
-	conn.close()
-	return redirect(url_for('cartshow'))
-
+	cur.execute("SELECT COUNT(*) FROM CART")
+	var1=cur.fetchone()
+	if(var1[0]>0):
+		cur.execute("DELETE FROM CART WHERE item=?",(item,))
+		conn.commit()
+		conn.close()
+		return redirect(url_for('cartshow'))
+	else:
+		return render_template("nocart.html")
 
 #to display total and proceed to pay
 @app.route('/cartpay')
@@ -194,7 +198,7 @@ def success():
 			break
 	return render_template('nomanager.html')
 
-
+#shows manager's menu
 @app.route('/manager_menu/<place>/<username>')
 def manager_menu(place,username):
 	if(place=='TLY'):
@@ -209,17 +213,29 @@ def manager_menu(place,username):
 	conn.close()
 	return render_template('manager_menu.html',var=var,place=place,username=username)
 	#from manager_menu.html , goes to manager_edit based on action choice
+	
 
+
+#to access when manager wants to edit items for manager_menu display
 @app.route('/manager_edit/<place>/<username>/<action>')
 def manager_edit(place,username,action):
 	if(action=="add"):
 		return render_template('manager_add.html',place=place,username=username)
-	#elif(action=="delete"):
-	#	return render_template('manager_delete.html',place=place,username=username)
+	elif(action=="delete"):
+		print('success')
+		return redirect(url_for('manager_delete',place=place,username=username))
 	#else:
 	#	return render_template('manager_update',palce=place,username=username)	
 
 
+
+
+
+
+
+
+
+#to access when manager wants to add items 
 @app.route('/manager_add/<place>/<username>',methods=['GET','POST'])
 def manager_add(place,username):
 	if(place=='TLY'):
@@ -232,16 +248,97 @@ def manager_add(place,username):
 	item=request.form['item']
 	def1=request.form['def'] 
 	price=request.form['price']
-	print(username)
 	cur.execute("INSERT INTO {}(item,def,price) VALUES(?,?,?); ".format(username) ,(item,def1,price))
 	conn.commit()
 	conn.close()
 	return redirect(url_for('manager_menu',place=place,username=username))
 
 
-@app.route('/manager_delete/<place>/<username>',methods=['GET','POST'])
+
+
+
+
+
+
+#to access when manager wants to delete items 
+@app.route('/manager_delete/<place>/<username>')
 def manager_delete(place,username):
-	return render_template('manager_delete',place=place,username=username)
+	if(place=='TLY'):
+		conn=sqlite3.connect('TLY.db')
+	elif(place=='KANNUR'):
+		conn=sqlite3.connect('KANNUR.db')
+	else:
+		conn=sqlite3.connect('CALICUT.db')	
+	cur=conn.cursor()
+	cur.execute("SELECT COUNT(*) FROM {}".format(username))
+	var1=cur.fetchone()
+	#if table in nonempty
+	if(var1[0]>0):
+		cur.execute("SELECT * FROM {}".format(username))
+		var=cur.fetchall()
+		conn.close()
+		return render_template('manager_delete.html',place=place,username=username,var=var)
+	else:
+		return render_template("no_managermenu.html",place=place,username=username)
+
+
+#to delete items from database after manager selects delete items
+@app.route('/manager_delete_database/<place>/<username>/<item>')
+def manager_delete_database(place,username,item):
+	if(place=='TLY'):
+		conn=sqlite3.connect('TLY.db')
+	elif(place=='KANNUR'):
+		conn=sqlite3.connect('KANNUR.db')
+	else:
+		conn=sqlite3.connect('CALICUT.db')	
+	cur=conn.cursor()
+	cur.execute("DELETE FROM {} WHERE item=?".format(username),(item,))
+	conn.commit()
+	return redirect(url_for('manager_menu',place=place,username=username))
+
+
+
+
+
+
+
+
+#to update items in menu
+@app.route('manager_update/<place>/<username>')
+def manager_update(place,username):
+	if(place=='TLY'):
+		conn=sqlite3.connect('TLY.db')
+	elif(place=='KANNUR'):
+		conn=sqlite3.connect('KANNUR.db')
+	else:
+		conn=sqlite3.connect('CALICUT.db')	
+	cur.execute("SELECT COUNT(*) FROM {}".format(username))
+	var=cur.fetchone()
+	#if table in nonempty
+	if(var[0]>0):
+		return render_template("manager_update.html",place=place,username=username)
+	else:
+		return render_template("no_managermenu.html",place=place,username=username)
+
+
+#to access from manager_update.html based on which coloumn to update
+@app.route('manager_update_post/<place>/<username>/<item>/<col>')
+def manager_update_post(place,username,item,col):
+	if(col=='item'):
+		return render_template('manager_update_item.html',place=place,username=username)
+	elif(col=="def1"):
+		return render_template('manager_update_def.html'place=place,username=username)
+	else:
+		return render_template('manager_update_price.html',place=place,username=username)
+
+
+
+
+
+
+
+
+
 
 
 

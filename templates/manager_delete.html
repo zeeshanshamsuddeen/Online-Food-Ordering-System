@@ -1,31 +1,22 @@
 <html>
 <body>
 <script>
-function required()
-{
-	var item=document.forms["form1"]["item"].value;
-	if(item=="")
-	{
-		alert("enter item")
-		document.form1.action="";
-	}
-	else
-	{
-		alert("item successfullt deleted");
-		document.form1.action="http://localhost:5000/manager_menu/{{place}}/{{username}}
-	}
-}
 
 </script>
-<form name='form1' onsubmit="required()">
-
-item:
-<input type='text' name='item'>
 
 
+{%for x in var%}
+{{x[0]}}
+{{x[1]}}
+{{x[2]}}
+<a href="/manager_delete_database/{{place}}/{{username}}/{{x[0]}}">remove</a>
+<br>
+{%endfor%}
 
 
-</form>
+
+
+
 
 </body>
 </html>
