@@ -5,13 +5,16 @@
 <br>
 <!--displays items in cart-->
 
+
 {%for x in var%}
 {{x[0]}}
 {{x[1]}}
 {{x[2]}}
+{{x[3]}}
+{{x[4]}}
 
 <!--to remove an item-->
-<a href="/cartremove/{{x[0]}}">remove</a>
+<a href="/cartremove/{{x[0]}}/{{x[4]}}">remove</a>
 <br>
 {%endfor%}
 

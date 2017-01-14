@@ -1,3 +1,9 @@
+@font-face 
+{
+ font-family:Cinzel Decorative Bold;
+ src:url("{{url_for('static',filename='CinzelDecorative-Bold.otf')}}");
+} 
+
 
 .last{										
 		background-color:rgb(70,70,70);
@@ -5,7 +11,7 @@
 		font-family: "Times New Roman",Times,serif;
 		font-size:20px;
 		text-align:center;
-		margin-top:10px;
+		margin-top:0px;
 		/* for gray background area*/
  
 	}
@@ -40,8 +46,13 @@
 	}
 
 
-	
-h1 {  	font-family:"Comic Sans MS";
+.content1
+{				   
+				height: 20px;
+				background: linear-gradient(rgb(0,0,0), rgb(200,200,200));
+}
+
+h1 {  	font-family:"Cinzel Decorative Bold";
 		background-color:black;
 		color:white;
 		font-size:60px;
@@ -50,6 +61,7 @@ h1 {  	font-family:"Comic Sans MS";
 
 	}
 
+	/*for header*/
 .h1span{
 			position: relative;
 			bottom: 20px;

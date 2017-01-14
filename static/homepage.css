@@ -59,7 +59,7 @@ h1 {  	font-family:"Comic Sans MS";
 
 .h1span{
 			position: relative;
-			bottom: 20px;
+			bottom: 0px;
 	
 }
 .login{

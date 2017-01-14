@@ -56,29 +56,29 @@ def menu(place,table):
 		var=cur.fetchall()
 		conn.close()
 		#<var> contains all items in table, each row is accessed and displayed by colname
-		return render_template('menu.html',var=var)
+		return render_template('menu.html',var=var,place=place)
 		#from menu.html , goes to /quantity/<item>/<price>
 	else:
 		return render_template('nomenu.html',place=place)
 	
 
 #to submit quantity of item selected	
-@app.route('/quantity/<item>/<price>',methods=['GET','POST'])
-def quantity(item,price):
-	return render_template('quantity.html',item=item,price=price)
+@app.route('/quantity/<place>/<item>/<price>',methods=['GET','POST'])
+def quantity(place,item,price):
+	return render_template('quantity.html',item=item,price=price,place=place)
 	#from quantity.html , goes to /postquantity/<item>/<price>
 
 
 
-#to insert quantity in CART 
-@app.route('/postquantity/<item>/<price>',methods=['GET','POST'])
-def postquantity(item,price):
+#to insert quantity in CART table
+@app.route('/postquantity/<place>/<item>/<price>',methods=['GET','POST'])
+def postquantity(place,item,price):
 	print('postquantity')
 	conn=sqlite3.connect('bucket.db')
 	cur=conn.cursor()
 	qty=request.form['qty']
 	var=int(price)*int(qty)
-	cur.execute("INSERT INTO CART(item,price,qty,total) VALUES(?,?,?,?); " ,(item,price,qty,var))
+	cur.execute("INSERT INTO CART(item,price,qty,total,place) VALUES(?,?,?,?,?); " ,(item,price,qty,var,place))
 	conn.commit()
 	conn.close()
 	return redirect(url_for('homepage'))
@@ -96,22 +96,26 @@ def postquantity(item,price):
 def cartshow():
 	conn=sqlite3.connect('bucket.db')
 	cur=conn.cursor()
-	cur.execute("SELECT * FROM CART")
-	var=cur.fetchall()
-	conn.close()
-	return render_template('cartshow.html',var=var)
-	#from cartshow.html , goes to cartremove/<item> 
-
+	cur.execute("SELECT COUNT(*) FROM CART")
+	var1=cur.fetchone()
+	if(var1[0]>0):
+		cur.execute("SELECT * FROM CART")
+		var=cur.fetchall()
+		conn.close()
+		return render_template('cartshow.html',var=var)
+		#from cartshow.html , goes to cartremove/<item> 
+	else:
+		return render_template("nocart.html")
 
 #to delete an <item> from cart
-@app.route('/cartremove/<item>')
-def cartremove(item):
+@app.route('/cartremove/<item>/<place>')
+def cartremove(item,place):
 	conn=sqlite3.connect('bucket.db')
 	cur=conn.cursor()
 	cur.execute("SELECT COUNT(*) FROM CART")
 	var1=cur.fetchone()
 	if(var1[0]>0):
-		cur.execute("DELETE FROM CART WHERE item=?",(item,))
+		cur.execute("DELETE FROM CART WHERE item=? AND place=?",(item,place))
 		conn.commit()
 		conn.close()
 		return redirect(url_for('cartshow'))
@@ -170,7 +174,7 @@ def cartclear():
 
 
 #to access when login is selected from homepage
-@app.route('/login')
+@app.route('/login',methods=['GET','POST'])
 def login():
 	return render_template('login.html')
 	#from login.html , if valid username , goes to /success	
@@ -185,7 +189,7 @@ def success():
 	elif(place=='KANNUR'):
 		conn=sqlite3.connect('KANNUR.db')
 	else:
-		conn.sqlite3.connect('CALICUT.db')	
+		conn=sqlite3.connect('CALICUT.db')	
 	cur=conn.cursor()
 	#to select all table names in database
 	cur.execute("SELECT name FROM sqlite_master WHERE type = 'table'")
@@ -206,7 +210,7 @@ def manager_menu(place,username):
 	elif(place=='KANNUR'):
 		conn=sqlite3.connect('KANNUR.db')
 	else:
-		conn.sqlite3.connect('CALICUT.db')	
+		conn=sqlite3.connect('CALICUT.db')	
 	cur=conn.cursor()
 	cur.execute("SELECT * FROM {}".format(username))	#username is table name
 	var=cur.fetchall()
@@ -224,10 +228,8 @@ def manager_edit(place,username,action):
 	elif(action=="delete"):
 		print('success')
 		return redirect(url_for('manager_delete',place=place,username=username))
-	#else:
-	#	return render_template('manager_update',palce=place,username=username)	
-
-
+	
+	
 
 
 
@@ -303,41 +305,10 @@ def manager_delete_database(place,username,item):
 
 
 
-#to update items in menu
-@app.route('manager_update/<place>/<username>')
-def manager_update(place,username):
-	if(place=='TLY'):
-		conn=sqlite3.connect('TLY.db')
-	elif(place=='KANNUR'):
-		conn=sqlite3.connect('KANNUR.db')
-	else:
-		conn=sqlite3.connect('CALICUT.db')	
-	cur.execute("SELECT COUNT(*) FROM {}".format(username))
-	var=cur.fetchone()
-	#if table in nonempty
-	if(var[0]>0):
-		return render_template("manager_update.html",place=place,username=username)
-	else:
-		return render_template("no_managermenu.html",place=place,username=username)
 
-
-#to access from manager_update.html based on which coloumn to update
-@app.route('manager_update_post/<place>/<username>/<item>/<col>')
-def manager_update_post(place,username,item,col):
-	if(col=='item'):
-		return render_template('manager_update_item.html',place=place,username=username)
-	elif(col=="def1"):
-		return render_template('manager_update_def.html'place=place,username=username)
-	else:
-		return render_template('manager_update_price.html',place=place,username=username)
-
-
-
-
-
-
-
-
+@app.route('/login1')
+def login1():
+	return render_template('login1.html')
 
 
 
