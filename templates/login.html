@@ -2,8 +2,7 @@
 <head>
 <link type="text/css" href="{{url_for('static',filename='webpages.css')}}" rel="stylesheet"/>
 
-</head>
-<body>
+
 
 <script>
 
@@ -47,9 +46,113 @@ else
 
 
 </script>
+
+<style>
+@font-face 
+{
+ font-family:Cinzel Decorative Bold;
+ src:url("{{url_for('static',filename='CinzelDecorative-Bold.otf')}}");
+} 
+@font-face 
+{
+ font-family:Cormorant Garamond Medium;
+ src:url("{{url_for('static',filename='CormorantGaramond-Medium.ttf')}}");
+}
+.content1
+{				   
+				height: 20px;
+				background: linear-gradient(rgb(0,0,0), rgb(200,200,200));
+}
+.content2
+{
+		background-image:url({{url_for('static',filename='loginback.jpg')}});
+		height:700px
+		
+}
+.content3			/* whole of login form */
+{
+		margin-left:370px;
+		height:420px;
+		width:600px;
+		border:1px solid; 
+		border-radius: 5px;
+		border-color:rgb(200,200,200);
+
+}
+.oursite
+{
+		background-color:white;
+		border-color:white;
+		height:120px;
+		border-top-left-radius:5px;
+		border-top-right-radius:5px;
+		font-family:"Cormorant Garamond Medium";
+		font-size:23px;
+		padding-left:15px;
+		padding-top:20px;
+		font-color:rgb(200,200,200);
+		
+}
+.image
+{
+		float:right;
+}
+.logon
+{
+		font-size:20px;
+}
+.content4			/* lower part of login form */
+{
+		background-color:rgb(200,200,200);
+		border-color:rgb(200,200,200);
+		border:1px solid rgb(200,200,200); 
+		height:280px;
+		border-bottom-left-radius:5px;
+		border-bottom-right-radius:5px;
+}
+.area
+{		
+		font-family:"Cormorant Garamond Medium";          /* updates placeholder and input*/
+		font-size:20px;
+		border:3px solid rgb(160,160,160); 
+		margin-left:100px;
+		margin-right:60px;
+		border-top-left-radius:3px;
+		border-top-right-radius:3px;
+		border-bottom-left-radius:3px;
+		border-bottom-right-radius:3px;
+		width:400px;
+		height:40px;
+		background-color:rgb(220,220,220)
+}
+input#gobutton
+{
+		font-family:"Cormorant Garamond Medium";
+		font-weight:bold;
+		font-size:20px;
+		margin-left:100px;
+		width:400px;
+		cursor:pointer;		 /*forces the cursor to change to a hand when the button is hovered*/
+		padding:5px 25px; 
+		background:rgb(18,124,36);
+		border:1px solid #33842a; 
+		border-radius: 3px;
+
+		box-shadow: 0 0 4px rgba(0,0,0, .75);
+		color:#f3f3f3;
+}
+
+input#gobutton:hover, input#gobutton:focus
+{
+		background-color :#399630;
+		box-shadow: 0 0 1px rgba(0,0,0, .75);
+}
+</style>
+</head>
+<body>
 <h1>
 
-<img src="{{url_for('static',filename='food.jpg')}}"  width="150" height="142">
+<img src="{{url_for('static',filename='food.jpg')}}"  width="90" height="80">
 <span class="h1span">
 
 ONLINE FOOD
@@ -61,30 +164,55 @@ ONLINE FOOD
 </span>
 </h1>
 
+<div class="content2">
+<br>
+<br>
+<br>
+<br>
+<div class="content3">
 
-
-  <form name='form1'onsubmit="required()">
-
-	  <input type='text' name='location' placeholder="(TLY,KANNUR,CALICUT)">
+	<div class="oursite">
+		<b>
+		Login to our site
+		</b>
+		<img class="image" src="{{url_for('static',filename='lock.jpg')}}"  width="110" height="110">
+		
+		<br>
+		<div class="logon">
+			<br>
+			Enter your username and password to log on:
+		</div>
+	
+	</div>
+<div class="content4">  
 	<br>
-	<input type="text" name="username"  placeholder="username">
+	
+	<form name='form1'onsubmit="required()">
+	<br>
+	<input class="area" type='text' name='location' placeholder="(TLY,KANNUR,CALICUT)">
+	<br>
+	<br>
+	<input class="area" type="text" name="username"  placeholder="Username">
     <br>
-      <input type="password" name="password" id="password" placeholder="password">
+    <br>
+	<input class="area" type="password" name="password" id="password" placeholder="Password">
 	<br>
-   <input type="submit" name="submit" value="Submit" />
+	<br>
+    <input id="gobutton" type="submit" name="submit" value="Sign in" />
 
 	<br>
 
   
   </form>
-
-
-
-
+</div>  
+  
 <br>
-<a href="/">go back to home</a>
+<br>
+<br>
+<br>
 
-
+</div>
+</div>
 
 
 

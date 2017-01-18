@@ -1,26 +1,328 @@
 <html>
+<head>
+<link type="text/css" href="{{url_for('static',filename='webpages.css')}}" rel="stylesheet"/>
+
+<style>
+@font-face 
+{
+ font-family:Cinzel Decorative Bold;
+ src:url("{{url_for('static',filename='CinzelDecorative-Bold.otf')}}");
+} 
+@font-face 
+{
+ font-family:Cormorant Garamond Medium;
+ src:url("{{url_for('static',filename='CormorantGaramond-Medium.ttf')}}");
+}
+@font-face 
+{
+ font-family:Cabin;
+ src:url("{{url_for('static',filename='Cabin-Regular.ttf')}}");
+}
+.content1
+{				   
+				height: 20px;
+				background: linear-gradient(rgb(0,0,0), rgb(200,200,200));
+}
+.content2
+{
+		background-image:url({{url_for('static',filename='chicken.jpg')}});
+		background-size: cover;
+		background-attachment: fixed;         /* scroll div contents without background */
+}
+.content3					/* div outside table and inside background */
+{
+		width:800px;
+		margin-left:270px;
+		background:rgba(230,230,230,0.95);
+
+}
+.content4						/* div for checkout */
+{
+		width:400px;
+		height:240px;
+		margin-left:470px;
+		background:rgba(255,255,255,1);
+		border:1px solid rgb(170,170,170);
+		border-radius:5px;
+
+}
+.free						/* your order is free delivery */
+{
+		font-size:18px;
+		color:rgb(10,140,10);
+		height:60px;
+		line-height:60px;
+		vertical-align:middle;
+		text-align:center;
+}
+.tot					/* lower part of checkout box */
+{
+		background:rgba(200,200,200,1);
+		height:180px;
+			
+		border-bottom:1px solid rgb(170,170,170);
+		border-top:1px solid rgb(170,170,170);
+		font-size:30px;
+		font-weight:900;
+		text-align:center;
+		border-bottom-left-radius:5px;
+		border-bottom-right-radius:5px;
+}
+.proceed
+{
+		text-align:center;
+		border:1px solid black;
+		width:220px;
+		margin-left:90px;
+		border-radius:5px;
+		border-color:rgb(100,100,100);
+		background-color:rgb(255,255,255);
+}
+.proceeda
+{
+		display:block;
+		text-decoration:none;
+		font-size:28px;
+		background-color:rgb(10,150,10);
+		color:white;
+
+}
+.proceeda:hover
+{
+		background-color:rgb(5,100,5);
+}
+.table
+{		
+		border-collapse: collapse;
+		background:rgba(230,230,230,0);
+		font-family:"Cormorant Garamond Medium";
+		margin-left:50px;
+		
+}
+td
+{
+		padding-right:50px;
+}
+.heading
+{
+			font-size:20px;
+			color:rgb(10,10,150);
+			font-weight:600;
+
+}
+.mainrow
+{
+		border-top-width:1px;
+		border-top-style:solid;
+		border-top-color:rgb(170,170,170);
+		font-size:20px;
+}
+.photo
+{
+	padding:10px;
+}
+.name
+{
+	font-family:"Cabin";
+	font-weight:700;
+	font-size:25px;
+}
+.place
+{
+	font-size:22px;
+	font-weight:500;
+
+}
+.stock
+{
+		font-weight:600;
+		color:rgb(10,150,10);
+}
+.price
+{
+		font-weight:800;
+		font-family:"Times New Roman";
+		color:rgb(150,10,10);
+		font-size:24px;
+}
+.quantity
+{
+		font-weight:600;
+		color:black;
+		font-family:"Times New Roman";
+		font-size:22px;
+}
+.removea
+{
+		font-weight:600;
+		text-decoration:none;
+		
+}
+.removea:hover
+{
+		text-decoration:underline;
+
+}
+.avail
+{
+		color:rgb(150,10,10);
+		padding:5px;
+}
+.shopping
+{
+		font-size:28px;
+		font-weight:900;
+		font-family:"Cormorant Garamond Medium";
+		padding-left:15px;
+}
+</style>
+</head>
+
 <body>
+<h1>
+
+<img src="{{url_for('static',filename='food.jpg')}}"  width="90" height="80">
+<span class="h1span">
+
+ONLINE FOOD
+</span>
+<span>
+<a href="/login" class="login">login</></a>
+<a href="#help" class="help">help</></a>
+<a href="/cartshow" class="help">cart</a>
+</span>
+</h1>
+
+<div class="content2">
 <br>
-<a href="/">go back to home</a>
 <br>
-<!--displays items in cart-->
-
-
-{%for x in var%}
-{{x[0]}}
-{{x[1]}}
-{{x[2]}}
-{{x[3]}}
-{{x[4]}}
-
-<!--to remove an item-->
-<a href="/cartremove/{{x[0]}}/{{x[4]}}">remove</a>
 <br>
-{%endfor%}
-
-
-<a href="/cartpay">proceed to pay</a>
 <br>
+
+<div class="content3">
+	<br>
+	<div class="shopping">
+	Shopping Cart
+	</div>
+	
+	<table class="table">
+	<tr class="heading">
+		<td></td>
+		<td></td>
+		<td>price</td>
+		<td>quantity</td>
+		<td>subtotal</td>
+		<td>delete</td>
+	</tr>	
+	<tr>
+	{% for x in var %}
+	<!--displays menu of different restaurants -->
+	
+	<tr class="mainrow">
+		<td rowspan='3' class="photo" ><img src="{{url_for('static',filename= x[5] + 'rest.jpg')}}" height="70" width="70"></td>
+		<td class="name">{{x[0]}}</td>
+		<td class="price"><span style="font-family:'Cormorant Garamond Medium'">&#8377</span> {{x[1]}}</td>
+		<td class="quantity">{{x[2]}}</td>
+		<td class="price"><span style="font-family:'Cormorant Garamond Medium'">&#8377</span> {{x[3]}}</td>
+		<td class=""><a class="removea" href="/cartremove/{{x[0]}}/{{x[4]}}/{{x[5]}}">remove</a></td>
+	</tr>
+	<tr>
+		<td class="place">from {{x[4]}}</td>
+		
+	</tr>
+	<tr>
+
+		<td class="stock">In stock</td>
+	</tr>
+	</tr>	
+
+
+{% endfor %}
+
+</table>
+<br>
+<div class="avail">
+The price and availability of items at Onlinefood.in are subject to change. The shopping cart is a temporary place to store a list of your items and reflects each item's most recent price.
+</div>
+<br>
+</div>
+<br>
+<br><br>
+
+<div class="content4">
+	<div class="free">
+	&#10004; Your order is eligible for FREE Delivery.
+	</div>
+	
+	<div class="tot">
+	<br>
+	
+	TOTAL : <span style="font-family:'Cormorant Garamond Medium'">&#8377</span> {{ var| sum(attribute="3") }}
+	<br>
+	<br>
+		<div class="proceed">
+		
+		<a class="proceeda" href="/cartpay">Proceed To Pay</a>
+
+		</div>
+	</div>
+</div>
+<br>
+
+
+<br>
+<br>
+<br>
+<br>
+
+</div>
+
+
+
+
+
+
+<div class="last" >
+<br>
+<b>Ordering food is easy as ABC Only 4 steps to make the order, easy payment, available 24/7
+</b>
+
+<pre class="definition">
+The challenge for us is to make a versatile website and smartphone app that is simple and 
+easy to use. What we have learned is that ordering food online is way easier, faster and has 
+less complications than calling. What makes onlinefood better than the traditional order over 
+the phone method?
+
+24/7: Our site and app are available 24/7 with the feature to pre-order. You can plan your 
+meal ahead from the best restaurants near you and avoid the rush hours
+Free to use: Browse through 4000+ restaurant menus for free
+Order food in 4 simple steps
+Easy Payment: Do you prefer online payment? We accept all major credit cards as well as
+PayTM Wallet. If you prefer to pay cash on delivery in Indian Rupees, we’ve got that covered too.
+</pre>
+
+<b>Our Services</b>
+<pre class="definition">
+Should you have any concerns or would you want to give us feedback, please do not hesitate to contact our customer service
+team by using our Live Chat feature on your foodpanda App or website, or by sending an email at customercare@onlinefood.in. 
+Onlinefood India Corporate Office is located at Plot no. 82 A, Sector 18, Gurgaon, Haryana-122015
+
+</pre>
+
+
+<footer class="last">
+<ul class="homeul">
+  <li class="homeli"><a href="#home" class="homea">Home</a></li>
+  <li class="homeli"><a href="#about Us" class="homea">About US</a></li>
+  <li class="homeli"><a href="#contact" class="homea">Contact</a></li>
+  <li class="homeli"><a href="#privacypolicy" class="homea">Privacy Policy</a></li>
+  <li class="homeli"><a href="#howitwokrs" class="homea">How It Works</a></li>
+</ul>
+</footer>
+</div>
+
+
+
 
 </body>
 </html>

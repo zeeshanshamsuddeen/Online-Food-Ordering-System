@@ -13,16 +13,113 @@ if(qty=="")
 else
 {	
 	alert("item successflly added to cart")
-	document.form1.action="http://localhost:5000/postquantity/{{place}}/{{item}}/{{price}}"
+	document.form1.action="http://localhost:5000/postquantity/{{place}}/{{rest}}/{{item}}/{{price}}"
 }
 }
 </script>
+<style>
+@font-face 
+{
+ font-family:Cinzel Decorative Bold;
+ src:url("{{url_for('static',filename='CinzelDecorative-Bold.otf')}}");
+} 
+@font-face 
+{
+ font-family:Cormorant Garamond Medium;
+ src:url("{{url_for('static',filename='CormorantGaramond-Medium.ttf')}}");
+} 	
+@font-face 
+{
+ font-family:Merriweather;
+ src:url("{{url_for('static',filename='Merriweather-Regular.ttf')}}");
+} 	
+
+.content2
+{
+			background-color:rgb(200,200,200);
+}
+
+.content1
+{				   
+				height: 20px;
+				background: linear-gradient(rgb(0,0,0), rgb(200,200,200));
+}
+.content3
+{	
+				text-align:center;
+				background-color:rgb(240,240,240);
+
+				font-family:"Cormorant Garamond Medium";
+				font-weight:bold;
+				border-style:solid;
+				border-width:2px;
+				border-color:rgb(150,150,150);
+				width:300px; 
+				max-width:300px;
+				height:300px;
+				max-height:300px;
+				margin-left:500px;
+				margin-top:50px;
+				margin-bottom:50px;
+
+				display: inline-block;
+}
+
+input#gobutton
+{
+		cursor:pointer;		 /*forces the cursor to change to a hand when the button is hovered*/
+		padding:5px 25px; 
+		background:rgb(18,124,36);
+		border:1px solid #33842a; 
+		border-radius: 10px;
+
+		box-shadow: 0 0 4px rgba(0,0,0, .75);
+		color:#f3f3f3;
+		font-size:1.1em;
+}
+
+input#gobutton:hover, input#gobutton:focus
+{
+		background-color :#399630;
+		box-shadow: 0 0 1px rgba(0,0,0, .75);
+}
+.quantity
+{
+		font-family:"Merriweather";
+		font-size:20px;
+		font-weight:500;
+}
+
+.yourorder
+{	
+		background-color:rgb(180,180,180);
+		color:rgb(24,100,36);
+		font-size:35px;
+		height:50px;
+		font-weight:900;
+}
+.name
+{		
+		margin-top:20px;
+		font-size:25px;
+}
+.background
+{
+		background-size: cover;
+		background-attachment: fixed;         /* scroll div contents without background */
+}
+.input
+{
+		    border-radius: 4px;
+			height:25px;
+}
+</style>
 </head>
 <body>
 
 <h1>
 
-<img src="{{url_for('static',filename='food.jpg')}}"  width="150" height="142">
+<img src="{{url_for('static',filename='food.jpg')}}"  width="90" height="80">
 <span class="h1span">
 
 ONLINE FOOD
@@ -39,30 +136,46 @@ ONLINE FOOD
 
 
 
+<div class="background" style="background-image:url({{url_for('static',filename='chicken.jpg')}});">
 
 
-
+<div class="content3">
+<div class="yourorder">
+Your Order
+</div>
+<div class="name">
+{{item}}
+<br>
+&#8377;
+{{price}}
+</div>
 
 
 <!--displays form to select quantity of items -->
-
-<form name='form1'  method="post" onsubmit="required()">
- quantity:
-<input type='number' name='qty' min='1' max='100'>
 <br>
-<input type="submit" name="submit" value="Submit" />
+<form name='form1'  method="post" onsubmit="required()">
+<br>
+<div class="quantity">
+Enter The Quantity
+</div>
+
+<input class="input" type='number' name='qty' min='1' max='100'>
+<br>
+
+<br><br>
+<input id="gobutton" type="submit" name="submit" value="Submit" />
 
 
 </form>
 
 
 
+</div>
 
 
 
 
-
-
+</div>
 
 <div class="last" >
 <br>

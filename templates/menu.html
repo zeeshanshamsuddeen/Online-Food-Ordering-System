@@ -14,43 +14,55 @@
 } 
 .food
 {   
-	margin:55px;
+	margin-left:20px;
+	margin-top:20px;
+	margin-bottom:20px;
 	font-size:22px;
 	vertical-align:top;		/*to start div contents from top */
 	width:300px; 
    max-width:300px;
-   height:300px;
-   max-height:300px;
+   height:200px;
+   max-height:200px;
    display: inline-block;
    border-style:solid;
-	border-color:rgb(240,240,240);
+	border-color:rgb(160,160,160);
     border-width: 1px;
-		background-color:white;
 	position:relative;			
 	font-family:"Cormorant Garamond Medium";
 	font-weight:bold;
+	background-color:rgb(245,245,245);
+	   box-shadow: 10px 10px 5px #888888;
 
 }  
 
 .name
 {	
-	font-weight: bold;
-
-		font-size:30px;
+		font-weight: bold;
+		font-size:25px;
 		color:rgb(142,9,9);
 		border-style:solid;
 		border-width: 1px;
 
-	  	border-color:rgb(240,240,240);
-		height:50px;
+	  	border-color:rgb(160,160,160);
+		height:40px;
+		line-height:40px;
 		text-align:center;		
 		vertical-align:middle;
 		display:block;		/* to apply properties to whole line till end of container */
-		background-color:rgb(200,200,200)
+		background-color:rgb(160,160,160);
 }
 .price
 {
+		padding-left:5px;
+		font-size:24px;
 		color: rgb(100,100,100)
+}
+.desc
+{
+		padding-left:10px;
+		padding-right:10px;
+		font-size:20px;
+		padding-top:4px;
 }
 .ordernowa
 {				
@@ -58,45 +70,53 @@
 		font-size:25px;
 		color:rgb(16,148,24);
 		text-decoration:none;
+		display:block;		/* to apply properties to whole line till end of container */
+
 }
 .ordernowa:hover
 {
-				color:white;
+			color:white;
+		background-color:rgb(16,148,24);
 
 }
 .ordernow
 {		
-			  	border-top-color:rgb(240,240,240);
+		border-top-color:rgb(160,160,160);
 		border-top-style:solid;
-		border-top-width::1px;
+		border-top-width:1px;
 		width:300px; 
 		max-width:300px;
 		bottom:0;
 		position:absolute;			/* to diplay at last of parent container.  also parent should have postn relative */
 		text-align:right;
 
-}
-.ordernow:hover
-{
-		background-color:rgb(16,148,24);
 
 }
+
 .content2
 {
-			background-color:rgb(240,240,240);
+			margin-left:170px;
+			margin-right:170px;
+			background:rgba(255,255,255,0.9);   /* to reduce opacity without effecting inner contents*/
 }
 
 .content1
 {				   
 				height: 20px;
-				background: linear-gradient(rgb(0,0,0), rgb(240,240,240));
+				background: linear-gradient(rgb(0,0,0), rgb(200,200,200));
 }
+.background
+{
+		background-size: cover;
+		background-attachment: fixed;         /* scroll div contents without background */
+}
+
 </style>
 </head>
 <body>
 <h1>
 
-<img src="{{url_for('static',filename='food.jpg')}}"  width="150" height="142">
+<img src="{{url_for('static',filename='food.jpg')}}"  width="90" height="80">
 <span class="h1span">
 
 ONLINE FOOD
@@ -107,8 +127,15 @@ ONLINE FOOD
 <a href="/cartshow" class="help">cart</a>
 </span>
 </h1>
-<div class="content1">
-</div>
+
+<div class="background" style="background-image:url({{url_for('static',filename='chicken.jpg')}})"> 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <div class="content2">
 
 {% for x in var %}
@@ -122,7 +149,10 @@ ONLINE FOOD
 &#8377;
 {{x['price']}} 
 </div>
-<br>{{x['def']}} 
+
+<div class="desc">
+{{x['def']}} 
+</div>
 <br>
 
 
@@ -130,7 +160,7 @@ ONLINE FOOD
 
 <div class="ordernow">
 
-<a class="ordernowa" href="/quantity/{{place}}/{{x['item']}}/{{x['price']}}">order online > </a>
+<a class="ordernowa" href="/quantity/{{place}}/{{rest}}/{{x['item']}}/{{x['price']}}">order online &rarr; </a>
 </div>
 
 </div>
@@ -138,6 +168,28 @@ ONLINE FOOD
 
  
 </div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+</div>
+
+
+<!-- menu -->
+	<nav>
+		<img src="{{url_for('static',filename='food.jpg')}}"  width="70" height="70">
+
+		<ul>
+			<li><a class="nava" href="/">Home</a></li>
+			<li><a class="nava" href="#">About Us</a></li>
+			<li><a class="nava" href="#">Contact</a></li>
+			<li><a class="nava" href="#">Privacy Policy</a></li>
+			<li><a class="nava" href="#">How It Works</a></li>		
+		</ul>
+	</nav>
+
 
 <div class="last" >
 <br>
@@ -167,15 +219,6 @@ Onlinefood India Corporate Office is located at Plot no. 82 A, Sector 18, Gurgao
 </pre>
 
 
-<footer class="last">
-<ul class="homeul">
-  <li class="homeli"><a href="#home" class="homea">Home</a></li>
-  <li class="homeli"><a href="#about Us" class="homea">About US</a></li>
-  <li class="homeli"><a href="#contact" class="homea">Contact</a></li>
-  <li class="homeli"><a href="#privacypolicy" class="homea">Privacy Policy</a></li>
-  <li class="homeli"><a href="#howitwokrs" class="homea">How It Works</a></li>
-</ul>
-</footer>
 
 
 </body>

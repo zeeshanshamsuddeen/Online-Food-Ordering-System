@@ -38,8 +38,8 @@ def location(place):
 
 
 #to access different menus of restaurants
-@app.route('/<place>/menu/<table>')
-def menu(place,table):
+@app.route('/<place>/menu/<rest>')
+def menu(place,rest):
 	#checks which place is selected ie which database 
 	if(place=='TLY'):
 		conn=sqlite3.connect('TLY.db')
@@ -49,36 +49,36 @@ def menu(place,table):
 		conn=sqlite3.connect('CALICUT.db')
 	conn.row_factory = sqlite3.Row
 	cur=conn.cursor()
-	cur.execute("SELECT COUNT(*) FROM {}".format(table))
+	cur.execute("SELECT COUNT(*) FROM {}".format(rest))
 	var=cur.fetchone()
 	if(var['count(*)']>0):	#since row_factory=Row,col name is used
-		cur.execute("SELECT * FROM {}".format(table)) 
+		cur.execute("SELECT * FROM {}".format(rest)) 
 		var=cur.fetchall()
 		conn.close()
 		#<var> contains all items in table, each row is accessed and displayed by colname
-		return render_template('menu.html',var=var,place=place)
+		return render_template('menu.html',var=var,place=place,rest=rest)
 		#from menu.html , goes to /quantity/<item>/<price>
 	else:
 		return render_template('nomenu.html',place=place)
 	
 
 #to submit quantity of item selected	
-@app.route('/quantity/<place>/<item>/<price>',methods=['GET','POST'])
-def quantity(place,item,price):
-	return render_template('quantity.html',item=item,price=price,place=place)
+@app.route('/quantity/<place>/<rest>/<item>/<price>',methods=['GET','POST'])
+def quantity(place,rest,item,price):
+	return render_template('quantity.html',item=item,price=price,place=place,rest=rest)
 	#from quantity.html , goes to /postquantity/<item>/<price>
 
 
 
 #to insert quantity in CART table
-@app.route('/postquantity/<place>/<item>/<price>',methods=['GET','POST'])
-def postquantity(place,item,price):
+@app.route('/postquantity/<place>/<rest>/<item>/<price>',methods=['GET','POST'])
+def postquantity(place,rest,item,price):
 	print('postquantity')
 	conn=sqlite3.connect('bucket.db')
 	cur=conn.cursor()
 	qty=request.form['qty']
 	var=int(price)*int(qty)
-	cur.execute("INSERT INTO CART(item,price,qty,total,place) VALUES(?,?,?,?,?); " ,(item,price,qty,var,place))
+	cur.execute("INSERT INTO CART(item,price,qty,total,place,rest) VALUES(?,?,?,?,?,?); " ,(item,price,qty,var,place,rest))
 	conn.commit()
 	conn.close()
 	return redirect(url_for('homepage'))
@@ -108,8 +108,8 @@ def cartshow():
 		return render_template("nocart.html")
 
 #to delete an <item> from cart
-@app.route('/cartremove/<item>/<place>')
-def cartremove(item,place):
+@app.route('/cartremove/<item>/<place>/<rest>')
+def cartremove(item,place,rest):
 	conn=sqlite3.connect('bucket.db')
 	cur=conn.cursor()
 	cur.execute("SELECT COUNT(*) FROM CART")
@@ -174,7 +174,7 @@ def cartclear():
 
 
 #to access when login is selected from homepage
-@app.route('/login',methods=['GET','POST'])
+@app.route('/login',methods=['GET','POST']	)
 def login():
 	return render_template('login.html')
 	#from login.html , if valid username , goes to /success	
@@ -221,7 +221,7 @@ def manager_menu(place,username):
 
 
 #to access when manager wants to edit items for manager_menu display
-@app.route('/manager_edit/<place>/<username>/<action>')
+@app.route('/manager_edit/<place>/<username>/<action>',methods=['GET','POST'])
 def manager_edit(place,username,action):
 	if(action=="add"):
 		return render_template('manager_add.html',place=place,username=username)

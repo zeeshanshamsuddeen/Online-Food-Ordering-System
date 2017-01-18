@@ -1,4 +1,4 @@
-<html>
+	<html>
 <head>
 <style>
 @font-face 
@@ -6,39 +6,54 @@
  font-family:Cinzel Decorative Bold;
  src:url("{{url_for('static',filename='CinzelDecorative-Bold.otf')}}");
 } 
-.image
+@font-face 
 {
-	    border: 2px solid black;
+ font-family:Cormorant Garamond Medium;
+ src:url("{{url_for('static',filename='CormorantGaramond-Medium.ttf')}}");
+} 
+.image
+{	
+		
+	   border: 2px solid black;
 }
 .image:hover
 {
-	opacity:0.3
+	opacity:0.5;
 }
 
 .content2
 {
-			background-color:rgb(200,200,200);
-}
+			margin-left:200px;
+			margin-right:299px;
+			background:rgba(255,255,255,0.8);
+			
+
+}			
 
 .content1
 {				   
 				height: 20px;
 				background: linear-gradient(rgb(0,0,0), rgb(200,200,200));
 }
+
 td
 {
 			padding: 15px;
 }
 .definition1
-{
-				font-family: "Book Antiqua",Times,serif;
+{			
+				width:373px;
+				font-weight:700;
+				font-family: "Cormorant Garamond Medium";
 				font-size:22px;
 				color:black;
 }
-.column{
-    float: left;
-    padding: 0px;
-	margin-right:30px;
+.column
+{
+		
+		float: left;
+		padding: 0px;
+		margin-right:30px;
 
 			
 
@@ -56,21 +71,32 @@ td
 }
 .link
 {
-		font-family:'Times New Roman';
-		font-size:20px;
-		color:rgb(130,130,130);
+		font-family:'Cormorant Garamond Medium';
+		font-size:22px;
+		font-weight:600;
+		color:rgb(142,9,9);
 		text-decoration: none;
 }
+.background
+{
+		background-size: cover;
+		background-attachment: fixed;         /* scroll div contents without background */
+}
 
-
+.mainrow:hover
+{
+		background:rgba(255,255,255,0.85);
+}
 
 </style>
 <link type="text/css" href="{{url_for('static',filename='webpages.css')}}" rel="stylesheet"/>
+<link type="text/css" href="{{url_for('static',filename='hover.css')}}" rel="stylesheet"/>
+
 </head>
 <body>
 <h1>
 
-<img src="{{url_for('static',filename='food.jpg')}}"  width="150" height="142">
+<img src="{{url_for('static',filename='food.jpg')}}"  width="90" height="80">
 <span class="h1span">
 
 ONLINE FOOD
@@ -81,11 +107,18 @@ ONLINE FOOD
 <a href="/cartshow" class="help">cart</a>
 </span>
 </h1>
-<div class="content1">
-</div>
+
+
+<div class="background" style="background-image:url({{url_for('static',filename='chicken.jpg')}});">
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <div class="content2">
-<br>
-<br>
+
 
 
  <div class="column">
@@ -104,47 +137,71 @@ ONLINE FOOD
 
 <table style="border-left:1px solid rgb(50,50,50)">
 {%for x in var%}
-<tr>
+<tr class="mainrow">
 
 	<td style="padding-left:50px;border-bottom: 1px solid rgb(50,50,50);">
-	<a href="/{{place}}/menu/{{x[0]}}" >
-	<img class="image" src="{{url_for('static',filename= x[0] + 'rest.jpg')}}" width="200" height="200">
-	</a>
+	<div style="width:200px">
+    <div class="hovereffect">
+        <img class="img-responsive" src="{{url_for('static',filename= x[0] + 'rest.jpg')}}" width="200" height="200" alt="">
+        <div class="overlay">
+          
+           <a class="info" href="/{{place}}/menu/{{x[0]}}">{{x[0]}}</a>
+        </div>
+    </div>
+	</div>
 	</td>
+	{%if place=='TLY'%}
 	{%if x[0]== 'KFC'%}
 
 	<td style="border-bottom: 1px solid rgb(50,50,50);">
-	<pre class="definition1">
+	<p class="definition1">
 	
-Kentucky Fried Chicken, more commonly known by its initials KFC,
-is an American fast food restaurant chain that specializes in fried chicken.
-Location : Near New Bus Stand . Thalassery
-<img src="{{url_for('static',filename='mobile.jpg')}}"  width="20" height="20"> 213465789
+
+Location : Near New Bus Stand . Thalassery<br>
+&phone; :<span style="font-family:'Times New Roman'"> 213465789</span><br>
 working hours :
 	
-	<pre>
+	</p>
 	</td >
+	
 	{%elif x[0]=='RARAVIS'%}
 	<td style="border-bottom: 1px solid rgb(50,50,50);">
-	<pre class="definition1">
+	<p class="definition1">
 	
-Location : Near New Bus Stand . Thalassery
-phone :
+Location : Near New Bus Stand . Thalassery<br>
+&phone; :<span style="font-family:'Times New Roman'"> 213465789</span><br>
 working hours :
 	
-	</pre>
+	</p>
 	</td>	
 	{%elif x[0]=='GREENLEAF'%}
 	<td style="border-bottom: 1px solid rgb(50,50,50);">
-	<pre class="definition1">
-	
-Location : Near New Bus Stand . Thalassery
-phone :
+	<p class="definition1">
+Location : Near New Bus Stand . Thalassery<br>
+&phone; :<span style="font-family:'Times New Roman'"> 213465789</span><br>
 working hours :
 
-	</pre>
+	</p>
 	</td>
 	{%endif%}
+	
+	
+	{%elif place=='CALICUT'%}
+	{%if x[0]== 'KFC'%}
+
+	<td style="border-bottom: 1px solid rgb(50,50,50);">
+	<p class="definition1">
+	
+
+Location : Near New Bus Stand . Calicut   <br> 
+&phone; :<span style="font-family:'Times New Roman'"> 213465789</span><br>
+working hours :
+	
+	
+	</td >
+	{%endif%}
+	{%endif%}
+
 
 </tr>
 {%endfor%}
@@ -152,8 +209,12 @@ working hours :
 </div>
 
 
-
-
+<br>
+<br>
+<br>
+<br>
+<br>
+</div>
 
 
 <div class="last" >
