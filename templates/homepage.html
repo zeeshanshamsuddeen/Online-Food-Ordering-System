@@ -1,60 +1,42 @@
-<!DOCTYPE html>
 <html>
 <head>
-<link type="text/css" href="{{url_for('static',filename='homepage.css')}}" rel="stylesheet"/>
+<link type="text/css" href="{{url_for('static',filename='webpages.css')}}" rel="stylesheet"/>
+
+
+
+
 <style>
 @font-face 
 {
  font-family:Cinzel Decorative Bold;
  src:url("{{url_for('static',filename='CinzelDecorative-Bold.otf')}}");
-}
-
-.content{	
-			background-size: cover;
-			 background-color: rgba(255,255,255,0.4);
-			background-blend-mode: lighten;
-			animation-name: example;
-			animation-duration: 3s;
-			animation-iteration-count: infinite;
-			animation-direction: alternate;
-			animation-timing-function: ease-in-out;
-
-
-
-
-	
-		}
-
-
-
-
-@keyframes example 
+} 
+@font-face 
 {
-    0% {background-image:url({{url_for('static',filename='chicken.jpg')}});}
-	45% {background-image:url({{url_for('static',filename='chicken.jpg')}});}
-    55% {background-image:url({{url_for('static',filename='chicken2.jpg')}});}
-	100% {background-image:url({{url_for('static',filename='chicken2.jpg')}});};
-	
+ font-family:Cormorant Garamond Medium;
+ src:url("{{url_for('static',filename='CormorantGaramond-Medium.ttf')}}");
 }
+.cell
+{
+		font-family:"Cormorant Garamond Medium";
+		padding:250px;
+}
+.cella
+{
+		font-size:35px;
+		text-decoration:none;
+		color:white;
+}
+.content
+{
+		background-image:url({{url_for('static',filename='homepage_pic.jpg')}});
+		height:700px
+		
 
-
+}
 </style>
-<script>
-var makePath = function(form)
-{
- form.action = document.getElementById('location').value;
-};
-</script>
-<title> ONLINE FOOD </title>
-</head>
-
-
-
-
 
 <body>
-
-
 <h1>
 
 <img src="{{url_for('static',filename='food.jpg')}}"  width="90" height="80">
@@ -62,78 +44,20 @@ var makePath = function(form)
 
 ONLINE FOOD
 </span>
-
-<span>
-<a href="/login" class="login">login</></a>
-<a href="#help" class="help">help</></a>
-<a href="/cartshow" class="help">cart</a>
-</span>
 </h1>
 
-
-<div class="content" >
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<span class="order1">
-Order delicious food online!
-</span>
-<br>
-<br>
-
-<span class="order2">
-Order food online from the best restaurants near you
-</span>	
-
-<br>
-<form onsubmit='makePath(this);'>
-
-<select id="location" class="place">
-  <option value="#">-select any-</option>
-  <option value="/TLY">Thalassery</option>
-  <option value="/KANNUR">Kannur</option>
-  <option value="/CALICUT">Calicut</option>
-</select>
-
-<button class="showrestaurants">SHOW RESTAURANTS</button>
-</form>
-<br>
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br><br>
-<br>
-<br>
-<br>
-<br>
-<br>
-</div>
-
-
-<img src="{{url_for('static',filename='kfc.png')}}" width="400" height="250" style="margin-left:50px;margin-top:10px">
-<img src="{{url_for('static',filename='pizza.jpg')}}" width="400" height="250">
-<img src="{{url_for('static',filename='baskins.jpg')}}" width="400" height="250">
-
-	
-
-	
-
-
-
+<div class="content">
+<table style="border-left:1px solid rgb(50,50,50)">
+<tr>
+<td class="cell">
+<a href="http://localhost:5000/customer" class="cella">Customer Login</a>
+</td>
+<td class="cell">
+<a href="#" class="cella">Manager login</a>
+</td>
+</tr>
+</table>
+</content>
 
 
 <div class="last" >

@@ -373,3 +373,6 @@
 [0115/213632:ERROR:file_io_win.cc(163)] CreateFile C:\Program Files\Gofat\Reports\Dump\settings.dat: Access is denied. (0x5)
 [0115/213632:ERROR:registration_protocol_win.cc(82)] TransactNamedPipe: The pipe has been ended. (0x6D)
 [0115/213632:ERROR:file_io_win.cc(163)] CreateFile C:\Program Files\Gofat\Reports\Dump\settings.dat: Access is denied. (0x5)
+[0131/210357:ERROR:file_io_win.cc(163)] CreateFile C:\Program Files\Gofat\Reports\Dump\settings.dat: Access is denied. (0x5)
+[0131/210357:ERROR:registration_protocol_win.cc(82)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0131/210357:ERROR:file_io_win.cc(163)] CreateFile C:\Program Files\Gofat\Reports\Dump\settings.dat: Access is denied. (0x5)

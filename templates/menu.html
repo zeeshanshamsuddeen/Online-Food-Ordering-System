@@ -9,6 +9,11 @@
 } 
 @font-face 
 {
+ font-family:Code Bold;
+ src:url("{{url_for('static',filename='CODE Bold.otf')}}");
+} 
+@font-face 
+{
  font-family:Cormorant Garamond Medium;
  src:url("{{url_for('static',filename='CormorantGaramond-Medium.ttf')}}");
 } 
@@ -99,6 +104,12 @@
 			margin-right:170px;
 			background:rgba(255,255,255,0.9);   /* to reduce opacity without effecting inner contents*/
 }
+.others
+{
+			margin-left:170px;
+			margin-right:170px;
+			background:rgba(255,255,255,0.9);   /* to reduce opacity without effecting inner contents*/
+}
 
 .content1
 {				   
@@ -110,19 +121,41 @@
 		background-size: cover;
 		background-attachment: fixed;         /* scroll div contents without background */
 }
+.heading
+{
+		font-family:"Code Bold";
+		padding:25px;
+		color:rgb(10,10,180);
+		font-size:28px;
+		
+}
+.sort
+{
+		margin-left:300px;
+		font-size:22px;
+		font-weight:500;
+		background:rgba(255,255,255,0.8);
 
+}
+.sorta
+{
+		font-size:21px;
+		color:rgb(10,10,150);
+		font-weight:500;
+		text-decoration:none;
+}
 </style>
 </head>
 <body>
 <h1>
-
-<img src="{{url_for('static',filename='food.jpg')}}"  width="90" height="80">
+<a href="/">
+<img src="{{url_for('static',filename='food.jpg')}}"  width="90" height="80"></a>
 <span class="h1span">
 
 ONLINE FOOD
 </span>
 <span>
-<a href="/login" class="login">login</></a>
+<a href="/customer_logout" class="login">logout</></a>
 <a href="#help" class="help">help</></a>
 <a href="/cartshow" class="help">cart</a>
 </span>
@@ -133,13 +166,23 @@ ONLINE FOOD
 <br>
 <br>
 <br>
+<span class="sort">
+SORT BY : 
+<a href="/{{place}}/menu/{{rest}}/nameasc" class="sorta">name(ascending) ,</a>
+<a href="/{{place}}/menu/{{rest}}/namedes" class="sorta">name(descending) ,</a>
+<a href="/{{place}}/menu/{{rest}}/pricelh" class="sorta">price(low to high) ,</a>
+<a href="/{{place}}/menu/{{rest}}/pricehl" class="sorta">price(high to low) </a>
+</span>
 <br>
 <br>
 <br>
 <div class="content2">
-
+<br>
+<span class="heading">NON VEG</span>
+<br>
 {% for x in var %}
 <!--displays menu of different restaurants -->
+{% if x['category']=='non-veg'%}
 
 <div class="food">
 <div class="name">
@@ -164,10 +207,84 @@ ONLINE FOOD
 </div>
 
 </div>
+{% endif %}
 {% endfor %}
-
+</div>
  
+
+
+<br>
+
+
+
+<div class="content2">
+<br>
+<span class="heading">VEG</span>
+<br>
+{% for x in var %}
+<!--displays menu of different restaurants -->
+{% if x['category']=='veg'%}
+<div class="food">
+<div class="name">
+{{x['item']}}
 </div>
+<div class="price">
+&#8377;
+{{x['price']}} 
+</div>
+
+<div class="desc">
+{{x['def']}} 
+</div>
+<br>
+
+<div class="ordernow">
+<a class="ordernowa" href="/quantity/{{place}}/{{rest}}/{{x['item']}}/{{x['price']}}">order online &rarr; </a>
+</div>
+
+</div>
+{% endif %}
+{% endfor %}
+</div>
+
+<br>
+
+<div class="content2">
+
+<br>
+<span class="heading">OTHERS</span>
+<br>
+{% for x in var %}
+<!--displays menu of different restaurants -->
+{% if x['category']=='others'%}
+
+<div class="food">
+<div class="name">
+{{x['item']}}
+</div>
+<div class="price">
+&#8377;
+{{x['price']}} 
+</div>
+
+<div class="desc">
+{{x['def']}} 
+</div>
+<br>
+
+
+
+
+<div class="ordernow">
+
+<a class="ordernowa" href="/quantity/{{place}}/{{rest}}/{{x['item']}}/{{x['price']}}">order online &rarr; </a>
+</div>
+
+</div>
+{% endif %}
+{% endfor %}
+</div> 
+
 
 <br>
 <br>
@@ -175,6 +292,7 @@ ONLINE FOOD
 <br>
 <br>
 </div>
+
 
 
 <!-- menu -->

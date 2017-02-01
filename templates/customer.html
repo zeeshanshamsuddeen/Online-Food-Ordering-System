@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html >
+<head>
+<link type="text/css" href="{{url_for('static',filename='webpages.css')}}" rel="stylesheet"/>
+<link rel="stylesheet" href="{{url_for('static',filename='customer.css')}}">
+
+<style>
+@font-face 
+{
+ font-family:Cinzel Decorative Bold;
+ src:url("{{url_for('static',filename='CinzelDecorative-Bold.otf')}}");
+} 
+@font-face 
+{
+ font-family:Cormorant Garamond Medium;
+ src:url("{{url_for('static',filename='CormorantGaramond-Medium.ttf')}}");
+}
+.h1span{
+			position: relative;
+			bottom: 20px;
+	
+		}
+	
+</style>
+<script>
+function required_login()
+{
+var username=document.forms["form1"]["username"].value;
+var password=document.forms["form1"]["password"].value;
+var x=0;
+	if(username=="")
+	{
+		alert("please input username");
+		document.form1.action="";
+	}
+	else if(password=="")
+	{
+		alert("enter password");
+		document.form1.action="";
+	}
+	else 
+	{
+		{% for x in var %}
+
+			if(username=="{{x[0]}}" && password=="{{x[1]}}")
+			{
+					x=1;
+			}
+		{% endfor %}	
+		
+	
+		if(x==1)	
+		{
+			alert("welcome " + username)
+		document.form1.action="http://localhost:5000/customer_logged_in";
+		document.form1.method="post";
+		}
+		else
+		{
+			alert("invalid username/password");
+			document.form1.action="";
+		}
+	}	
+}
+</script>
+<script>
+function required_signup()
+{
+var username=document.forms["form2"]["username"].value;
+var password=document.forms["form2"]["password"].value;
+var password2=document.forms["form2"]["password2"].value;
+var y=0;
+if(username=="")
+{
+	alert("enter username");
+	document.form2.action="";
+}
+else if(password==''||password2=='')
+{
+	alert("enter password");
+	document.form2.action="";
+}
+else if(password!=password2)
+{
+	alert("passwords match failed");
+	document.form2.action="";
+}
+else
+{
+	{% for x in var %}
+			if(username=="{{x[0]}}")
+			{
+				y=1;	
+			}
+	{% endfor %}	
+
+
+	if(y==0)
+	{
+		alert("welcome " + username)
+		document.form2.action="http://localhost:5000/customer_signed_up";
+		document.form2.method="post";
+	}	
+	else
+	{
+		alert("username already exists")
+		document.form2.action="";
+	}
+}
+
+
+}
+
+</script>
+  <meta charset="UTF-8">
+  <title>Login & Sign Up Form Concept</title>
+  
+
+
+  
+</head>
+
+<body>
+
+<h1>
+
+<img src="{{url_for('static',filename='food.jpg')}}"  width="90" height="80">
+<span class="h1span">
+
+ONLINE FOOD
+</span>
+</h1>
+<div class="content_main">
+ <div class="cotn_principal">
+<div class="cont_centrar">
+
+  <div class="cont_login">
+<div class="cont_info_log_sign_up">
+      <div class="col_md_login">
+<div class="cont_ba_opcitiy">
+        
+        <h2>LOGIN</h2>  
+  <p>Already a member ?</p> 
+  <button class="btn_login" onclick="cambiar_login()">LOGIN</button>
+  </div>
+  </div>
+<div class="col_md_sign_up">
+<div class="cont_ba_opcitiy">
+  <h2>SIGN UP</h2>
+
+  
+  <p>Dont have an account ?</p>
+
+  <button class="btn_sign_up" onclick="cambiar_sign_up()">SIGN UP</button>
+</div>
+  </div>
+       </div>
+
+    
+    <div class="cont_back_info">
+       <div class="cont_img_back_grey">
+       <img src="{{url_for('static',filename='homepage_pic.jpg')}}" alt="" />
+       </div>
+       
+    </div>
+<div class="cont_forms" >
+    <div class="cont_img_back_">
+       <img src="{{url_for('static',filename='homepage_pic.jpg')}}" alt="" />
+       </div>
+ <div class="cont_form_login">
+<a href="#" onclick="ocultar_login_sign_up()" ><i class="material-icons">&#8592;</i></a>
+   <h2>LOGIN</h2>
+   
+	<form name='form1' onsubmit="required_login()">
+	<br>
+	
+	<input class="login_space" type="text" name="username"  placeholder="Username">
+	<input class="login_space" type="password" name="password" placeholder="Password">
+	
+    <button class="btn_login" type="submit" name="submit" value="Sign in" />SIGN IN</button>
+	</form>	
+   
+  </div>
+  
+   <div class="cont_form_sign_up">
+<a href="#" onclick="ocultar_login_sign_up()"><i class="material-icons">&#8592;</i></a>
+     <h2>SIGN UP</h2>
+	 
+
+<form name='form2' onsubmit="required_signup()">
+ <br>
+<input class="login_space" type="text" name="username" placeholder="Username" >
+<input class="login_space" type="password" name="password" placeholder="Password" >
+<input class="login_space" type="password" name="password2" placeholder="Confirm Password" >
+<button class="btn_sign_up" type="submit" name="submit" value="Sign up" />SIGN UP</button>
+</form>	
+
+  </div>
+
+    </div>
+    
+  </div>
+ </div>
+</div>
+</div>
+
+  
+<div class="last" >
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<b>Ordering food is easy as ABC Only 4 steps to make the order, easy payment, available 24/7
+</b>
+
+<pre class="definition">
+The challenge for us is to make a versatile website and smartphone app that is simple and 
+easy to use. What we have learned is that ordering food online is way easier, faster and has 
+less complications than calling. What makes onlinefood better than the traditional order over 
+the phone method?
+
+24/7: Our site and app are available 24/7 with the feature to pre-order. You can plan your 
+meal ahead from the best restaurants near you and avoid the rush hours
+Free to use: Browse through 4000+ restaurant menus for free
+Order food in 4 simple steps
+Easy Payment: Do you prefer online payment? We accept all major credit cards as well as
+PayTM Wallet. If you prefer to pay cash on delivery in Indian Rupees, we’ve got that covered too.
+</pre>
+
+<b>Our Services</b>
+<pre class="definition">
+Should you have any concerns or would you want to give us feedback, please do not hesitate to contact our customer service
+team by using our Live Chat feature on your foodpanda App or website, or by sending an email at customercare@onlinefood.in. 
+Onlinefood India Corporate Office is located at Plot no. 82 A, Sector 18, Gurgaon, Haryana-122015
+
+</pre>
+
+
+<footer class="last">
+<ul class="homeul">
+  <li class="homeli"><a href="#home" class="homea">Home</a></li>
+  <li class="homeli"><a href="#about Us" class="homea">About US</a></li>
+  <li class="homeli"><a href="#contact" class="homea">Contact</a></li>
+  <li class="homeli"><a href="#privacypolicy" class="homea">Privacy Policy</a></li>
+  <li class="homeli"><a href="#howitwokrs" class="homea">How It Works</a></li>
+</ul>
+</footer>
+</div> 
+    <script src="{{url_for('static',filename='customer.js')}}"></script>
+
+</body>
+</html>

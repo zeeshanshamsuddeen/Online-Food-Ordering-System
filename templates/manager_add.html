@@ -8,7 +8,8 @@ function required()
 	var item=document.forms["form1"]["item"].value;
 	var def=document.forms["form1"]["def"].value;
 	var price=document.forms["form1"]["price"].value;
-	if((item=="")||(price==""))
+	var category=document.forms["form1"]["category"].value;
+	if((item=="")||(price=="")||(((category!='veg')&&(category!='non-veg'))&&(category!='others')))
 	{
 		alert("invalid fields")
 		document.form1.action="http://localhost:5000/manager_edit/{{place}}/{{username}}/add"
@@ -49,7 +50,7 @@ function required()
 .content3			/* whole of login form */
 {
 		margin-left:370px;
-		height:420px;
+		height:480px;
 		width:600px;
 		border:1px solid; 
 		border-radius: 5px;
@@ -84,7 +85,7 @@ function required()
 		background-color:rgb(200,200,200);
 		border-color:rgb(200,200,200);
 		border:1px solid rgb(200,200,200); 
-		height:280px;
+		height:340px;
 		border-bottom-left-radius:5px;
 		border-bottom-right-radius:5px;
 }
@@ -168,6 +169,9 @@ ONLINE FOOD
 	<form name='form1' onsubmit="required()" method="post">
 	<br>
 	<input class="area" type='text' name='item' placeholder="Item">
+	<br>
+	<br>
+	<input class="area" type="text" name="category" placeholder="veg/non-veg/others">
 	<br>
 	<br>
 	<input class="area" type="text" name="def"  placeholder="Description">

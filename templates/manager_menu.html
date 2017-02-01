@@ -75,6 +75,7 @@
 		padding-left:5px;
 		font-size:24px;
 		color: rgb(100,100,100)
+		
 }
 .desc
 {
@@ -91,7 +92,7 @@
 		height:50px;
 		line-height:50px;			/*  defined with vertical allign to align in the middle vertival */
 		vertical-align:middle;
-		margin-left:370px;
+		margin-left:230px;
 		
 		padding:0;
 		text-align:center;
@@ -113,7 +114,7 @@
 {
 		cursor:pointer;
 		background-color:rgb(5,140,5);
-		transform:scale(1.1);
+		transform:scale(1.05);
 
 }
 .remove
@@ -147,8 +148,41 @@
 {
 		cursor:pointer;
 		background-color:rgb(140,5,5);
-		transform:scale(1.1);
+		transform:scale(1.05);
 
+
+}.editprice
+{
+		border:2px solid black;
+		border-radius:3px;
+		width:300px;
+		height:50px;
+		line-height:50px;			/*  defined with vertical allign to align in the middle vertival */
+		vertical-align:middle;
+				
+		
+		padding:0;
+		text-align:center;
+		display: inline-block;
+
+		
+		background:rgba(70,70,70,1);
+		transition :1s ease;
+
+}
+.editpricea
+{
+		font-family:"Cormorant Garamond Medium";
+		font-size:30px;
+		color:white;
+		font-weight:900;
+		text-decoration:none;
+}
+.editprice:hover
+{
+		cursor:pointer;
+		background-color:rgb(10,10,10);
+		transform:scale(1.05);
 
 }
 </style>
@@ -185,6 +219,13 @@ ADD &plusacir;
 REMOVE &cross;
 </a>
 </div>
+
+<div class="editprice">
+<a class="editpricea" href="http://localhost:5000/manager_edit/{{place}}/{{username}}/editprice">
+EDIT PRICE 
+</a>
+</div>
+
 <br>
 <br>
 
