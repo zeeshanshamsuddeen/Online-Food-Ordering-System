@@ -125,11 +125,11 @@ td
 {
 	font-family:"Cabin";
 	font-weight:700;
-	font-size:25px;
+	font-size:22px;
 }
 .place
 {
-	font-size:22px;
+	font-size:20px;
 	font-weight:500;
 
 }
@@ -143,7 +143,7 @@ td
 		font-weight:800;
 		font-family:"Times New Roman";
 		color:rgb(150,10,10);
-		font-size:24px;
+		font-size:22px;
 }
 .quantity
 {
@@ -219,7 +219,11 @@ ONLINE FOOD
 	<!--displays menu of different restaurants -->
 	
 	<tr class="mainrow">
-		<td rowspan='3' class="photo" ><img src="{{url_for('static',filename= x[5] + 'rest.jpg')}}" height="70" width="70"></td>
+		{% for y in var2 %}
+		{% if x[4]==y[3] %}
+		{% if x[5]==y[0] %}
+		<td rowspan='3' class="photo" ><img src="{{url_for('static',filename= y[2])}}" height="70" width="70"></td>
+		
 		<td class="name">{{x[0]}}</td>
 		<td class="price"><span style="font-family:'Cormorant Garamond Medium'">&#8377</span> {{x[1]}}</td>
 		<td class="quantity">{{x[2]}}</td>
@@ -236,7 +240,9 @@ ONLINE FOOD
 	</tr>
 	</tr>	
 
-
+		{%endif%}
+		{%endif%}
+		{%endfor%}
 {% endfor %}
 
 </table>

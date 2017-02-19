@@ -102,7 +102,7 @@
 {
 			margin-left:170px;
 			margin-right:170px;
-			background:rgba(255,255,255,0.9);   /* to reduce opacity without effecting inner contents*/
+			background:rgba(255,255,255,0.2);   /* to reduce opacity without effecting inner contents*/
 }
 .others
 {
@@ -125,7 +125,7 @@
 {
 		font-family:"Code Bold";
 		padding:25px;
-		color:rgb(10,10,180);
+		color:rgb(255,255,255);
 		font-size:28px;
 		
 }
@@ -148,7 +148,7 @@
 </head>
 <body>
 <h1>
-<a href="/">
+<a href="/homepage_customer">
 <img src="{{url_for('static',filename='food.jpg')}}"  width="90" height="80"></a>
 <span class="h1span">
 
@@ -161,7 +161,7 @@ ONLINE FOOD
 </span>
 </h1>
 
-<div class="background" style="background-image:url({{url_for('static',filename='chicken.jpg')}})"> 
+<div class="background" style="background-image:url({{url_for('static',filename='plate3.jpg')}})"> 
 <br>
 <br>
 <br>
@@ -176,114 +176,112 @@ SORT BY :
 <br>
 <br>
 <br>
+
+{% if (var_veg is defined) and var_veg %}
 <div class="content2">
-<br>
-<span class="heading">NON VEG</span>
-<br>
-{% for x in var %}
-<!--displays menu of different restaurants -->
-{% if x['category']=='non-veg'%}
 
-<div class="food">
-<div class="name">
-{{x['item']}}
-</div>
-<div class="price">
-&#8377;
-{{x['price']}} 
-</div>
+	<br>
+	<span class="heading">VEG</span>
+	<br>
+	{% for x in var_veg %}
+	<!--displays menu of different restaurants -->
 
-<div class="desc">
-{{x['def']}} 
-</div>
-<br>
+	<div class="food">
+	<div class="name">
+	{{x['item']}}
+	</div>
+	<div class="price">
+	&#8377;
+	{{x['price']}} 
+	</div>
 
+	<div class="desc">
+	{{x['def']}} 
+	</div>
+	<br>
+	<div class="ordernow">
 
+	<a class="ordernowa" href="/quantity/{{place}}/{{rest}}/{{x['item']}}/{{x['price']}}">order online &rarr; </a>
+	</div>
 
-
-<div class="ordernow">
-
-<a class="ordernowa" href="/quantity/{{place}}/{{rest}}/{{x['item']}}/{{x['price']}}">order online &rarr; </a>
-</div>
-
-</div>
-{% endif %}
-{% endfor %}
-</div>
+	</div>
+	{% endfor %}
+	</div>
  
+{%endif%}
 
 
 <br>
 
 
+{% if (var_non_veg is defined) and var_non_veg %}
 
-<div class="content2">
+	<div class="content2">
+	<br>
+	<span class="heading">NON-VEG</span>
+	<br>
+	{% for x in var_non_veg %}
+	<!--displays menu of different restaurants -->
+	<div class="food">
+	<div class="name">
+	{{x['item']}}
+	</div>
+	<div class="price">
+	&#8377;
+	{{x['price']}} 
+	</div>
+
+	<div class="desc">
+	{{x['def']}} 
+	</div>
+	<br>
+
+	<div class="ordernow">
+	<a class="ordernowa" href="/quantity/{{place}}/{{rest}}/{{x['item']}}/{{x['price']}}">order online &rarr; </a>
+	</div>
+
+	</div>
+	{% endfor %}
+	</div>
+{%endif%}
+
 <br>
-<span class="heading">VEG</span>
-<br>
-{% for x in var %}
-<!--displays menu of different restaurants -->
-{% if x['category']=='veg'%}
-<div class="food">
-<div class="name">
-{{x['item']}}
-</div>
-<div class="price">
-&#8377;
-{{x['price']}} 
-</div>
 
-<div class="desc">
-{{x['def']}} 
-</div>
-<br>
+{% if (var_others is defined) and var_others %}
+	<div class="content2">
 
-<div class="ordernow">
-<a class="ordernowa" href="/quantity/{{place}}/{{rest}}/{{x['item']}}/{{x['price']}}">order online &rarr; </a>
-</div>
+	<br>
+	<span class="heading">OTHERS</span>
+	<br>
+	{% for x in var_others %}
+	<!--displays menu of different restaurants -->
 
-</div>
+	<div class="food">
+	<div class="name">
+	{{x['item']}}
+	</div>
+	<div class="price">
+	&#8377;
+	{{x['price']}} 
+	</div>
+
+	<div class="desc">
+	{{x['def']}} 
+	</div>
+	<br>
+
+
+
+
+	<div class="ordernow">
+
+	<a class="ordernowa" href="/quantity/{{place}}/{{rest}}/{{x['item']}}/{{x['price']}}">order online &rarr; </a>
+	</div>
+
+	</div>
+	{% endfor %}
+	</div> 
 {% endif %}
-{% endfor %}
-</div>
-
-<br>
-
-<div class="content2">
-
-<br>
-<span class="heading">OTHERS</span>
-<br>
-{% for x in var %}
-<!--displays menu of different restaurants -->
-{% if x['category']=='others'%}
-
-<div class="food">
-<div class="name">
-{{x['item']}}
-</div>
-<div class="price">
-&#8377;
-{{x['price']}} 
-</div>
-
-<div class="desc">
-{{x['def']}} 
-</div>
-<br>
-
-
-
-
-<div class="ordernow">
-
-<a class="ordernowa" href="/quantity/{{place}}/{{rest}}/{{x['item']}}/{{x['price']}}">order online &rarr; </a>
-</div>
-
-</div>
-{% endif %}
-{% endfor %}
-</div> 
 
 
 <br>

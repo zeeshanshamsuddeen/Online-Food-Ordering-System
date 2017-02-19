@@ -8,7 +8,10 @@ function required()
 var cardnumber=document.forms["form1"]["cardnumber"].value;
 var name=document.forms["form1"]["name"].value;
 var cvv=document.forms["form1"]["cvv"].value;
-if(((cardnumber=="")||(name==""))||(cvv==""))
+var month=document.forms["form1"]["month"].value;
+var year=document.forms["form1"]["year"].value;
+
+if(((cardnumber=="")||(name==""))||(cvv=="")||(month=="")||(year==""))
 {
 	alert("fill all fields");
 	document.form1.action="";
@@ -31,23 +34,155 @@ else
 } 
 @font-face 
 {
+ font-family:Montserrat;
+ src:url("{{url_for('static',filename='Montserrat-Regular.ttf')}}");
+}
+@font-face 
+{
+ font-family:Arimo;
+ src:url("{{url_for('static',filename='Arimo-Bold.ttf')}}");
+} 
+@font-face 
+{
  font-family:Cormorant Garamond Medium;
  src:url("{{url_for('static',filename='CormorantGaramond-Medium.ttf')}}");
 }
 .background
 {
 		background-size: cover;
-		background-attachment: fixed;         /* scroll div contents without background */
+		background-attachment: fixed;  		/* scroll div contents without background */
+		height:700px;
+		background-color:rgb(100,100,100);
 }
-.content1
+.content1			/* full box*/
 {
 		border:1px solid rgb(170,170,170);
-		height:300px;
+		height:430px;
 		border-radius:3px;
 		width:500px;
 		border:collapse;
+		margin-left:400px;
+}
+.content2			/* upper part of box*/
+{
+		border:1px solid rgb(170,170,170);
+		height:50px;
+		background-color:rgb(200,200,200);
+		border-top-left-radius:3px;
+		border-top-right-radius:3px;
+		
+
+}
+.content3         	/* lower part of box */
+{
+		border:1px solid rgb(170,170,170);
+		border-bottom-left-radius:3px;
+		border-bottom-right-radius:3px;
+		background-color:white;
+		height:430px;
+}
+.heading
+{
+	font-family:"Arimo";
+	font-size:16px;
+	margin-left:30px;
+	
+}
+.payment
+{
+	font-size:25px;
+	margin-left:10px;
+	font-family:"Montserrat";
+	font-weight:bold;
+	height: 40px;
+	line-height: 40px;
+
+	text-align: center;	
+
+}
+.card_image
+{
+	position:absolute;
+	margin-left:120px;
+	padding-top:5px;
+
+
+}
+.input_number
+{
+		margin-left:30px;
+		border-radius:3px;
+		font-size:16px;
+		font-family:"Times New Roman";
+		position:relative;
+		margin-top:5px;
+		width:450px;
+		padding:5px;
+
+}
+.input_month
+{
+		margin-left:30px;
+		border-radius:3px;
+		font-size:16px;
+		font-family:"Times New Roman";
+		position:relative;
+		margin-top:5px;
+		width:70px;
+		padding:5px;
+	
+}
+.input_year
+{
+		margin-left:10px;
+		border-radius:3px;
+		font-size:16px;
+		font-family:"Times New Roman";
+		position:relative;
+		margin-top:5px;
+		width:70px;
+		padding:5px;
+	
+}
+.input_cvv
+{
+		margin-left:30px;
+		border-radius:3px;
+		font-size:16px;
+		font-family:"Times New Roman";
+		position:relative;
+
+		margin-top:5px;
+		width:100px;
+		padding:5px;
+
+}
+input#gobutton
+{
+		font-family:"Cormorant Garamond Medium";
+		font-weight:bold;
+		font-size:20px;
+		margin-left:30px;
+		width:450px;
+		cursor:pointer;		 /*forces the cursor to change to a hand when the button is hovered*/
+		padding:5px 25px; 
+		background:rgb(18,124,36);
+		border:1px solid #33842a; 
+		border-radius: 3px;
+
+		box-shadow: 0 0 4px rgba(0,0,0, .75);
+		color:#f3f3f3;
 }
 
+input#gobutton:hover, input#gobutton:focus
+{
+		background-color :#399630;
+		box-shadow: 0 0 1px rgba(0,0,0, .75);
+}
+.card_bottom
+{
+	margin-left:120px;
+}
 </style>
 
 </head>
@@ -66,32 +201,49 @@ ONLINE FOOD
 </span>
 </h1>
 
-<div class="background" style="background-image:url({{url_for('static',filename='chicken.jpg')}});">
+<div class="background">
+	<br><br>
+	<br><br>
 
 
 <div class="content1">
+	<div class="content2">
+		<span class="payment">Payment details</span>
+		<img class="card_image" src="{{url_for('static',filename='card.png')}}"  width="160" height="30">
+	</div>
 	
+	<div class="content3">
+		<form name="form1" onsubmit="required()">
+			<br>
+			<span class="heading">CARD NUMBER</span>
+			<input class="input_number" type='number' name='cardnumber' min="1000000000000000">
+			<br>
+			<br>
+			<span class="heading">CARD HOLDER NAME</span>
+			<input class="input_number"  type='text' name='name'>
+			<br>
+			<br>
+			<span class="heading">EXPIRATION DATE</span>
+			<br>
+			<input class="input_month" type='number' name ="month" placeholder="MM" min="1" max="12">
+			<input class="input_year" type='number' name ="year" placeholder="YY" min="2017" max="2030">
+			<br>
+			<br>
+			<span class="heading">CVV</span>
+			<br>
+			<input class="input_cvv" type='number' name='cvv' max='999'>
+			<br>					
+			<br>
+			<input id="gobutton" type="submit" name="submit" value="Place Order" />
 
-
+		</form>
+		<img class="card_bottom" src="{{url_for('static',filename='card_bottom.JPG')}}"  width="250" height="40">
+		
+	</div>
 
 </div>
 
-<form name="form1" onsubmit="required()">
 
-card number:
-<input type='number' name='cardnumber'>
-<br>
-car holder name
-<input type='text' name='name'>
-<br>
-cvv:
-<input type='number' name='cvv' maxlenght='3'>
-<br>
-
-<br>
-<input type="submit" name="submit" value="Submit" />
-
-</form>
 
 
 </div>

@@ -109,7 +109,7 @@ ONLINE FOOD
 </h1>
 
 
-<div class="background" style="background-image:url({{url_for('static',filename='chicken.jpg')}});">
+<div class="background" style="background-image:url({{url_for('static',filename='homepage_pic.jpg')}});">
 <br>
 <br>
 <br>
@@ -142,7 +142,7 @@ ONLINE FOOD
 	<td style="padding-left:50px;border-bottom: 1px solid rgb(50,50,50);">
 	<div style="width:200px">
     <div class="hovereffect">
-        <img class="img-responsive" src="{{url_for('static',filename= x[0] + 'rest.jpg')}}" width="200" height="200" alt="">
+        <img class="img-responsive" src="{{url_for('static',filename= x[2])}}" width="200" height="200" alt="">
         <div class="overlay">
           
            <a class="info" href="/{{place}}/menu/{{x[0]}}">{{x[0]}}</a>
@@ -150,58 +150,19 @@ ONLINE FOOD
     </div>
 	</div>
 	</td>
-	{%if place=='TLY'%}
-	{%if x[0]== 'KFC'%}
+
 
 	<td style="border-bottom: 1px solid rgb(50,50,50);">
 	<p class="definition1">
 	
 
-Location : Near New Bus Stand . Thalassery<br>
-&phone; :<span style="font-family:'Times New Roman'"> 213465789</span><br>
-working hours :
+Location : {{x[4]}}<br>
+&phone; :<span style="font-family:'Times New Roman'"> {{x[5]}}</span><br>
+working hours : {{x[6]}} to {{x[7]}}
 	
 	</p>
 	</td >
 	
-	{%elif x[0]=='RARAVIS'%}
-	<td style="border-bottom: 1px solid rgb(50,50,50);">
-	<p class="definition1">
-	
-Location : Near New Bus Stand . Thalassery<br>
-&phone; :<span style="font-family:'Times New Roman'"> 213465789</span><br>
-working hours :
-	
-	</p>
-	</td>	
-	{%elif x[0]=='GREENLEAF'%}
-	<td style="border-bottom: 1px solid rgb(50,50,50);">
-	<p class="definition1">
-Location : Near New Bus Stand . Thalassery<br>
-&phone; :<span style="font-family:'Times New Roman'"> 213465789</span><br>
-working hours :
-
-	</p>
-	</td>
-	{%endif%}
-	
-	
-	{%elif place=='CALICUT'%}
-	{%if x[0]== 'KFC'%}
-
-	<td style="border-bottom: 1px solid rgb(50,50,50);">
-	<p class="definition1">
-	
-
-Location : Near New Bus Stand . Calicut   <br> 
-&phone; :<span style="font-family:'Times New Roman'"> 213465789</span><br>
-working hours :
-	
-	
-	</td >
-	{%endif%}
-	{%endif%}
-
 
 </tr>
 {%endfor%}

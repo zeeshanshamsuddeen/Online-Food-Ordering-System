@@ -1,6 +1,9 @@
 import sqlite3 
-from flask import Flask ,flash,session,render_template,redirect,escape, url_for,request
-from base64 import b64encode
+from flask import Flask ,flash,session,render_template,redirect,escape, url_for,request, send_from_directory
+import sys
+import cgi, os
+import cgitb; cgitb.enable()
+from werkzeug import secure_filename
 
 
 app = Flask(__name__)
@@ -12,15 +15,9 @@ def homepage():
 	return render_template('homepage.html')
 
 
-@app.route('/test')
-def test():
-	conn=sqlite3.connect('images.db')
-	cur=conn.cursor()
-	cur.execute("SELECT * FROM images")
-	var=cur.fetchone()
-	image=b64encode(var[1])
-	conn.close()
-	return render_template('test.html',image=image,var=var)
+
+
+
 
 
 #page for displaying login for customers
@@ -34,7 +31,7 @@ def customer():
 	return render_template('customer.html',var=var)
 	#from customer.html , goes to homepage_customer()
 
-#customer session is created
+#customer session is created after log in
 @app.route('/customer_logged_in',methods=['GET','POST'])
 def customer_logged_in():
 	session['username']=request.form['username']              #session is a dictionery with username its key.. value is nm variable
@@ -65,23 +62,89 @@ def customer_logout():
 
 
 
+#search option
+@app.route('/search/<data>')
+def search(data):
+	conn=sqlite3.connect('members.db')
+	cur=conn.cursor()
+	cur.execute("DELETE FROM search")
+	cur.execute("SELECT username,filename FROM managers WHERE place='TLY'")
+	var_username_TLY=cur.fetchall()
+	cur.execute("SELECT username,filename FROM managers WHERE place='KANNUR'")
+	var_username_KANNUR=cur.fetchall()
+	cur.execute("SELECT username,filename FROM managers WHERE place='CALICUT'")
+	var_username_CALICUT=cur.fetchall()
+	conn.commit()
+	conn.close()
+
+	conn=sqlite3.connect('TLY.db')
+	cur=conn.cursor()
+	for x in var_username_TLY:
+		cur.execute("SELECT * FROM {} WHERE item=?".format(x[0]),(data,))
+		var=cur.fetchone()
+		if var:
+			conn_temp=sqlite3.connect('members.db')
+			cur_temp=conn_temp.cursor()
+			cur_temp.execute("INSERT INTO search(item,def,price,category,place,rest,filename) VALUES(?,?,?,?,?,?,?); ",(var[0],var[1],var[2],var[3],'TLY',x[0],x[1],))
+			conn_temp.commit()
+			conn_temp.close()	
+	conn.close()
+
+	conn=sqlite3.connect('KANNUR.db')
+	cur=conn.cursor()
+	for x in var_username_KANNUR:
+		cur.execute("SELECT * FROM {} WHERE item=?".format(x[0]),(data,))
+		var=cur.fetchone()
+		if var:
+			conn_temp=sqlite3.connect('members.db')
+			cur_temp=conn_temp.cursor()
+			cur_temp.execute("INSERT INTO search(item,def,price,category,place,rest,filename) VALUES(?,?,?,?,?,?,?); ",(var[0],var[1],var[2],var[3],'KANNUR',x[0],x[1],))
+			conn_temp.commit()
+			conn_temp.close()	
+	conn.close()
+
+	conn=sqlite3.connect('CALICUT.db')
+	cur=conn.cursor()
+	for x in var_username_CALICUT:
+		cur.execute("SELECT * FROM {} WHERE item=?".format(x[0]),(data,))
+		var=cur.fetchone()
+		if var:
+			conn_temp=sqlite3.connect('members.db')
+			cur_temp=conn_temp.cursor()
+			cur_temp.execute("INSERT INTO search(item,def,price,category,place,rest,filename) VALUES(?,?,?,?,?,?,?); ",(var[0],var[1],var[2],var[3],'CALICUT',x[0],x[1],))
+			conn_temp.commit()
+			conn_temp.close()	
+	conn.close()
+
+	return redirect(url_for('search_result'))
+
+#to access after search is completed
+@app.route('/search_result')
+def search_result():
+	conn=sqlite3.connect('members.db')
+	cur=conn.cursor()
+	cur.execute("SELECT * FROM SEARCH")
+	var=cur.fetchall()
+	return render_template('search_result.html',var=var)
+
+
+
+
+
+
+
 #to access when location is selected from homepage_customer
 @app.route('/<place>')			
 def location(place):
-	#checks which place is selected in homepage_customer ie which databse
-	if(place=='TLY'):
-		conn=sqlite3.connect('TLY.db')
-	elif(place=='KANNUR'):
-		conn=sqlite3.connect('KANNUR.db')
-	else:
-		conn=sqlite3.connect('CALICUT.db')
+	conn=sqlite3.connect('members.db')
 	cur=conn.cursor()
 	#shows all tables
-	cur.execute("SELECT COUNT(*) FROM sqlite_master WHERE type = 'table'")
+	cur.execute("SELECT COUNT(*) FROM managers WHERE place=?",(place,))
 	var=cur.fetchone()
 	#if database in nonempty
+	print(var[0])
 	if(var[0]>0):   #since no row_factory=Row , coloumn number is used
-		cur.execute("SELECT name FROM sqlite_master WHERE type = 'table' ")
+		cur.execute("SELECT * FROM managers WHERE place=?",(place,))
 		var=cur.fetchall()
 		conn.close()
 		return render_template('restaurants.html',var=var,place=place)		
@@ -106,11 +169,15 @@ def menu(place,rest):
 	cur.execute("SELECT COUNT(*) FROM {}".format(rest))
 	var=cur.fetchone()
 	if(var['count(*)']>0):	#since row_factory=Row,col name is used
-		cur.execute("SELECT * FROM {}".format(rest)) 
-		var=cur.fetchall()
+		cur.execute("SELECT * FROM {} WHERE category='veg'".format(rest)) 
+		var_veg=cur.fetchall()
+		cur.execute("SELECT * FROM {} WHERE category='non-veg'".format(rest)) 
+		var_non_veg=cur.fetchall()
+		cur.execute("SELECT * FROM {} WHERE category='others'".format(rest)) 
+		var_others=cur.fetchall()
 		conn.close()
-		#<var> contains all items in table, each row is accessed and displayed by colname
-		return render_template('menu.html',var=var,place=place,rest=rest)
+		#<var> variables contains all items in table, each row is accessed and displayed by colname
+		return render_template('menu.html',var_veg=var_veg,var_non_veg=var_non_veg,var_others=var_others,place=place,rest=rest)
 		#from menu.html , goes to /quantity/<item>/<price>
 	else:
 		return render_template('nomenu.html',place=place)
@@ -131,45 +198,69 @@ def menu_sort(place,rest,sort):
 	if(sort=="nameasc"):
 		cur.execute("SELECT COUNT(*) FROM {}".format(rest))
 		var=cur.fetchone()
+
 		if(var['count(*)']>0):	#since row_factory=Row,col name is used
-			cur.execute("SELECT * FROM {} ORDER BY item ASC".format(rest))
-			var=cur.fetchall()
+			cur.execute("SELECT * FROM {} WHERE category='veg' ORDER BY item ASC".format(rest)) 
+			var_veg=cur.fetchall()
+			cur.execute("SELECT * FROM {} WHERE category='non-veg' ORDER BY item ASC".format(rest)) 
+			var_non_veg=cur.fetchall()
+			cur.execute("SELECT * FROM {} WHERE category='others' ORDER BY item ASC".format(rest)) 
+			var_others=cur.fetchall()
 			conn.close()
-			#<var> contains all items in table, each row is accessed and displayed by colname
-			return render_template('menu.html',var=var,place=place,rest=rest)
+			#<var> variables contains all items in table, each row is accessed and displayed by colname
+			return render_template('menu.html',var_veg=var_veg,var_non_veg=var_non_veg,var_others=var_others,place=place,rest=rest)
+			#from menu.html , goes to /quantity/<item>/<price>
 		else:
 			return render_template('nomenu.html',place=place)	
+
 	elif(sort=="namedes"):
 		cur.execute("SELECT COUNT(*) FROM {}".format(rest))
 		var=cur.fetchone()
 		if(var['count(*)']>0):	#since row_factory=Row,col name is used
-			cur.execute("SELECT * FROM {} ORDER BY item DESC".format(rest))
-			var=cur.fetchall()
+			cur.execute("SELECT * FROM {} WHERE category='veg' ORDER BY item DESC".format(rest)) 
+			var_veg=cur.fetchall()
+			cur.execute("SELECT * FROM {} WHERE category='non-veg' ORDER BY item DESC".format(rest)) 
+			var_non_veg=cur.fetchall()
+			cur.execute("SELECT * FROM {} WHERE category='others' ORDER BY item DESC".format(rest)) 
+			var_others=cur.fetchall()
 			conn.close()
-			#<var> contains all items in table, each row is accessed and displayed by colname
-			return render_template('menu.html',var=var,place=place,rest=rest)
+			#<var> variables contains all items in table, each row is accessed and displayed by colname
+			return render_template('menu.html',var_veg=var_veg,var_non_veg=var_non_veg,var_others=var_others,place=place,rest=rest)
+			#from menu.html , goes to /quantity/<item>/<price>
 		else:
 			return render_template('nomenu.html',place=place)	
+
 	elif(sort=="pricelh"):
 		cur.execute("SELECT COUNT(*) FROM {}".format(rest))
 		var=cur.fetchone()
 		if(var['count(*)']>0):	#since row_factory=Row,col name is used
-			cur.execute("SELECT * FROM {} ORDER BY price".format(rest))
-			var=cur.fetchall()
+			cur.execute("SELECT * FROM {} WHERE category='veg' ORDER BY price".format(rest)) 
+			var_veg=cur.fetchall()
+			cur.execute("SELECT * FROM {} WHERE category='non-veg' ORDER BY price".format(rest)) 
+			var_non_veg=cur.fetchall()
+			cur.execute("SELECT * FROM {} WHERE category='others' ORDER BY price".format(rest)) 
+			var_others=cur.fetchall()
 			conn.close()
-			#<var> contains all items in table, each row is accessed and displayed by colname
-			return render_template('menu.html',var=var,place=place,rest=rest)
+			#<var> variables contains all items in table, each row is accessed and displayed by colname
+			return render_template('menu.html',var_veg=var_veg,var_non_veg=var_non_veg,var_others=var_others,place=place,rest=rest)
+			#from menu.html , goes to /quantity/<item>/<price>
 		else:
 			return render_template('nomenu.html',place=place)	
+
 	elif(sort=="pricehl"):
 		cur.execute("SELECT COUNT(*) FROM {}".format(rest))
 		var=cur.fetchone()
 		if(var['count(*)']>0):	#since row_factory=Row,col name is used
-			cur.execute("SELECT * FROM {} ORDER BY price DESC".format(rest))
-			var=cur.fetchall()
+			cur.execute("SELECT * FROM {} WHERE category='veg' ORDER BY price DESC".format(rest)) 
+			var_veg=cur.fetchall()
+			cur.execute("SELECT * FROM {} WHERE category='non-veg' ORDER BY price DESC".format(rest)) 
+			var_non_veg=cur.fetchall()
+			cur.execute("SELECT * FROM {} WHERE category='others' ORDER BY price DESC".format(rest)) 
+			var_others=cur.fetchall()
 			conn.close()
-			#<var> contains all items in table, each row is accessed and displayed by colname
-			return render_template('menu.html',var=var,place=place,rest=rest)
+			#<var> variables contains all items in table, each row is accessed and displayed by colname
+			return render_template('menu.html',var_veg=var_veg,var_non_veg=var_non_veg,var_others=var_others,place=place,rest=rest)
+			#from menu.html , goes to /quantity/<item>/<price>
 		else:
 			return render_template('nomenu.html',place=place)	
 
@@ -199,24 +290,20 @@ def postquantity(place,rest,item,price):
 
 
 
-
-
-
-
-
-
 #to show items in cart
 @app.route('/cartshow')
 def cartshow():
 	conn=sqlite3.connect('members.db')
 	cur=conn.cursor()
+	cur.execute("SELECT * FROM managers")
+	var2=cur.fetchall()
 	cur.execute("SELECT COUNT(*) FROM {}".format(session['username']))
 	var1=cur.fetchone()
 	if(var1[0]>0):
 		cur.execute("SELECT * FROM {}".format(session['username']))
 		var=cur.fetchall()
 		conn.close()
-		return render_template('cartshow.html',var=var)
+		return render_template('cartshow.html',var=var,var2=var2)
 		#from cartshow.html , goes to cartremove/<item> 
 	else:
 		return render_template("nocart.html")
@@ -239,28 +326,16 @@ def cartremove(item,place,rest):
 #to display total and proceed to pay
 @app.route('/cartpay')
 def cartpay():
-	conn=sqlite3.connect('members.db')
-	cur=conn.cursor()
-	cur.execute("SELECT COUNT(*) FROM {}".format(session['username']))
-	var=cur.fetchone()
-	nitem=var[0]
-	cur.execute("SELECT SUM(total) FROM {}".format(session['username']))
-	var=cur.fetchone()
-	ntotal=var[0]
-	return render_template('cartpay.html',nitem=nitem,ntotal=ntotal)
+	return render_template('cartpay.html')
 	#two options in cartpay, card and COD
 
-#to access if card is selected as mode of paymeny
+#to access if card is selected as mode of payment
 @app.route('/paycard')
 def paycard():
 	return render_template('paycard.html')
 	#from paycard.html , goes to /cartclear
 
-#to access if COD is selected as mode of payment
-@app.route('/paycash')
-def paycash():
-	return render_template('paycash.html')	
-	#from paycash.html , goes to /cartclear
+
 
 #clear items in cart
 @app.route('/cartclear')
@@ -287,17 +362,79 @@ def cartclear():
 
 
 
-#to access when login is selected from homepage_customer
-@app.route('/login',methods=['GET','POST']	)
-def login():
-	return render_template('login.html')
-	#from login.html , if valid username , goes to /success	
+#to access when manager_login is selected from homepage
+@app.route('/manager_login',methods=['GET','POST'])
+def manager_login():
+	conn=sqlite3.connect('members.db')
+	cur=conn.cursor()
+	cur.execute("SELECT username,password FROM managers")
+	var=cur.fetchall()
+	conn.close()
+	return render_template('manager_login.html',var=var)
+	#from manager_login.html , if valid username , goes to /manager_logged_in	
 
-#to check for table in place
-@app.route('/success',methods=['GET','POST'])
-def success():
+#to access for new manager 
+@app.route('/manager_signup')
+def manager_signup():
+	conn=sqlite3.connect('members.db')
+	cur=conn.cursor()
+	cur.execute("SELECT username,place FROM managers")
+	var=cur.fetchall()
+	conn.close()
+	return render_template('manager_signup.html',var=var)
+
+
+app.config['UPLOAD_FOLDER'] = 'static/'
+
+#when manager submites sign up form
+@app.route('/manager_signed_up',methods=['GET','POST'])
+def manager_signed_up():
+	upload='static/'
+	place=request.form['place']
+	username=request.form['username']
+	password=request.form['password']
+	location=request.form['location']
+	phone=request.form['phone']
+	start_time=request.form['start_time']
+	close_time=request.form['close_time']
+
+	#The image file of restarant is received here
+	file = request.files['filename']
+	filename = secure_filename(file.filename)
+	#The image is stored in static folder
+	file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
+	#renaming image file
+	source=upload+filename
+	destination=upload+place+'_'+username+'.jpg'
+	os.rename(source,destination)
+
+
+	#to create entry in approval table 
+	conn=sqlite3.connect('members.db')
+	cur=conn.cursor()
+	cur.execute("INSERT INTO approval(username,password,filename,place,location,phone,start,stop) values(?,?,?,?,?,?,?,?)",(username,password,place+'_'+username+'.jpg',place,location,phone,start_time,close_time))
+	conn.commit()
+	conn.close()
+	return render_template('manager_processing.html')
+
+
+#when manager wants to logout
+@app.route('/manager_logout')
+def manager_logout():
+	   session.pop('username', None)					#used to logout of current session
+	   return redirect(url_for('homepage'))
+
+#manager session created after manager login
+@app.route("/manager_logged_in",methods=['GET','POST'])
+def manager_logged_in():
 	username=request.form['username']
 	place=request.form['location']
+	session['username']=username
+	return redirect(url_for('manager_homepage',place=place))	
+
+#to check for table in place
+@app.route('/manager_homepage/<place>',methods=['GET','POST'])
+def manager_homepage(place):
 	if(place=='TLY'):
 		conn=sqlite3.connect('TLY.db')
 	elif(place=='KANNUR'):
@@ -305,6 +442,7 @@ def success():
 	else:
 		conn=sqlite3.connect('CALICUT.db')	
 	cur=conn.cursor()
+	username=session['username']
 	#to select all table names in database
 	cur.execute("SELECT name FROM sqlite_master WHERE type = 'table'")
 	var=cur.fetchall()
@@ -338,7 +476,17 @@ def manager_menu(place,username):
 @app.route('/manager_edit/<place>/<username>/<action>',methods=['GET','POST'])
 def manager_edit(place,username,action):
 	if(action=="add"):
-		return render_template('manager_add.html',place=place,username=username)
+		if(place=='TLY'):
+			conn=sqlite3.connect('TLY.db')
+		elif(place=='KANNUR'):
+			conn=sqlite3.connect('KANNUR.db')
+		else:
+			conn=sqlite3.connect('CALICUT.db')	
+		cur=conn.cursor()
+		cur.execute("SELECT item FROM {}".format(username))	
+		var=cur.fetchall()
+		conn.close()
+		return render_template('manager_add.html',var=var,place=place,username=username)
 	elif(action=="delete"):
 		return redirect(url_for('manager_delete',place=place,username=username))
 	elif(action=="editprice"):
@@ -464,6 +612,107 @@ def manager_editprice_database(place,username,item):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route('/admin')
+def admin():
+	conn=sqlite3.connect('members.db')
+	cur=conn.cursor()
+	cur.execute('SELECT * FROM approval')
+	var=cur.fetchall()
+	cur.execute('SELECT * FROM managers WHERE place=?',('TLY',))
+	var_TLY=cur.fetchall()
+	cur.execute('SELECT * FROM managers WHERE place=?',('KANNUR',))
+	var_KANNUR=cur.fetchall()
+	cur.execute('SELECT * FROM managers WHERE place=?',('CALICUT',))
+	var_CALICUT=cur.fetchall()
+	conn.close()
+	return render_template('admin.html',var=var,var_TLY=var_TLY,var_KANNUR=var_KANNUR,var_CALICUT=var_CALICUT)
+
+
+#when admin wants to remove an existing restaurant	
+@app.route('/admin_manage_remove/<username>/<place>')
+def admin_manage_remove(username,place):
+	upload='static/'
+	conn=sqlite3.connect('members.db')
+	cur=conn.cursor()
+	cur.execute("SELECT filename FROM managers WHERE username=? AND place=?",(username,place,))
+	var=cur.fetchone()
+	
+	#restaurant image is deleted 
+	os.remove(upload+var[0])
+	cur.execute('DELETE FROM managers WHERE username=? AND place=?',(username,place,))
+	conn.commit()
+	conn.close()
+
+	#to delete username table in corresponding place database
+	if(place=='TLY'):
+		conn=sqlite3.connect('TLY.db')
+	elif(place=='KANNUR'):
+		conn=sqlite3.connect('KANNUR.db')
+	else:
+		conn=sqlite3.connect('CALICUT.db')	
+	cur=conn.cursor()
+	cur.execute("DROP TABLE {}".format(username))
+	conn.commit()
+	conn.close()
+	return redirect(url_for('admin'))
+
+
+#when admin wants to remove the request of new restaurant
+@app.route('/admin_remove/<username>/<place>')
+def admin_remove(username,place):
+	upload='static/'
+	conn=sqlite3.connect('members.db')
+	cur=conn.cursor()
+	cur.execute("SELECT filename FROM approval WHERE username=? AND place=?",(username,place,))
+	var=cur.fetchone()
+	#restaurant image is deleted 
+	os.remove(upload+var[0])
+	cur.execute('DELETE FROM approval WHERE username=? AND place=?',(username,place,))
+	conn.commit()
+	conn.close()
+	return redirect(url_for('admin'))
+
+
+#when admin wants to approve the request of new restaurant
+@app.route('/admin_approve/<username>/<place>')
+def admin_approve(username,place):
+	conn=sqlite3.connect('members.db')
+	cur=conn.cursor()	
+	cur.execute('SELECT * FROM approval WHERE username=? AND place=?',(username,place,))
+	var=cur.fetchone()
+
+	#to create entry in managers table 
+	cur.execute("INSERT INTO managers(username,password,filename,place,location,phone,start,stop) values(?,?,?,?,?,?,?,?)",(var[0],var[1],var[2],var[3],var[4],var[5],var[6],var[7],))
+	cur.execute("DELETE FROM approval WHERE username=? AND place=?",(username,place,))
+	conn.commit()
+	conn.close()
+
+	#to create username table in corresponding place database
+	if(place=='TLY'):
+		conn=sqlite3.connect('TLY.db')
+	elif(place=='KANNUR'):
+		conn=sqlite3.connect('KANNUR.db')
+	else:
+		conn=sqlite3.connect('CALICUT.db')	
+	cur=conn.cursor()
+	cur.execute("CREATE TABLE {}(item TEXT NOT NULL, def TEXT , price INTEGER NOT NULL,category TEXT)".format(username))
+	conn.commit()
+	conn.close()
+	return redirect(url_for('admin'))
 
 
 

@@ -63,8 +63,7 @@ h1 {  	font-family:"Cinzel Decorative Bold";
 	
 }
 .login{
-		margin-left:580px;
-		
+		margin-left:15px;
 		font-family:'Times New Roman';
 		font-size:20px;
 		color:rgb(130,130,130);
@@ -104,10 +103,11 @@ h1 {  	font-family:"Cinzel Decorative Bold";
 
 .place{
 			font-family: "Times New Roman",Times,serif;
-			font-size:30px;
+			font-size:25px;
 			color:black;
 			margin-left:550px;
-			margin-top:50px
+			margin-top:50px;
+			padding:5px;
 			
 		}
 
@@ -115,11 +115,20 @@ h1 {  	font-family:"Cinzel Decorative Bold";
 		
 .showrestaurants{
 					font-family: "Times New Roman",Times,serif;
-					font-size:25px;
-					color:black;
-					margin-left:500px;
+					font-size:21px;
+					background-color:black;
+					color:white;
+					margin-left:515px;
+					padding:5px;
+					border-color:black;
 			
 	
 				}
+.showrestaurants:hover
+{
+						background-color:white;
+						color:black;
 
+	
+}
 

@@ -1,0 +1,318 @@
+<html>
+<head>
+<link type="text/css" href="{{url_for('static',filename='webpages.css')}}" rel="stylesheet"/>
+
+<style>
+@font-face 
+{
+ font-family:Cinzel Decorative Bold;
+ src:url("{{url_for('static',filename='CinzelDecorative-Bold.otf')}}");
+} 
+@font-face 
+{
+ font-family:Cormorant Garamond Medium;
+ src:url("{{url_for('static',filename='CormorantGaramond-Medium.ttf')}}");
+}
+
+ul.tab {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+	
+}
+
+/* Float the list items side by side */
+ul.tab li {float: left;}
+
+/* Style the links inside the list items */
+ul.tab li a {
+    display: inline-block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of links on hover */
+ul.tab li a:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+ul.tab li a:focus, .active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+#manage
+{
+	background-color:rgb(250,250,250);
+}
+.content2
+{
+			margin-left:50px;
+			margin-right:170px;
+			background:rgba(255,255,255,0.2);   /* to reduce opacity without effecting inner contents*/
+}
+.heading
+{
+		font-family:"Code Bold";
+		padding:25px;
+		color:black;
+		font-size:28px;
+		
+}
+.box
+{
+		border-style:solid;
+		border-width:1px;
+		border-color:rgb(245,245,245);
+		margin-right:20px;
+		display:inline-block;
+		font-family:"Cormorant Garamond Medium";
+		font-weight:bold;
+		font-size:19px;
+		padding:5px;
+		background-color:rgb(245,245,245);
+	    box-shadow: 10px 10px 5px #888888;
+}
+.image
+{
+		 display: block;
+		margin-left: auto;
+		margin-right: auto			/* to diplay in center horizontally*/
+}
+</style>
+
+<script>
+function func(evt, variable) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(variable).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+</script>
+<body>
+<h1>
+
+<img src="{{url_for('static',filename='food.jpg')}}"  width="90" height="80">
+<span class="h1span">
+
+ONLINE FOOD
+</span>
+<span>
+<a href="#help" class="login">help</></a>
+</span>
+</h1>
+
+
+
+
+
+
+<ul class="tab">
+  <li><a href="javascript:void(0)" class="tablinks" onclick="func(event, 'requests')">requests</a></li>
+  <li><a href="javascript:void(0)" class="tablinks" onclick="func(event, 'messages')">messages</a></li>
+  <li><a href="javascript:void(0)" class="tablinks" onclick="func(event, 'manage')">manage</a></li>
+
+</ul>
+
+<div id="requests" class="tabcontent">
+
+{% if (var is defined) and var %}
+
+		<div class="content2">
+		<br>
+		{%for x in var%}
+		<div class="box">
+				<img class="image" src="{{url_for('static',filename=x[2])}}" height="100" width="100"/>
+				<br>
+				username={{x[0]}}
+				<br>
+				location={{x[4]}}
+				<br>
+				phone={{x[5]}}
+				<br>
+				working hours : {{x[6]}} to {{x[7]}}
+				<br>
+				<a href="/admin_remove/{{x[0]}}/{{x[3]}}">remove</a>
+				<a href="/admin_approve/{{x[0]}}/{{x[3]}}">approve</a>	
+				<br>
+			
+			
+		</div>	
+		{%endfor%}
+		<br>
+		<br>
+	</div>
+
+	<br>
+
+{%else%}
+	no requests
+{%endif%}
+</div>
+
+<div id="messages" class="tabcontent">
+
+messages is printed here
+</div>
+
+<div id="manage" class="tabcontent">
+
+{% if (var_TLY is defined) and var_TLY %}
+	<div class="content2">
+		<br>
+		<span class="heading">TLY</span>
+		<br>
+		<br>
+		{%for x in var_TLY%}
+		<div class="box">
+				<img class="image" src="{{url_for('static',filename=x[2])}}" height="100" width="100"/>
+				<br>
+				username={{x[0]}}
+				<br>
+				location={{x[4]}}
+				<br>
+				phone={{x[5]}}
+				<br>
+				working hours : {{x[6]}} to {{x[7]}}
+				<br>
+				<a href="/admin_manage_remove/{{x[0]}}/{{x[3]}}">remove</a>
+				<br>
+			
+			
+		</div>	
+		{%endfor%}
+		<br>
+		<br>
+	</div>
+{%endif%}
+
+
+
+{% if (var_KANNUR is defined) and var_KANNUR %}
+	<div class="content2">
+		<br>
+		<span class="heading">KANNUR</span>
+		<br>
+		<br>
+		{%for x in var_KANNUR%}
+		<div class="box">
+				<img class="image" src="{{url_for('static',filename=x[2])}}" height="100" width="100"/>
+				<br>
+				username={{x[0]}}
+				<br>
+				location={{x[4]}}
+				<br>
+				phone={{x[5]}}
+				<br>
+				working hours : {{x[6]}} to {{x[7]}}
+				<br>
+				<a href="/admin_manage_remove/{{x[0]}}/{{x[3]}}">remove</a>
+				<br>
+			
+			
+		</div>	
+		{%endfor%}
+		<br>
+		<br>
+	</div>
+{%endif%}
+
+
+
+{% if (var_CALICUT is defined) and var_CALICUT %}
+	<div class="content2">
+		<br>
+		<span class="heading">CALICUT</span>
+		<br>
+		<br>
+		{%for x in var_CALICUT%}
+		<div class="box">
+				<img class="image" src="{{url_for('static',filename=	x[2])}}" height="100" width="100"/>
+				<br>
+				username={{x[0]}}
+				<br>
+				location={{x[4]}}
+				<br>
+				phone={{x[5]}}
+				<br>
+				working hours : {{x[6]}} to {{x[7]}}
+				<br>
+				<a href="/admin_manage_remove/{{x[0]}}/{{x[3]}}">remove</a>
+				<br>
+			
+			
+		</div>	
+		{%endfor%}
+		<br>
+		<br>
+	</div>
+{%endif%}
+
+</div>
+
+
+<div class="last" >
+<br>
+<b>Ordering food is easy as ABC Only 4 steps to make the order, easy payment, available 24/7
+</b>
+
+<pre class="definition">
+The challenge for us is to make a versatile website and smartphone app that is simple and 
+easy to use. What we have learned is that ordering food online is way easier, faster and has 
+less complications than calling. What makes onlinefood better than the traditional order over 
+the phone method?
+
+24/7: Our site and app are available 24/7 with the feature to pre-order. You can plan your 
+meal ahead from the best restaurants near you and avoid the rush hours
+Free to use: Browse through 4000+ restaurant menus for free
+Order food in 4 simple steps
+Easy Payment: Do you prefer online payment? We accept all major credit cards as well as
+PayTM Wallet. If you prefer to pay cash on delivery in Indian Rupees, we’ve got that covered too.
+</pre>
+
+<b>Our Services</b>
+<pre class="definition">
+Should you have any concerns or would you want to give us feedback, please do not hesitate to contact our customer service
+team by using our Live Chat feature on your foodpanda App or website, or by sending an email at customercare@onlinefood.in. 
+Onlinefood India Corporate Office is located at Plot no. 82 A, Sector 18, Gurgaon, Haryana-122015
+
+</pre>
+
+
+<footer class="last">
+<ul class="homeul">
+  <li class="homeli"><a href="#home" class="homea">Home</a></li>
+  <li class="homeli"><a href="#about Us" class="homea">About US</a></li>
+  <li class="homeli"><a href="#contact" class="homea">Contact</a></li>
+  <li class="homeli"><a href="#privacypolicy" class="homea">Privacy Policy</a></li>
+  <li class="homeli"><a href="#howitwokrs" class="homea">How It Works</a></li>
+</ul>
+</footer>
+</div>
+
+
+
+
+</body>
+</html>

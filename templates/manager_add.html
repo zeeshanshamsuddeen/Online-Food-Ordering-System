@@ -9,6 +9,7 @@ function required()
 	var def=document.forms["form1"]["def"].value;
 	var price=document.forms["form1"]["price"].value;
 	var category=document.forms["form1"]["category"].value;
+	var y=0;
 	if((item=="")||(price=="")||(((category!='veg')&&(category!='non-veg'))&&(category!='others')))
 	{
 		alert("invalid fields")
@@ -16,9 +17,24 @@ function required()
 	}
 	else
 	{
-		alert("items successfully added")
-		document.form1.action="http://localhost:5000/manager_add/{{place}}/{{username}}"
+		{% for x in var %}
+				if(item=="{{x[0]}}")
+				{
+					y=1;	
+				}
+		{% endfor %}	
+		if(y==0)
+		{
+			alert("items successfully added")
+			document.form1.action="http://localhost:5000/manager_add/{{place}}/{{username}}"
+		}	
+		else
+		{
+			alert("item already exists")
+			document.form1.action="";
+		}
 	}
+
 }
 
 </script>
@@ -137,9 +153,8 @@ input#gobutton:hover, input#gobutton:focus
 ONLINE FOOD
 </span>
 <span>
-<a href="/login" class="login">login</></a>
+<a href="/manager_logout" class="login">Logout</></a>
 <a href="#help" class="help">help</></a>
-<a href="/cartshow" class="help">cart</a>
 </span>
 </h1>
 

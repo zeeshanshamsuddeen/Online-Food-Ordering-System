@@ -23,7 +23,12 @@
 
 	
 		}
-
+.search
+{
+		font-size:18px;
+		position:relative;
+		margin-left:300px;
+}
 
 @keyframes slide{
   0%{	
@@ -34,9 +39,10 @@
     transform: translate3d(-3200px, 0, 0);
   }
 }
-
-
-
+.form1
+{
+		display:inline-block;			/*to make form appear on same line*/
+}
 
 </style>
 <script>
@@ -64,6 +70,15 @@ ONLINE FOOD
 </span>
 
 <span>
+
+<span class="search">
+	<form class="form1" name='form1' onsubmit='required()'>
+
+		<input type="search" class="search-box" />
+		<input type="submit" value="search"/>
+	</form>	
+</span>
+
 <a href="/customer_logout" class="login">logout</></a>
 <a href="#help" class="help">help</></a>
 <a href="/cartshow" class="help">cart</a>
@@ -128,13 +143,13 @@ Order food online from the best restaurants near you
 <br>
 
 
-<img src="{{url_for('static',filename='kfc.png')}}" width="400" height="250" style="margin-left:50px;margin-top:10px">
-<img src="{{url_for('static',filename='pizza.jpg')}}" width="400" height="250">
-<img src="{{url_for('static',filename='baskins.jpg')}}" width="400" height="250">
+<img src="{{url_for('static',filename='kfc_homepage.png')}}" width="400" height="250" style="margin-left:50px;margin-top:10px">
+<img src="{{url_for('static',filename='pizza_homepage.jpg')}}" width="400" height="250">
+<img src="{{url_for('static',filename='baskins_homepage.jpg')}}" width="400" height="250">
 
 	
 
-	
+
 
 
 

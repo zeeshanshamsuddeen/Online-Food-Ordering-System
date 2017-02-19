@@ -1,0 +1,323 @@
+<html>
+<head>
+<link type="text/css" href="{{url_for('static',filename='webpages.css')}}" rel="stylesheet"/>
+<script>
+function required()
+{
+	var place=document.forms["form1"]["place"].value;	
+	var username=document.forms["form1"]["username"].value;
+	var password=document.forms["form1"]["password"].value;
+	var password2=document.forms["form1"]["password2"].value;
+	var location=document.forms["form1"]["location"].value;	
+	var phone=document.forms["form1"]["phone"].value;
+	var start_time=document.forms["form1"]["start_time"].value;	
+	var close_time=document.forms["form1"]["close_time"].value;
+	var y=0;
+	if(place==""||username==""||location==''||phone==''||start_time==''||close_time=='')
+	{
+		alert("All fields are neccesary");
+		document.form1.action="";
+	}
+	else if(password==''||password2=='')
+	{
+		alert("enter password");
+		document.form1.action="";
+	}
+	else if(place!='TLY'&&place!='KANNUR'&&place!='CALICUT')
+	{
+		alert("invalid place");
+		document.form1.action="";
+	}
+	else if(password!=password2)
+	{
+		alert("passwords match failed");
+		document.form1.action="";
+	}
+	else
+	{
+		{% for x in var %}
+				if(username=="{{x[0]}}"&&place=="{{x[1]}}")
+				{
+					y=1;	
+				}
+		{% endfor %}	
+		if(y==0)
+		{
+			document.form1.action="http://localhost:5000/manager_signed_up";
+			document.form1.method="post";
+		}	
+		else
+		{
+			alert("username already exists")
+			document.form1.action="";
+		}
+	}
+
+}
+</script>
+<style>
+@font-face 
+{
+ font-family:Cinzel Decorative Bold;
+ src:url("{{url_for('static',filename='CinzelDecorative-Bold.otf')}}");
+} 
+@font-face 
+{
+ font-family:Cormorant Garamond Medium;
+ src:url("{{url_for('static',filename='CormorantGaramond-Medium.ttf')}}");
+}
+
+.content1
+{				   
+				height: 20px;
+				background: linear-gradient(rgb(0,0,0), rgb(200,200,200));
+}
+.content2
+{
+		background-image:url({{url_for('static',filename='loginback.jpg')}});
+		height:1100px
+		
+}
+.content3			/* whole of login form */
+{
+		margin-left:370px;
+		height:900px;
+		width:600px;
+		border:1px solid; 
+		border-radius: 5px;
+		border-color:rgb(200,200,200);
+
+}
+.oursite
+{
+		background-color:white;
+		border-color:white;
+		height:60px;
+		font-size:30px;
+		border-top-left-radius:5px;
+		border-top-right-radius:5px;
+		font-family:"Cormorant Garamond Medium";
+		padding-left:170px;
+		padding-top:20px;
+		font-color:rgb(200,200,200);
+		
+}
+.image
+{
+		float:right;
+}
+.logon
+{
+		font-size:20px;
+}
+.content4			/* lower part of login form */
+{
+		background-color:rgb(200,200,200);
+		border-color:rgb(200,200,200);
+		border:1px solid rgb(200,200,200); 
+		height:820px;
+		border-bottom-left-radius:5px;
+		border-bottom-right-radius:5px;
+}
+.area
+{		
+		font-family:"Cormorant Garamond Medium";          /* updates placeholder and input*/
+		font-size:20px;
+		border:3px solid rgb(160,160,160); 
+		margin-left:100px;
+		margin-right:60px;
+		border-top-left-radius:3px;
+		border-top-right-radius:3px;
+		border-bottom-left-radius:3px;
+		border-bottom-right-radius:3px;
+		width:400px;
+		height:40px;
+		background-color:rgb(220,220,220)
+}
+input#gobutton
+{
+		font-family:"Cormorant Garamond Medium";
+		font-weight:bold;
+		font-size:20px;
+		margin-left:100px;
+		width:400px;
+		cursor:pointer;		 /*forces the cursor to change to a hand when the button is hovered*/
+		padding:5px 25px; 
+		background:rgb(18,124,36);
+		border:1px solid #33842a; 
+		border-radius: 3px;
+
+		box-shadow: 0 0 4px rgba(0,0,0, .75);
+		color:#f3f3f3;
+}
+
+input#gobutton:hover, input#gobutton:focus
+{
+		background-color :#399630;
+		box-shadow: 0 0 1px rgba(0,0,0, .75);
+}
+.details
+{
+		padding-left:100px;
+		font-size:18px;
+}
+.hint {
+  position: absolute;
+  right: -250px;
+  width: 200px;
+  margin-top: -4px;
+  border: 1px solid #c93;
+  padding: 10px 12px;
+  background-color: #ffc;
+}
+</style>
+</head>
+<body>
+<h1>
+
+<img src="{{url_for('static',filename='food.jpg')}}"  width="90" height="80">
+<span class="h1span">
+
+ONLINE FOOD
+</span>
+<span>
+<a href="#help" class="login">help</></a>
+</span>
+</h1>
+
+
+
+
+
+<div class="content2">
+<br>
+<br>
+<br>
+<br>
+<div class="content3">
+
+	<div class="oursite">
+		<b>
+		Sign Up for Free	
+		</b>
+		
+		
+	
+	</div>
+<div class="content4">  
+	<br>
+	
+	<form name='form1' onsubmit="required()" enctype="multipart/form-data">
+	<br>
+	<span class="details">Place :
+	</span>
+	<input class="area" type='text' name='place' placeholder="(TLY,KANNUR,CALICUT)" >
+
+	<br>
+	<br>
+	<span class="details">Choose your username :
+	</span>
+	<input class="area" type="text" name="username"  placeholder="Username" title="The username you choose must be unique">
+    <br>
+    <br>
+	<span class="details">Create a password :
+	</span>
+	<input class="area" type="password" name="password" placeholder="Password" title=" Don’t use a password from another site, or something too obvious like your pet’s name. ">
+	<br>
+    <br>
+	<span class="details">Confirm password :
+	</span>
+	<input class="area" type="password" name="password2" placeholder="Password">
+	<br>
+    <br>
+	<span class="details">Location of your restaurant :
+	</span>
+	<input class="area" type="text" name="location" placeholder="Location">
+	<br>
+	<br>
+	<span class="details">Phone number :
+	</span>
+	<input class="area" type="number" name="phone" placeholder="Phone">
+	<br>
+	<br>
+	<span class="details">Staring time :
+	</span>
+	<input class="area" type="time" name="start_time" placeholder="Starting Time">
+	<br>
+	<br>
+	<span class="details">Closing time :
+	</span>
+	<input class="area" type="time" name="close_time" placeholder="Closing Time">
+	<br>
+	<br>
+	<span class="details">Image URL:
+	</span>
+	<input type="file" name="filename"  placeholder="Image path" title="Enter the complete path of image">
+    <br>
+    <br>
+	<br>
+    <input id="gobutton" type="submit" name="submit" value="Sign Up" />
+
+	<br>
+
+  
+  </form>
+</div>  
+  
+<br>
+<br>
+<br>
+<br>
+
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+<div class="last" >
+<br>
+<b>Ordering food is easy as ABC Only 4 steps to make the order, easy payment, available 24/7
+</b>
+
+<pre class="definition">
+The challenge for us is to make a versatile website and smartphone app that is simple and 
+easy to use. What we have learned is that ordering food online is way easier, faster and has 
+less complications than calling. What makes onlinefood better than the traditional order over 
+the phone method?
+
+24/7: Our site and app are available 24/7 with the feature to pre-order. You can plan your 
+meal ahead from the best restaurants near you and avoid the rush hours
+Free to use: Browse through 4000+ restaurant menus for free
+Order food in 4 simple steps
+Easy Payment: Do you prefer online payment? We accept all major credit cards as well as
+PayTM Wallet. If you prefer to pay cash on delivery in Indian Rupees, we’ve got that covered too.
+</pre>
+
+<b>Our Services</b>
+<pre class="definition">
+Should you have any concerns or would you want to give us feedback, please do not hesitate to contact our customer service
+team by using our Live Chat feature on your foodpanda App or website, or by sending an email at customercare@onlinefood.in. 
+Onlinefood India Corporate Office is located at Plot no. 82 A, Sector 18, Gurgaon, Haryana-122015
+
+</pre>
+
+
+<footer class="last">
+<ul class="homeul">
+  <li class="homeli"><a href="#home" class="homea">Home</a></li>
+  <li class="homeli"><a href="#about Us" class="homea">About US</a></li>
+  <li class="homeli"><a href="#contact" class="homea">Contact</a></li>
+  <li class="homeli"><a href="#privacypolicy" class="homea">Privacy Policy</a></li>
+  <li class="homeli"><a href="#howitwokrs" class="homea">How It Works</a></li>
+</ul>
+</footer>
+</div>
+
+</body>
+</html>
