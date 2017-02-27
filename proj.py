@@ -62,9 +62,32 @@ def customer_logout():
 
 
 
+
+@app.route('/contact')
+def contact():
+	return render_template('contact.html')
+
+@app.route('/contact_form')
+def contact_form():
+	return render_template('contact_form.html')	
+
+@app.route('/contact_form_submitted',methods=['GET','POST'])
+def contact_form_submitted():
+	subject=request.form['subject']
+	message=request.form['message']
+	conn=sqlite3.connect('members.db')
+	cur=conn.cursor()
+	cur.execute("INSERT INTO messages(username,subject,message) VALUES(?,?,?)",(session['username'],subject,message,))
+	conn.commit()
+	conn.close()
+	return redirect(url_for('homepage_customer'))
+
+
+
 #search option
-@app.route('/search/<data>')
-def search(data):
+@app.route('/search',methods=['GET','POST'])
+def search():
+	data=request.form['data']
 	conn=sqlite3.connect('members.db')
 	cur=conn.cursor()
 	cur.execute("DELETE FROM search")
@@ -80,40 +103,43 @@ def search(data):
 	conn=sqlite3.connect('TLY.db')
 	cur=conn.cursor()
 	for x in var_username_TLY:
-		cur.execute("SELECT * FROM {} WHERE item=?".format(x[0]),(data,))
-		var=cur.fetchone()
+		cur.execute("SELECT * FROM {} WHERE item LIKE ?".format(x[0]),('%'+data+'%',))
+		var=cur.fetchall()
 		if var:
-			conn_temp=sqlite3.connect('members.db')
-			cur_temp=conn_temp.cursor()
-			cur_temp.execute("INSERT INTO search(item,def,price,category,place,rest,filename) VALUES(?,?,?,?,?,?,?); ",(var[0],var[1],var[2],var[3],'TLY',x[0],x[1],))
-			conn_temp.commit()
-			conn_temp.close()	
+			for y in var:
+				conn_temp=sqlite3.connect('members.db')
+				cur_temp=conn_temp.cursor()
+				cur_temp.execute("INSERT INTO search(item,def,price,category,place,rest,filename) VALUES(?,?,?,?,?,?,?); ",(y[0],y[1],y[2],y[3],'TLY',x[0],x[1],))
+				conn_temp.commit()
+				conn_temp.close()	
 	conn.close()
 
 	conn=sqlite3.connect('KANNUR.db')
 	cur=conn.cursor()
 	for x in var_username_KANNUR:
-		cur.execute("SELECT * FROM {} WHERE item=?".format(x[0]),(data,))
-		var=cur.fetchone()
+		cur.execute("SELECT * FROM {} WHERE item=?".format(x[0]),('%'+data+'%',))
+		var=cur.fetchall()
 		if var:
-			conn_temp=sqlite3.connect('members.db')
-			cur_temp=conn_temp.cursor()
-			cur_temp.execute("INSERT INTO search(item,def,price,category,place,rest,filename) VALUES(?,?,?,?,?,?,?); ",(var[0],var[1],var[2],var[3],'KANNUR',x[0],x[1],))
-			conn_temp.commit()
-			conn_temp.close()	
+			for y in var:
+				conn_temp=sqlite3.connect('members.db')
+				cur_temp=conn_temp.cursor()
+				cur_temp.execute("INSERT INTO search(item,def,price,category,place,rest,filename) VALUES(?,?,?,?,?,?,?); ",(y[0],y[1],y[2],y[3],'KANNUR',x[0],x[1],))
+				conn_temp.commit()
+				conn_temp.close()	
 	conn.close()
 
 	conn=sqlite3.connect('CALICUT.db')
 	cur=conn.cursor()
 	for x in var_username_CALICUT:
-		cur.execute("SELECT * FROM {} WHERE item=?".format(x[0]),(data,))
-		var=cur.fetchone()
+		cur.execute("SELECT * FROM {} WHERE item=?".format(x[0]),('%'+data+'%',))
+		var=cur.fetchall()
 		if var:
-			conn_temp=sqlite3.connect('members.db')
-			cur_temp=conn_temp.cursor()
-			cur_temp.execute("INSERT INTO search(item,def,price,category,place,rest,filename) VALUES(?,?,?,?,?,?,?); ",(var[0],var[1],var[2],var[3],'CALICUT',x[0],x[1],))
-			conn_temp.commit()
-			conn_temp.close()	
+			for y in var:
+				conn_temp=sqlite3.connect('members.db')
+				cur_temp=conn_temp.cursor()
+				cur_temp.execute("INSERT INTO search(item,def,price,category,place,rest,filename) VALUES(?,?,?,?,?,?,?); ",(y[0],y[1],y[2],y[3],'CALICUT',x[0],x[1],))
+				conn_temp.commit()
+				conn_temp.close()	
 	conn.close()
 
 	return redirect(url_for('search_result'))
@@ -176,12 +202,41 @@ def menu(place,rest):
 		cur.execute("SELECT * FROM {} WHERE category='others'".format(rest)) 
 		var_others=cur.fetchall()
 		conn.close()
+
+		conn=sqlite3.connect('members.db')
+		cur=conn.cursor()
+		cur.execute("SELECT * FROM managers WHERE place=? AND username=?",(place,rest,))
+		temp=cur.fetchone()
+		cur.execute("SELECT stars FROM rating WHERE place=? AND rest=? AND username=?",(place,rest,session['username'],))
+		var_stars=cur.fetchone()
+		cur.execute("SELECT count(*) FROM rating WHERE place=? AND rest=?",(place,rest,))
+		count=cur.fetchone()
+		cur.execute("SELECT stars FROM rating WHERE place=? AND rest=?",(place,rest,))
+		total_stars=cur.fetchall()
+		sum=0
+		for x in total_stars:
+			sum=sum+x[0]
+		if(count[0]==0):
+			sum=0
+		else:		
+			sum=sum/count[0]
+		conn.close()
 		#<var> variables contains all items in table, each row is accessed and displayed by colname
-		return render_template('menu.html',var_veg=var_veg,var_non_veg=var_non_veg,var_others=var_others,place=place,rest=rest)
+		return render_template('menu.html',var_veg=var_veg,var_non_veg=var_non_veg,var_others=var_others,place=place,rest=rest,temp=temp,var_stars=var_stars,sum=sum)
 		#from menu.html , goes to /quantity/<item>/<price>
 	else:
 		return render_template('nomenu.html',place=place)
-	
+
+
+#rating...since windows.location.href="URL" is used in html , the url will be preceeded by previous url
+@app.route('/<place>/menu/rating/<rest>/<stars>')		
+def rating(place,rest,stars):
+	conn=sqlite3.connect('members.db')
+	cur=conn.cursor()
+	cur.execute("INSERT INTO rating(place,rest,username,stars) VALUES(?,?,?,?) ",(place,rest,session['username'],stars,))
+	conn.commit()
+	conn.close()
+	return redirect(url_for('menu',place=place,rest=rest))
 
 
 #when sorting is selected from menu
@@ -207,8 +262,27 @@ def menu_sort(place,rest,sort):
 			cur.execute("SELECT * FROM {} WHERE category='others' ORDER BY item ASC".format(rest)) 
 			var_others=cur.fetchall()
 			conn.close()
+
+			conn=sqlite3.connect('members.db')
+			cur=conn.cursor()
+			cur.execute("SELECT * FROM managers WHERE place=? AND username=?",(place,rest,))
+			temp=cur.fetchone()
+			cur.execute("SELECT stars FROM rating WHERE place=? AND rest=? AND username=?",(place,rest,session['username'],))
+			var_stars=cur.fetchone()
+			cur.execute("SELECT count(*) FROM rating WHERE place=? AND rest=?",(place,rest,))
+			count=cur.fetchone()
+			cur.execute("SELECT stars FROM rating WHERE place=? AND rest=?",(place,rest,))
+			total_stars=cur.fetchall()
+			sum=0
+			for x in total_stars:
+				sum=sum+x[0]
+			if(count[0]==0):
+				sum=0
+			else:		
+				sum=sum/count[0]
+			conn.close()
 			#<var> variables contains all items in table, each row is accessed and displayed by colname
-			return render_template('menu.html',var_veg=var_veg,var_non_veg=var_non_veg,var_others=var_others,place=place,rest=rest)
+			return render_template('menu.html',var_veg=var_veg,var_non_veg=var_non_veg,var_others=var_others,place=place,rest=rest,temp=temp,var_stars=var_stars,sum=sum)
 			#from menu.html , goes to /quantity/<item>/<price>
 		else:
 			return render_template('nomenu.html',place=place)	
@@ -224,8 +298,27 @@ def menu_sort(place,rest,sort):
 			cur.execute("SELECT * FROM {} WHERE category='others' ORDER BY item DESC".format(rest)) 
 			var_others=cur.fetchall()
 			conn.close()
+
+			conn=sqlite3.connect('members.db')
+			cur=conn.cursor()
+			cur.execute("SELECT * FROM managers WHERE place=? AND username=?",(place,rest,))
+			temp=cur.fetchone()
+			cur.execute("SELECT stars FROM rating WHERE place=? AND rest=? AND username=?",(place,rest,session['username'],))
+			var_stars=cur.fetchone()
+			cur.execute("SELECT count(*) FROM rating WHERE place=? AND rest=?",(place,rest,))
+			count=cur.fetchone()
+			cur.execute("SELECT stars FROM rating WHERE place=? AND rest=?",(place,rest,))
+			total_stars=cur.fetchall()
+			sum=0
+			for x in total_stars:
+				sum=sum+x[0]
+			if(count[0]==0):
+				sum=0
+			else:		
+				sum=sum/count[0]
+			conn.close()
 			#<var> variables contains all items in table, each row is accessed and displayed by colname
-			return render_template('menu.html',var_veg=var_veg,var_non_veg=var_non_veg,var_others=var_others,place=place,rest=rest)
+			return render_template('menu.html',var_veg=var_veg,var_non_veg=var_non_veg,var_others=var_others,place=place,rest=rest,temp=temp,var_stars=var_stars,sum=sum)
 			#from menu.html , goes to /quantity/<item>/<price>
 		else:
 			return render_template('nomenu.html',place=place)	
@@ -241,8 +334,27 @@ def menu_sort(place,rest,sort):
 			cur.execute("SELECT * FROM {} WHERE category='others' ORDER BY price".format(rest)) 
 			var_others=cur.fetchall()
 			conn.close()
+
+			conn=sqlite3.connect('members.db')
+			cur=conn.cursor()
+			cur.execute("SELECT * FROM managers WHERE place=? AND username=?",(place,rest,))
+			temp=cur.fetchone()
+			cur.execute("SELECT stars FROM rating WHERE place=? AND rest=? AND username=?",(place,rest,session['username'],))
+			var_stars=cur.fetchone()
+			cur.execute("SELECT count(*) FROM rating WHERE place=? AND rest=?",(place,rest,))
+			count=cur.fetchone()
+			cur.execute("SELECT stars FROM rating WHERE place=? AND rest=?",(place,rest,))
+			total_stars=cur.fetchall()
+			sum=0
+			for x in total_stars:
+				sum=sum+x[0]
+			if(count[0]==0):
+				sum=0
+			else:		
+				sum=sum/count[0]
+			conn.close()
 			#<var> variables contains all items in table, each row is accessed and displayed by colname
-			return render_template('menu.html',var_veg=var_veg,var_non_veg=var_non_veg,var_others=var_others,place=place,rest=rest)
+			return render_template('menu.html',var_veg=var_veg,var_non_veg=var_non_veg,var_others=var_others,place=place,rest=rest,temp=temp,var_stars=var_stars,sum=sum)
 			#from menu.html , goes to /quantity/<item>/<price>
 		else:
 			return render_template('nomenu.html',place=place)	
@@ -258,8 +370,27 @@ def menu_sort(place,rest,sort):
 			cur.execute("SELECT * FROM {} WHERE category='others' ORDER BY price DESC".format(rest)) 
 			var_others=cur.fetchall()
 			conn.close()
+
+			conn=sqlite3.connect('members.db')
+			cur=conn.cursor()
+			cur.execute("SELECT * FROM managers WHERE place=? AND username=?",(place,rest,))
+			temp=cur.fetchone()
+			cur.execute("SELECT stars FROM rating WHERE place=? AND rest=? AND username=?",(place,rest,session['username'],))
+			var_stars=cur.fetchone()
+			cur.execute("SELECT count(*) FROM rating WHERE place=? AND rest=?",(place,rest,))
+			count=cur.fetchone()
+			cur.execute("SELECT stars FROM rating WHERE place=? AND rest=?",(place,rest,))
+			total_stars=cur.fetchall()
+			sum=0
+			for x in total_stars:
+				sum=sum+x[0]
+			if(count[0]==0):
+				sum=0
+			else:		
+				sum=sum/count[0]
+			conn.close()
 			#<var> variables contains all items in table, each row is accessed and displayed by colname
-			return render_template('menu.html',var_veg=var_veg,var_non_veg=var_non_veg,var_others=var_others,place=place,rest=rest)
+			return render_template('menu.html',var_veg=var_veg,var_non_veg=var_non_veg,var_others=var_others,place=place,rest=rest,temp=temp,var_stars=var_stars,sum=sum)
 			#from menu.html , goes to /quantity/<item>/<price>
 		else:
 			return render_template('nomenu.html',place=place)	
@@ -302,6 +433,18 @@ def cartshow():
 	if(var1[0]>0):
 		cur.execute("SELECT * FROM {}".format(session['username']))
 		var=cur.fetchall()
+		
+		#for checking whether deleted restaurants dish is in cart
+		for x in var:
+			temp=0
+			for y in var2:
+				if(x[4]==y[3] and x[5]==y[0]):
+					temp=temp+1
+					break
+			if(temp==0):
+				cur.execute("DELETE FROM {} WHERE place=? and rest=?;".format(session['username']),(x[4],x[5],))
+			
+		conn.commit()				
 		conn.close()
 		return render_template('cartshow.html',var=var,var2=var2)
 		#from cartshow.html , goes to cartremove/<item> 
@@ -447,13 +590,9 @@ def manager_homepage(place):
 	cur.execute("SELECT name FROM sqlite_master WHERE type = 'table'")
 	var=cur.fetchall()
 	conn.close()
-	for x in var:
-		if(username==x[0]):
-			#if username table is present in database
-			return redirect(url_for('manager_menu',place=place,username=username))
-			break
-	return render_template('nomanager.html')
-
+	return redirect(url_for('manager_menu',place=place,username=username))
+	
+	
 #shows manager's menu
 @app.route('/manager_menu/<place>/<username>')
 def manager_menu(place,username):
@@ -548,8 +687,8 @@ def manager_delete(place,username):
 
 
 #to delete items from database after manager selects delete items
-@app.route('/manager_delete_database/<place>/<username>/<item>')
-def manager_delete_database(place,username,item):
+@app.route('/manager_delete_database/<place>/<username>/<item>/<defen>')
+def manager_delete_database(place,username,item,defen):
 	if(place=='TLY'):
 		conn=sqlite3.connect('TLY.db')
 	elif(place=='KANNUR'):
@@ -557,7 +696,7 @@ def manager_delete_database(place,username,item):
 	else:
 		conn=sqlite3.connect('CALICUT.db')	
 	cur=conn.cursor()
-	cur.execute("DELETE FROM {} WHERE item=?".format(username),(item,))
+	cur.execute("DELETE FROM {} WHERE item=? and def=?".format(username),(item,defen,))
 	conn.commit()
 	return redirect(url_for('manager_menu',place=place,username=username))
 
@@ -638,9 +777,22 @@ def admin():
 	var_KANNUR=cur.fetchall()
 	cur.execute('SELECT * FROM managers WHERE place=?',('CALICUT',))
 	var_CALICUT=cur.fetchall()
+	cur.execute("SELECT * FROM messages")
+	var_message=cur.fetchall()
+	
 	conn.close()
-	return render_template('admin.html',var=var,var_TLY=var_TLY,var_KANNUR=var_KANNUR,var_CALICUT=var_CALICUT)
+	return render_template('admin.html',var=var,var_TLY=var_TLY,var_KANNUR=var_KANNUR,var_CALICUT=var_CALICUT,var_message=var_message)
 
+
+#when admin wants to remove message
+@app.route("/admin_message_remove/<username>/<subject>")
+def admin_message_remove(username,subject):
+	conn=sqlite3.connect('members.db')
+	cur=conn.cursor()
+	cur.execute("DELETE FROM messages WHERE username=? and subject=?",(username,subject,))
+	conn.commit()
+	conn.close()
+	return redirect(url_for('admin'))
 
 #when admin wants to remove an existing restaurant	
 @app.route('/admin_manage_remove/<username>/<place>')
@@ -654,6 +806,7 @@ def admin_manage_remove(username,place):
 	#restaurant image is deleted 
 	os.remove(upload+var[0])
 	cur.execute('DELETE FROM managers WHERE username=? AND place=?',(username,place,))
+	cur.execute("DELETE FROM rating WHERE place=? AND rest=?",(place,username,))
 	conn.commit()
 	conn.close()
 
@@ -699,7 +852,8 @@ def admin_approve(username,place):
 	cur.execute("INSERT INTO managers(username,password,filename,place,location,phone,start,stop) values(?,?,?,?,?,?,?,?)",(var[0],var[1],var[2],var[3],var[4],var[5],var[6],var[7],))
 	cur.execute("DELETE FROM approval WHERE username=? AND place=?",(username,place,))
 	conn.commit()
-	conn.close()
+
+
 
 	#to create username table in corresponding place database
 	if(place=='TLY'):

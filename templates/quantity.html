@@ -47,18 +47,15 @@ else
 .content3
 {	
 				text-align:center;
-				background-color:rgb(240,240,240);
-
+				background:rgba(0,0,0,0);
 				font-family:"Cormorant Garamond Medium";
 				font-weight:bold;
-				border-style:solid;
-				border-width:2px;
-				border-color:rgb(150,150,150);
+				
 				width:300px; 
 				max-width:300px;
 				height:300px;
 				max-height:300px;
-				margin-left:500px;
+				margin-left:160px;
 				margin-top:50px;
 				margin-bottom:50px;
 
@@ -69,8 +66,8 @@ input#gobutton
 {
 		cursor:pointer;		 /*forces the cursor to change to a hand when the button is hovered*/
 		padding:5px 25px; 
-		background:rgb(18,124,36);
-		border:1px solid #33842a; 
+		background:rgb(139,69,19);
+		border:1px solid rgb(139,69,19); 
 		border-radius: 10px;
 
 		box-shadow: 0 0 4px rgba(0,0,0, .75);
@@ -80,7 +77,7 @@ input#gobutton
 
 input#gobutton:hover, input#gobutton:focus
 {
-		background-color :#399630;
+		background-color:rgb(129,59,9);
 		box-shadow: 0 0 1px rgba(0,0,0, .75);
 }
 .quantity
@@ -92,8 +89,8 @@ input#gobutton:hover, input#gobutton:focus
 
 .yourorder
 {	
-		background-color:rgb(180,180,180);
-		color:rgb(24,100,36);
+				background:rgba(0,0,0,0);
+		color:black;
 		font-size:35px;
 		height:50px;
 		font-weight:900;
@@ -106,7 +103,7 @@ input#gobutton:hover, input#gobutton:focus
 .background
 {
 		background-size: cover;
-		background-attachment: fixed;         /* scroll div contents without background */
+		height:800px;
 }
 .input
 {
@@ -136,7 +133,11 @@ ONLINE FOOD
 
 
 
-<div class="background" style="background-image:url({{url_for('static',filename='chicken.jpg')}});">
+<div class="background" style="background-image:url({{url_for('static',filename='plate5.jpg')}});">
+
+<br><br><br><br><br><br>
+<br><br><br>
+<br><br><br>
 
 
 <div class="content3">

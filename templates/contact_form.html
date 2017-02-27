@@ -1,0 +1,212 @@
+<html>
+<head>
+<link type="text/css" href="{{url_for('static',filename='webpages.css')}}" rel="stylesheet"/>
+<script>
+function required()
+{
+var subject=document.forms["form1"]["subject"].value;
+var message=document.forms["form1"]["message"].value;
+
+if((subject=="")||(message==""))
+{
+	alert("All fields are required");
+	document.form1.action="";
+}
+else
+{
+	
+	alert("message sent");
+	document.form1.action="http://localhost:5000/contact_form_submitted";
+	document.form1.method="post";
+	
+}
+}
+</script>
+<style>
+@font-face 
+{
+ font-family:Cinzel Decorative Bold;
+ src:url("{{url_for('static',filename='CinzelDecorative-Bold.otf')}}");
+} 
+@font-face 
+{
+ font-family:Code Bold;
+ src:url("{{url_for('static',filename='CODE Bold.otf')}}");
+} 
+@font-face 
+{
+ font-family:Arimo;
+ src:url("{{url_for('static',filename='Arimo-Bold.ttf')}}");
+} 
+@font-face 
+{
+ font-family:Cormorant Garamond Medium;
+ src:url("{{url_for('static',filename='CormorantGaramond-Medium.ttf')}}");
+} 
+@font-face 
+{
+ font-family:Merriweather;
+ src:url("{{url_for('static',filename='Merriweather-Regular.ttf')}}");
+}
+body
+{
+	background-color:rgb(180,180,180);
+}
+.content
+{
+		margin-left:370px;
+		height:300px;
+		width:600px;
+		border:1px solid; 
+		border-radius: 5px;
+		
+		border-color:rgb(150,150,150);
+
+}
+.oursite
+{
+		background-color:rgb(150,150,150);
+		border-color:white;
+		height:50px;
+		border-top-left-radius:5px;
+		border-top-right-radius:5px;
+		font-family:"Cormorant Garamond Medium";
+		font-size:25px;
+		font-weight:900;
+		padding-top:20px;
+		font-color:rgb(200,200,200);
+		text-align:center;
+		
+}
+.heading
+{
+	font-family:"Arimo";
+	font-size:15px;
+	margin-left:12px;
+	position:relative;
+	
+}
+
+.input_name
+{
+		margin-left:30px;
+		border-radius:3px;
+		font-size:15px;
+		font-family:"Times New Roman";
+		position:relative;
+		margin-top:5px;
+		width:450px;
+		padding:5px;
+		
+
+}
+
+.input_address
+{
+		margin-left:30px;
+		border-radius:3px;
+		font-size:15px;
+		font-family:"Times New Roman";
+		position:relative;
+		margin-top:5px;
+		width:450px;
+		padding:5px;
+		
+
+}
+input#gobutton
+{
+		font-family:"Cormorant Garamond Medium";
+		font-weight:bold;
+		font-size:20px;
+		margin-left:120px;
+		width:350px;
+		cursor:pointer;		 /*forces the cursor to change to a hand when the button is hovered*/
+		padding:5px 25px; 
+		background:rgb(18,124,36);
+		border:1px solid #33842a; 
+		border-radius: 3px;
+
+		box-shadow: 0 0 4px rgba(0,0,0, .75);
+		color:#f3f3f3;
+}
+
+input#gobutton:hover, input#gobutton:focus
+{
+		background-color :#399630;
+		box-shadow: 0 0 1px rgba(0,0,0, .75);
+}
+</style>
+</head>
+<body>
+<h1>
+<a href="/homepage_customer">
+<img src="{{url_for('static',filename='food.jpg')}}"  width="90" height="80"></a>
+<span class="h1span">
+
+ONLINE FOOD
+</span>
+<span>
+<a href="/customer_logout" class="login">logout</></a>
+<a href="#help" class="help">help</></a>
+<a href="/cartshow" class="help">cart</a>
+</span>
+</h1>
+
+<br><br><br><br>
+
+<div class="content">
+	<div class="oursite">
+		Message Us
+	</div>
+	<br>
+	<form name='form1' onsubmit="required()">
+		<table>
+				<tr>
+				<td><span class="heading">Subject</span></td>
+				<td><input class="input_name" type='text' name='subject'></td></tr>
+				<tr>
+				<td><span class="heading">Message</span></td>
+				<td><textarea class="input_address" type='text' name='message' cols="40" rows="5"></textarea></td></tr>
+				
+		</table>
+			<br>
+			<input id="gobutton"  type="submit" name="submit" value="Send" />
+			<br>
+  
+	</form>
+	
+</div>
+<br><br><br><br>
+
+<div class="last" >
+<br>
+<b>Ordering food is easy as ABC Only 4 steps to make the order, easy payment, available 24/7
+</b>
+
+<pre class="definition">
+The challenge for us is to make a versatile website and smartphone app that is simple and 
+easy to use. What we have learned is that ordering food online is way easier, faster and has 
+less complications than calling. What makes onlinefood better than the traditional order over 
+the phone method?
+
+24/7: Our site and app are available 24/7 with the feature to pre-order. You can plan your 
+meal ahead from the best restaurants near you and avoid the rush hours
+Free to use: Browse through 4000+ restaurant menus for free
+Order food in 4 simple steps
+Easy Payment: Do you prefer online payment? We accept all major credit cards as well as
+PayTM Wallet. If you prefer to pay cash on delivery in Indian Rupees, we’ve got that covered too.
+</pre>
+
+<b>Our Services</b>
+<pre class="definition">
+Should you have any concerns or would you want to give us feedback, please do not hesitate to contact our customer service
+team by using our Live Chat feature on your foodpanda App or website, or by sending an email at customercare@onlinefood.in. 
+Onlinefood India Corporate Office is located at Plot no. 82 A, Sector 18, Gurgaon, Haryana-122015
+
+</pre>
+
+
+
+</body>
+</html>

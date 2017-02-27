@@ -93,6 +93,27 @@ ul.tab li a:focus, .active {
 		margin-left: auto;
 		margin-right: auto			/* to diplay in center horizontally*/
 }
+.message_content
+{
+		
+		border-style:solid;
+		border-width:1px;
+		border-color:rgb(245,245,245);
+		margin-right:20px;
+		font-family:"Cormorant Garamond Medium";
+		font-weight:bold;
+		font-size:19px;
+		width:80%;
+		padding:5px;
+		background-color:rgb(245,245,245);
+	    box-shadow: 10px 10px 5px #888888;
+}
+.removea
+{
+		text-decoration:none;
+		color:rgb(150,10,10);
+		margin-left:1000px;
+}
 </style>
 
 <script>
@@ -173,7 +194,27 @@ ONLINE FOOD
 
 <div id="messages" class="tabcontent">
 
-messages is printed here
+{% if (var_message is defined) and var_message %}
+
+	{%for x in var_message%}
+	<div class="message_content">
+	From : {{x[0]}}
+	<br>
+	subject : {{x[1]}}
+	<br>
+	message : {{x[2]}}
+	<br>
+	<a class="removea" href="/admin_message_remove/{{x[0]}}/{{x[1]}}">remove</a>
+	</div>
+	<br>
+	{%endfor%}
+	<br><br><br>
+
+{%else%}
+no message
+
+{% endif%}
+
 </div>
 
 <div id="manage" class="tabcontent">

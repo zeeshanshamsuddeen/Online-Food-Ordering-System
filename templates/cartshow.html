@@ -224,6 +224,10 @@ ONLINE FOOD
 		{% if x[5]==y[0] %}
 		<td rowspan='3' class="photo" ><img src="{{url_for('static',filename= y[2])}}" height="70" width="70"></td>
 		
+		{%endif%}
+		{%endif%}
+		{%endfor%}
+		
 		<td class="name">{{x[0]}}</td>
 		<td class="price"><span style="font-family:'Cormorant Garamond Medium'">&#8377</span> {{x[1]}}</td>
 		<td class="quantity">{{x[2]}}</td>
@@ -240,9 +244,6 @@ ONLINE FOOD
 	</tr>
 	</tr>	
 
-		{%endif%}
-		{%endif%}
-		{%endfor%}
 {% endfor %}
 
 </table>

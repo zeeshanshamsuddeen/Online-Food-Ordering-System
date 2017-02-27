@@ -27,21 +27,41 @@
 {
 		font-size:18px;
 		position:relative;
-		margin-left:300px;
+		margin-left:370px;
+		
 }
 
-@keyframes slide{
-  0%{	
-    transform: translate3d(0, 0, 0);
-  }
-	
-  100%{
-    transform: translate3d(-3200px, 0, 0);
-  }
-}
+
 .form1
 {
 		display:inline-block;			/*to make form appear on same line*/
+}
+.search-box
+{
+	border-style:solid;
+	border-radius:3px;
+	border-color:rgb(210,210,210);
+	background-color:rgb(210,210,210);
+	color:black;
+}
+.search-icon
+{
+	background-color:black;
+	color:white;
+	border-color:black;
+
+}
+@keyframes slide
+{
+  0%
+	{	
+		transform: translate3d(0, 0, 0);
+	}
+	
+  100%
+	{
+		transform: translate3d(-3200px, 0, 0);
+	}
 }
 
 </style>
@@ -50,6 +70,23 @@ var makePath = function(form)
 {
  form.action = document.getElementById('location').value;
 };
+function required()
+{
+var data=document.forms["form1"]["data"].value;
+if(data=='')
+	{
+		alert("enter dish to search");
+		document.form1.action="";
+	}
+else
+	{
+	
+		document.form1.action="http://localhost:5000/search";
+		document.form1.method="post";
+
+	}
+
+}
 </script>
 <title> ONLINE FOOD </title>
 </head>
@@ -63,7 +100,7 @@ var makePath = function(form)
 
 <h1>
 
-<img src="{{url_for('static',filename='food.jpg')}}"  width="90" height="80">
+<img src="{{url_for('static',filename='food.jpg')}}"  width="70" height="60">
 <span class="h1span">
 
 ONLINE FOOD
@@ -72,16 +109,16 @@ ONLINE FOOD
 <span>
 
 <span class="search">
-	<form class="form1" name='form1' onsubmit='required()'>
+	<form name='form1' class="form1" name='form1' onsubmit='required()'>
 
-		<input type="search" class="search-box" />
-		<input type="submit" value="search"/>
+		<input type="search" class="search-box" name="data" placeholder="search"/>
+		<input type="submit" class="search-icon" value="&#10140;"/>
 	</form>	
 </span>
 
-<a href="/customer_logout" class="login">logout</></a>
-<a href="#help" class="help">help</></a>
-<a href="/cartshow" class="help">cart</a>
+<a href="/customer_logout" class="login">LOGOUT</></a>
+<a href="#help" class="help">HELP</></a>
+<a href="/cartshow" class="help">CART</a>
 </span>
 </h1>
 
@@ -146,9 +183,8 @@ Order food online from the best restaurants near you
 <img src="{{url_for('static',filename='kfc_homepage.png')}}" width="400" height="250" style="margin-left:50px;margin-top:10px">
 <img src="{{url_for('static',filename='pizza_homepage.jpg')}}" width="400" height="250">
 <img src="{{url_for('static',filename='baskins_homepage.jpg')}}" width="400" height="250">
-
-	
-
+<img src="{{url_for('static',filename='robert.jpg')}}" width="" height="">
+<img src="{{url_for('static',filename='ordering.jpg')}}" width="100%" height="450">
 
 
 
@@ -187,7 +223,7 @@ Onlinefood India Corporate Office is located at Plot no. 82 A, Sector 18, Gurgao
 <ul class="homeul">
   <li class="homeli"><a href="#home" class="homea">Home</a></li>
   <li class="homeli"><a href="#about Us" class="homea">About US</a></li>
-  <li class="homeli"><a href="#contact" class="homea">Contact</a></li>
+  <li class="homeli"><a href="/contact" class="homea">Contact</a></li>
   <li class="homeli"><a href="#privacypolicy" class="homea">Privacy Policy</a></li>
   <li class="homeli"><a href="#howitwokrs" class="homea">How It Works</a></li>
 </ul>

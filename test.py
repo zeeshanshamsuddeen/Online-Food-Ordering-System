@@ -67,18 +67,19 @@ for x in var:
 #os.remove(upload+'KANNUR_2.jpg')
 
 #cur.execute("PRAGMA table_info(search)")
-#cur.execute("DROP table aaa")
+#cur.execute("DROP table rating")
 #cur.execute("DESCRIBE managers")
 #cur.execute("ALTER TABLE search ADD rest TEXT")
-#cur.execute("CREATE TABLE search(item text NOT NULL ,def TEXT,price INTEGER NOT NULL,category TEXT)")
+#cur.execute("CREATE TABLE rating(place text NOT NULL ,rest TEXT,username TEXT,stars INTEGER)")
 #cur.execute("CREATE TABLE managers(username text NOT NULL ,password text, filename TEXT, place TEXT ,location TEXT, phone INTEGER ,start TEXT, stop TEXT )")
 #cur.execute("INSERT INTO managers(username,password,place,location,phone) VALUES ('zeeshan','zeeshan')")
-#cur.execute("DELETE FROM managers WHERE username='aaa'")
+#cur.execute("DELETE FROM rating")
 #cur.execute("SELECT * FROM managers")
-#cur.execute("SELECT * FROM managers")
+#cur.execute("SELECT * FROM rating")
 #var=cur.fetchall()
 #for x in var:
 #	print(x)
+#cur.execute("CREATE TABLE messages(username TEXT, subject TEXT,message TEXT)")
 conn.commit()
 conn.close()	
 #!/usr/bin/python

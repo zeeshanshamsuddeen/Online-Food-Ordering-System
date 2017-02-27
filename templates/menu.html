@@ -9,6 +9,11 @@
 } 
 @font-face 
 {
+ font-family:Sansita;
+ src:url("{{url_for('static',filename='Sansita-Regular.ttf')}}");
+} 
+@font-face 
+{
  font-family:Code Bold;
  src:url("{{url_for('static',filename='CODE Bold.otf')}}");
 } 
@@ -17,6 +22,57 @@
  font-family:Cormorant Garamond Medium;
  src:url("{{url_for('static',filename='CormorantGaramond-Medium.ttf')}}");
 } 
+@font-face 
+{
+ font-family:Merriweather;
+ src:url("{{url_for('static',filename='Merriweather-Regular.ttf')}}");
+}
+.txt-center {
+    text-align: left;
+}
+.hide {
+    display: none;
+}
+
+.clear {
+    float: none;
+    clear: both;
+}
+
+.rating {
+    width: 150px;
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    text-align: center;
+    position: relative;
+	display:inline-block;
+}
+
+.rating > label {
+    display: inline;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    width: 1.1em;
+    cursor: pointer;
+    color: #000;
+}
+
+.rating > label:hover,
+.rating > label:hover ~ label,
+.rating > input.radio-btn:checked ~ label {
+    color: transparent;
+}
+
+.rating > label:hover:before,
+.rating > label:hover ~ label:before,
+.rating > input.radio-btn:checked ~ label:before,
+.rating > input.radio-btn:checked ~ label:before {
+    content: "\2605";
+    position: absolute;
+    left: 0;
+    color: #FFD700;
+}
 .food
 {   
 	margin-left:20px;
@@ -123,7 +179,7 @@
 }
 .heading
 {
-		font-family:"Code Bold";
+		font-family:"Merriweather";
 		padding:25px;
 		color:rgb(255,255,255);
 		font-size:28px;
@@ -131,20 +187,78 @@
 }
 .sort
 {
-		margin-left:300px;
-		font-size:22px;
+		margin-left:170px;
+		font-size:18px;
 		font-weight:500;
+		height:200;
+		margin-right:170px;
 		background:rgba(255,255,255,0.8);
 
 }
 .sorta
 {
 		font-size:21px;
-		color:rgb(10,10,150);
-		font-weight:500;
+		color:black;
+		font-weight:600;
 		text-decoration:none;
 }
+.image_rest
+{
+	float:left;
+}
+.rest
+{
+	margin-left:210px;
+	font-family:Merriweather;
+}
+.sortby
+{
+	top:400px;
+	left:380px;			
+	position:absolute;
+}
+.menu
+{
+		margin-left:600px;
+		border:1px solid black;
+		padding:15px;
+		background-color:black;
+		color:white;
+		font-family:Merriweather;
+		font-size:27px;
+		font-weight:bold;
+}
+.rate
+{
+	margin-left:10px;
+	font-size:18px;
+	font-weight:500;
+	font-family:Merriweather;
+
+}
 </style>
+<script type="text/javascript" src="{{url_for('static',filename='rating.js')}}"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+//  Check Radio-box
+    $(".rating input:radio").attr("checked", false);
+    $('.rating input').click(function () {
+        $(".rating span").removeClass('checked');
+        $(this).parent().addClass('checked');
+    });
+
+    $('input:radio').change(
+    function(){
+        var userRating = this.value;
+		{% if var_stars %}
+		alert("You have already rated this restaurant");
+		{%else%}
+		window.location.href = "rating/{{rest}}/"+userRating;
+		{%endif%}
+    }); 
+});
+</script>
+
 </head>
 <body>
 <h1>
@@ -161,18 +275,49 @@ ONLINE FOOD
 </span>
 </h1>
 
-<div class="background" style="background-image:url({{url_for('static',filename='plate3.jpg')}})"> 
+<div class="background" style="background-image:url({{url_for('static',filename='plate6.jpg')}})"> 
+<br>
+<br>
+<br>
+<span class="menu">MENU</span>
 <br>
 <br>
 <br>
 <br>
-<span class="sort">
-SORT BY : 
+<div class="sort">
+<img class="image_rest" src="{{url_for('static',filename= temp[2])}}" width="200" height="200" alt="">
+<div class="rest">
+	{{temp[0]}}<br>
+	Location : {{temp[4]}}<br>
+	&phone; :<span style="font-family:'Times New Roman'"> {{temp[5]}}</span><br>
+	working hours : {{temp[6]}} to {{temp[7]}}<br>
+	Total Rating : {{sum}}
+</div>
+<div class="txt-center">
+    <form> <span class="rate">Rate this restaurant : </span>
+
+        <div class="rating">
+            <input id="star5" name="star" type="radio" value="5" class="radio-btn hide" />
+            <label for="star5">☆</label>
+            <input id="star4" name="star" type="radio" value="4" class="radio-btn hide" />
+            <label for="star4">☆</label>
+            <input id="star3" name="star" type="radio" value="3" class="radio-btn hide" />
+            <label for="star3">☆</label>
+            <input id="star2" name="star" type="radio" value="2" class="radio-btn hide" />
+            <label for="star2">☆</label>
+            <input id="star1" name="star" type="radio" value="1" class="radio-btn hide" />
+            <label for="star1">☆</label>
+            <div class="clear"></div>
+        </div>
+    </form>
+</div>
+<div class="sortby">SORT BY :
 <a href="/{{place}}/menu/{{rest}}/nameasc" class="sorta">name(ascending) ,</a>
 <a href="/{{place}}/menu/{{rest}}/namedes" class="sorta">name(descending) ,</a>
 <a href="/{{place}}/menu/{{rest}}/pricelh" class="sorta">price(low to high) ,</a>
 <a href="/{{place}}/menu/{{rest}}/pricehl" class="sorta">price(high to low) </a>
-</span>
+</div>
+</div> 
 <br>
 <br>
 <br>
@@ -298,7 +443,7 @@ SORT BY :
 		<img src="{{url_for('static',filename='food.jpg')}}"  width="70" height="70">
 
 		<ul>
-			<li><a class="nava" href="/">Home</a></li>
+			<li><a class="nava" href="/customer">Home</a></li>
 			<li><a class="nava" href="#">About Us</a></li>
 			<li><a class="nava" href="#">Contact</a></li>
 			<li><a class="nava" href="#">Privacy Policy</a></li>

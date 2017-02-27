@@ -1,7 +1,66 @@
 <html>
 <head>
 <link type="text/css" href="{{url_for('static',filename='webpages.css')}}" rel="stylesheet"/>
+<style>
+@font-face 
+{
+ font-family:Cinzel Decorative Bold;
+ src:url("{{url_for('static',filename='CinzelDecorative-Bold.otf')}}");
+} 
+@font-face 
+{
+ font-family:Cormorant Garamond Medium;
+ src:url("{{url_for('static',filename='CormorantGaramond-Medium.ttf')}}");
+}
 
+.background
+{
+		background-size: cover;
+		background-attachment: fixed;         /* scroll div contents without background */
+}
+.box
+{
+		border-style:solid;
+		border-width:1px;
+		border-color:rgb(245,245,245);
+		margin-left:50px;
+		display:inline-block;
+		font-family:"Cormorant Garamond Medium";
+		font-weight:bold;
+		font-size:19px;
+		padding:5px;
+		background-color:rgb(245,245,245);
+	    box-shadow: 10px 10px 5px #888888;
+	
+}
+.price
+{
+		padding-left:5px;
+		float:right;	
+		font-size:22px;
+		color: rgb(100,100,100)
+}
+.ordernowa
+{
+	text-decoration:none;
+	color:rgb(10,110,10);
+}
+.content5
+{
+	font-family:Merriweather;
+	margin-left:500px;
+	font-size:25px;
+	color:white;
+}
+.contenta
+{
+	text-decoration:none;
+	color:rgb(10,10,110);
+	font-size:24px;
+	color:white;
+
+}
+</style>
 </head>
 <body>
 <h1>
@@ -18,28 +77,51 @@ ONLINE FOOD
 </span>
 </h1>
 
+<div class="background" style="background-image:url({{url_for('static',filename='homepage_pic.jpg')}});">
 
-
+<br><br><br><br>
 
 {% if (var is defined) and var %}
 
+
+
 {%for x in var%}	
-	{{x[0]}}
-	{{x[1]}}
-	{{x[2]}}
-	{{x[3]}}
-	{{x[4]}}
-	{{x[5]}}
-	<img src="{{url_for('static',filename= x[6])}}" width="200" height="200" alt="">
+<div class="box">
+	<a href="/{{x[4]}}/menu/{{x[5]}}">
+		<img src="{{url_for('static',filename= x[6])}}" width="200" height="200" alt="">
+	</a>
 	<br>
+	{{x[0]}}
+	<span class="price">
+		&#8377;
+		{{x[2]}}
+	</span>
+	<br>
+	{{x[3]}}
+	<br>
+	{{x[1]}}
+	<br>
+	{{x[5]}}
+	<br>
+
+	<a class="ordernowa" href="/quantity/{{x[4]}}/{{x[5]}}/{{x[0]}}/{{x[2]}}">order online &rarr; </a>
+	
+</div>	
 {%endfor%}	
+
 {%else%}
-	no results found
+	<div class="content5">
+	No results found
+	<br><br>
+	<a class="contenta" href="/homepage_customer">continue shopping</a>
+	<br>
+	<br><br><br><br>
+	</div>
 
 {%endif%}
 
-
-
+<br><br><br><br>
+</div>
 
 
 

@@ -78,15 +78,18 @@ h1 {  	font-family:"Cinzel Decorative Bold";
 		text-decoration: none;
 		}
 		
-
+body
+{
+	margin:0;
+}
 nav
 {
 	position: fixed;
 	left: -15em;					/* can be used to control sidebar position */
 	top: 0;
 	bottom: 0;
-	background-color: rgb(100,100,100);
-	border-right: 50px solid rgb(120,120,120);
+	background:rgba(0,0,0,0.8);
+	border-right: 50px solid rgba(0,0,0,0);	/* side of navigation bar */
 	box-shadow: 4px 0 5px rgba(0,0,0,0.2);
 	z-index: 1;
 }
@@ -106,16 +109,22 @@ nav:after
 }
 .nava
 {
-	color:black;
+	color:white;
 	text-decoration:none;
-	font-size:24px;
+	font-size:22px;
 	cursor: pointer;
 
 }
 nav li
 {
-	padding-bottom:3px;
+	padding-bottom:10px;
+	padding-top:10px;
+	border-bottom:1px solid black;
 	
+}
+nav li:hover
+{
+		background:rgba(50,50,50,1);
 }
 nav ul
 {
