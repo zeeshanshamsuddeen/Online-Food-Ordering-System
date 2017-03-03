@@ -18,23 +18,38 @@
  font-family:Cormorant Garamond Medium;
  src:url("{{url_for('static',filename='fonts/CormorantGaramond-Medium.ttf')}}");
 }
-.cell
-{
-		font-family:"Cormorant Garamond Medium";
-		padding:250px;
-}
-.cella
-{
-		font-size:35px;
-		text-decoration:none;
-		color:white;
-}
-.content
-{
-		background-image:url({{url_for('static',filename='homepage_pic.jpg')}});
-		height:700px
-		
 
+body
+{
+	background-color:rgb(180,180,180);
+	margin:0;
+}
+
+.content		/* whole box */
+{
+	background-color:white;
+	margin-left:100px;
+	display:inline-block;
+	margin-right:100px;
+}
+.content1			/* top part of box */
+{
+	background-color:rgb(150,150,150);
+	font-size:24px;
+	width:1140px;
+	padding-left:10px;
+	padding-top:10px;
+	text-align:center;
+
+}
+.content2			/* lower part of box */
+{
+	font-family: "Open Sans";
+	text-align:center;
+	background-color:white;
+	font-size:16px;
+	padding:15px;
+	
 }
 </style>
 
@@ -46,49 +61,48 @@
 
 ONLINE FOOD
 </span>
+
+<span>
+
+<a href="/help" class="help_no_user">HELP</></a>
+</span>
 </h1>
 
+<br><br><br><br>
 <div class="content">
-<table style="border-left:1px solid rgb(50,50,50)">
-<tr>
-<td class="cell">
-<a href="http://localhost:5000/customer" class="cella">Customer Login</a>
-</td>
-<td class="cell">
-<a href="http://localhost:5000/manager_login" class="cella">Manager login</a>
-</td>
-</tr>
-</table>
-</content>
+	<div class="content1">
+		Security
+	</div>	
+	<div class="content2">
+		
+		<b>Help keep LaCantina safe for the community by disclosing security issues to us</b><br>
 
-<!-- menu -->
-	<nav>
-		<img class="menu_image" src="{{url_for('static',filename='food.jpg')}}"  width="70" height="70">
-		<br>
-		<span class="menu_heading">La Cantina</span>
-		<ul>
-			<li><a class="nava" href="/">Home</a></li>
-			<li><a class="nava" href="/about">About Us</a></li>
-			<li><a class="nava" href="/contact">Contact</a></li>
-			<li><a class="nava" href="/privacy_policy">Privacy Policy</a></li>
-			<li><a class="nava" href="/security">Security</a></li>		
-		</ul>
-	</nav>
-	
-	
+		<br>We take security seriously at LaCantina. If you are a security researcher or expert, and believe you’ve identified <br>security-related issues with LaCantina’s website or apps, we would appreciate you disclosing it to us<br> responsibly.<br><br>
+
+		Our team is committed to addressing all security issues in a responsible and timely manner, and ask the<br> security community to give us the opportunity to do so before disclosing them publicly. Please submit a bug<br> to us on our HackerOne page, along with a detailed description of the issue and steps to reproduce it, if any.<br> We trust the security community to make every effort to protect our users data and privacy.<br><br>
+
+		For a list of researchers who have helped us address security issues, please visit our HackerOne page.
+	</div>	
+
+</div>
+
+<br><br><br><br>
+
+
+
+
 <div class="last" >
 <br>
 <div class="motto">
 We uphold the motto <span class="bullet">“making online food ordering fast and easy”</span>. Our service allows you<br> to find all of the restaurants available nearby, which can deliver to your house
 </div>
 <br><br>
-
 <b><span class="head_left">Ordering food is easy as ABC Only 4 steps to make the order, easy payment, available 24/7</span>
 </b>
 
 <div class="definition">
 <br><br>
-The <span class="bullet">challenge</span> for us is to make a versatile website that is simple and easy to use.<br>
+The challenge for us is to make a versatile website that is simple and easy to use.<br>
 What we have learned is that ordering food online is way easier, faster and has <br>
 less complications than calling. What makes La Cantina better than the traditional order<br>
 over the phone method?
@@ -106,7 +120,7 @@ meal ahead from the best restaurants near you and avoid the rush hours</span></l
 <b><span class="head_right">Our Services</span></b>
 <br><br>
 Should you have any concerns or would you want to give us feedback, please do not hesitate to contact our customer service
-team by using our Live Chat feature on your foodpanda App or website, or by sending an email at customercare@lacantina.in. 
+team by using our Live Chat feature on your LaCantina App or website, or by sending an email at customercare@variable.in. 
 La Cantina India Corporate Office is located at Kayyath Villa, Kayyath Road , Thalassery.
 </div>
 

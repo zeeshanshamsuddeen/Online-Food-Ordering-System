@@ -28,7 +28,7 @@ if(((location=="TLY")||(location=="KANNUR"))||(location=="CALICUT"))
 	{
 		{% for x in var %}
 
-			if(username=="{{x[0]}}" && password=="{{x[1]}}")
+			if(username=="{{x[0]}}" && password=="{{x[1]}}" && location=="{{x[3]}}")
 			{
 					x=1;
 			}
@@ -66,12 +66,12 @@ else
 @font-face 
 {
  font-family:Cinzel Decorative Bold;
- src:url("{{url_for('static',filename='CinzelDecorative-Bold.otf')}}");
+ src:url("{{url_for('static',filename='fonts/CinzelDecorative-Bold.otf')}}");
 } 
 @font-face 
 {
  font-family:Cormorant Garamond Medium;
- src:url("{{url_for('static',filename='CormorantGaramond-Medium.ttf')}}");
+ src:url("{{url_for('static',filename='fonts/CormorantGaramond-Medium.ttf')}}");
 }
 .content1
 {				   
@@ -128,7 +128,7 @@ else
 .area
 {		
 		font-family:"Cormorant Garamond Medium";          /* updates placeholder and input*/
-		font-size:20px;
+		font-size:18px;
 		border:3px solid rgb(160,160,160); 
 		margin-left:100px;
 		margin-right:60px;

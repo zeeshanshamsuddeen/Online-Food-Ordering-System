@@ -1,42 +1,40 @@
 <html>
 <head>
+<link type="text/css" href="{{url_for('static',filename='webpages.css')}}" rel="stylesheet"/>
 <style>
 @font-face 
 {
  font-family:Cinzel Decorative Bold;
- src:url("{{url_for('static',filename='CinzelDecorative-Bold.otf')}}");
+ src:url("{{url_for('static',filename='fonts/CinzelDecorative-Bold.otf')}}");
 } 
 @font-face 
 {
- font-family:Cormorant Garamond Medium;
- src:url("{{url_for('static',filename='CormorantGaramond-Medium.ttf')}}");
-} 
-.content2
-{
-			background-color:rgb(200,200,200);
+ font-family:Merriweather;
+ src:url("{{url_for('static',filename='fonts/Merriweather-Regular.ttf')}}");
 }
+body
+{
+	background-color:rgb(200,200,200);
 
-.content1
-{				   
-				height: 20px;
-				background: linear-gradient(rgb(0,0,0), rgb(200,200,200));
 }
-.oops
+.content
 {
-		height:400px;
-		text-align:center;
-		font-family:"Cormorant Garamond Medium";
-		font-size:20px;
-		font-weight:600;
+	font-family:Merriweather;
+	font-size:22px;
+	text-align:center;
+}
+.contenta
+{
+	text-decoration:none;
+	color:rgb(10,10,110);
+	font-size:20px;
 }
 </style>
-<link type="text/css" href="{{url_for('static',filename='webpages.css')}}" rel="stylesheet"/>
 </head>
 <body>
-
 <h1>
-
-<img src="{{url_for('static',filename='food.jpg')}}"  width="90" height="80">
+<a href="/homepage_customer">
+<img src="{{url_for('static',filename='food.jpg')}}"  width="90" height="80"></a>
 <span class="h1span">
 
 ONLINE FOOD
@@ -47,19 +45,18 @@ ONLINE FOOD
 <a href="/cartshow" class="help">cart</a>
 </span>
 </h1>
-<div class="content1">
+
+
+<div class="content">
+	<br><br><br><br>
+	No restaurants are available at this location currently!
+	<br><br>
+	<a class="contenta" href="/homepage_customer">continue shopping</a>
+	<br>
+	<br><br><br><br>
+
 </div>
-<div class="content2">
 
-
-<div class="oops">
-OOPS, there are no restaurants available at this location currently !
-</div>
-
-
-
- 
-</div>
 
 <div class="last" >
 <br>
@@ -89,15 +86,6 @@ Onlinefood India Corporate Office is located at Plot no. 82 A, Sector 18, Gurgao
 </pre>
 
 
-<footer class="last">
-<ul class="homeul">
-  <li class="homeli"><a href="#home" class="homea">Home</a></li>
-  <li class="homeli"><a href="#about Us" class="homea">About US</a></li>
-  <li class="homeli"><a href="#contact" class="homea">Contact</a></li>
-  <li class="homeli"><a href="#privacypolicy" class="homea">Privacy Policy</a></li>
-  <li class="homeli"><a href="#howitwokrs" class="homea">How It Works</a></li>
-</ul>
-</footer>
 
 
 </body>

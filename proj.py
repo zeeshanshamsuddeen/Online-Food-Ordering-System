@@ -16,8 +16,27 @@ def homepage():
 
 
 
+@app.route('/privacy_policy')
+def privacy_policy():
+	return render_template('privacy_policy.html')
+
+@app.route('/terms')
+def terms():
+	return render_template('terms.html')
 
 
+@app.route('/about')
+def about():
+	return render_template('about.html')
+
+@app.route('/security')
+def security():
+	return render_template('security.html')
+
+
+@app.route('/help')
+def help():
+	return render_template('help.html')	
 
 
 #page for displaying login for customers
@@ -45,7 +64,7 @@ def customer_signed_up():
 	conn=sqlite3.connect('members.db')
 	cur=conn.cursor()
 	cur.execute("INSERT INTO customers(username,password) VALUES (?,?)",(session['username'],password))
-	cur.execute("CREATE TABLE {}(item text NOT NULL ,price INTEGER , qty TEXT ,total INTEGER , place TEXT ,rest TEXT)".format(session['username']))
+	cur.execute("CREATE TABLE {}(item text NOT NULL ,price INTEGER , qty TEXT ,total INTEGER , place TEXT ,rest TEXT,dish_image TEXT)".format(session['username']))
 	conn.commit()
 	return redirect(url_for('homepage_customer'))
 
@@ -399,22 +418,22 @@ def menu_sort(place,rest,sort):
 
 
 #to submit quantity of item selected	
-@app.route('/quantity/<place>/<rest>/<item>/<price>',methods=['GET','POST'])
-def quantity(place,rest,item,price):
-	return render_template('quantity.html',item=item,price=price,place=place,rest=rest)
+@app.route('/quantity/<place>/<rest>/<item>/<price>/<dish_image>',methods=['GET','POST'])
+def quantity(place,rest,item,price,dish_image):
+	return render_template('quantity.html',item=item,price=price,place=place,rest=rest,dish_image=dish_image)
 	#from quantity.html , goes to /postquantity/<item>/<price>
 
 
 
 #to insert quantity in CART table
-@app.route('/postquantity/<place>/<rest>/<item>/<price>',methods=['GET','POST'])
-def postquantity(place,rest,item,price):
+@app.route('/postquantity/<place>/<rest>/<item>/<price>/<dish_image>',methods=['GET','POST'])
+def postquantity(place,rest,item,price,dish_image):
 	print('postquantity')
 	conn=sqlite3.connect('members.db')
 	cur=conn.cursor()
 	qty=request.form['qty']
 	var=int(price)*int(qty)
-	cur.execute("INSERT INTO {}(item,price,qty,total,place,rest) VALUES(?,?,?,?,?,?); ".format(session['username']) ,(item,price,qty,var,place,rest))
+	cur.execute("INSERT INTO {}(item,price,qty,total,place,rest,dish_image) VALUES(?,?,?,?,?,?,?); ".format(session['username']) ,(item,price,qty,var,place,rest,dish_image,))
 	conn.commit()
 	conn.close()
 	return redirect(url_for('homepage_customer'))
@@ -443,11 +462,32 @@ def cartshow():
 					break
 			if(temp==0):
 				cur.execute("DELETE FROM {} WHERE place=? and rest=?;".format(session['username']),(x[4],x[5],))
+
+		#for checking whether deleted dish is in cart
+		for x in var:
+			if(x[4]=='TLY'):
+				conn_temp=sqlite3.connect('TLY.db')
+			elif(x[4]=='KANNUR'):
+				conn_temp=sqlite3.connect('KANNUR.db')
+			else:
+				conn_temp=sqlite3.connect('CALICUT.db')
+			cur_temp=conn_temp.cursor()
+			cur_temp.execute("SELECT * FROM {} WHERE item=?".format(x[5]),(x[0],))	
+			var_temp=cur_temp.fetchone()
+			print(var_temp)
+			if not var_temp:
+				cur.execute("DELETE FROM {} WHERE item=? AND place=? AND rest=?".format(session['username']),(x[0],x[4],x[5],))
+			conn_temp.close()		
 			
+		cur.execute("SELECT * FROM {}".format(session['username']))
+		var=cur.fetchall()
 		conn.commit()				
 		conn.close()
-		return render_template('cartshow.html',var=var,var2=var2)
-		#from cartshow.html , goes to cartremove/<item> 
+		if var:
+			return render_template('cartshow.html',var=var,var2=var2)
+			#from cartshow.html , goes to cartremove/<item> 
+		else:
+			return render_template("nocart.html")
 	else:
 		return render_template("nocart.html")
 
@@ -510,7 +550,7 @@ def cartclear():
 def manager_login():
 	conn=sqlite3.connect('members.db')
 	cur=conn.cursor()
-	cur.execute("SELECT username,password FROM managers")
+	cur.execute("SELECT * FROM managers")
 	var=cur.fetchall()
 	conn.close()
 	return render_template('manager_login.html',var=var)
@@ -527,12 +567,11 @@ def manager_signup():
 	return render_template('manager_signup.html',var=var)
 
 
-app.config['UPLOAD_FOLDER'] = 'static/'
-
+app.config['UPLOAD_FOLDER_REST']='static/restaurants/'
 #when manager submites sign up form
 @app.route('/manager_signed_up',methods=['GET','POST'])
 def manager_signed_up():
-	upload='static/'
+	upload='static/restaurants/'
 	place=request.form['place']
 	username=request.form['username']
 	password=request.form['password']
@@ -545,7 +584,8 @@ def manager_signed_up():
 	file = request.files['filename']
 	filename = secure_filename(file.filename)
 	#The image is stored in static folder
-	file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
+	print(filename)
+	file.save(os.path.join(app.config['UPLOAD_FOLDER_REST'],filename))
 	#renaming image file
 	source=upload+filename
 	destination=upload+place+'_'+username+'.jpg'
@@ -606,7 +646,24 @@ def manager_menu(place,username):
 	cur.execute("SELECT * FROM {}".format(username))	#username is table name
 	var=cur.fetchall()
 	conn.close()
-	return render_template('manager_menu.html',var=var,place=place,username=username)
+
+	conn=sqlite3.connect('members.db')
+	cur=conn.cursor()
+	cur.execute("SELECT * FROM managers WHERE username=? AND place=?",(username,place,))	
+	var1=cur.fetchone()
+	cur.execute("SELECT stars FROM rating WHERE place=? AND rest=?",(place,username,))
+	total_stars=cur.fetchall()
+	cur.execute("SELECT count(*) FROM rating WHERE place=? AND rest=?",(place,username,))
+	count=cur.fetchone()
+	conn.close()
+	sum=0
+	for x in total_stars:
+		sum=sum+x[0]
+	if(count[0]==0):
+		sum=0
+	else:		
+		sum=sum/count[0]
+	return render_template('manager_menu.html',var=var,var1=var1,place=place,username=username,sum=sum)
 	#from manager_menu.html , goes to manager_edit based on action choice
 	
 
@@ -637,10 +694,28 @@ def manager_edit(place,username,action):
 
 
 
+app.config['UPLOAD_FOLDER_DISH'] = 'static/dish/'
 
 #to access when manager wants to add items 
 @app.route('/manager_add/<place>/<username>',methods=['GET','POST'])
 def manager_add(place,username):
+	upload='static/dish/'
+	item=request.form['item']
+	def1=request.form['def'] 
+	price=request.form['price']
+	category=request.form['category']
+	#The image file of dish is received here
+	file = request.files['filename']
+	filename = secure_filename(file.filename)
+	#The image is stored in static folder
+	file.save(os.path.join(app.config['UPLOAD_FOLDER_DISH'],filename))
+	#renaming image file
+
+
+	source=upload+filename
+	destination=upload+place+'_'+username+'_'+item+'.jpg'
+	os.rename(source,destination)
+
 	if(place=='TLY'):
 		conn=sqlite3.connect('TLY.db')
 	elif(place=='KANNUR'):
@@ -648,11 +723,7 @@ def manager_add(place,username):
 	else:
 		conn=sqlite3.connect('CALICUT.db')	
 	cur=conn.cursor()
-	item=request.form['item']
-	def1=request.form['def'] 
-	price=request.form['price']
-	category=request.form['category']
-	cur.execute("INSERT INTO {}(item,def,price,category) VALUES(?,?,?,?); ".format(username) ,(item,def1,price,category))
+	cur.execute("INSERT INTO {}(item,def,price,category,dish_image) VALUES(?,?,?,?,?); ".format(username) ,(item,def1,price,category,place+'_'+username+'_'+item+'.jpg',))
 	conn.commit()
 	conn.close()
 	return redirect(url_for('manager_menu',place=place,username=username))
@@ -696,8 +767,13 @@ def manager_delete_database(place,username,item,defen):
 	else:
 		conn=sqlite3.connect('CALICUT.db')	
 	cur=conn.cursor()
+	upload='static/dish/'
+	cur.execute("SELECT dish_image FROM {} WHERE item=? and def=?".format(username),(item,defen,))
+	var=cur.fetchone()
+	os.remove(upload+var[0])
 	cur.execute("DELETE FROM {} WHERE item=? and def=?".format(username),(item,defen,))
 	conn.commit()
+	conn.close()
 	return redirect(url_for('manager_menu',place=place,username=username))
 
 
@@ -797,7 +873,7 @@ def admin_message_remove(username,subject):
 #when admin wants to remove an existing restaurant	
 @app.route('/admin_manage_remove/<username>/<place>')
 def admin_manage_remove(username,place):
-	upload='static/'
+	upload='static/restaurants/'
 	conn=sqlite3.connect('members.db')
 	cur=conn.cursor()
 	cur.execute("SELECT filename FROM managers WHERE username=? AND place=?",(username,place,))
@@ -827,7 +903,7 @@ def admin_manage_remove(username,place):
 #when admin wants to remove the request of new restaurant
 @app.route('/admin_remove/<username>/<place>')
 def admin_remove(username,place):
-	upload='static/'
+	upload='static/restaurants/'
 	conn=sqlite3.connect('members.db')
 	cur=conn.cursor()
 	cur.execute("SELECT filename FROM approval WHERE username=? AND place=?",(username,place,))
@@ -863,7 +939,7 @@ def admin_approve(username,place):
 	else:
 		conn=sqlite3.connect('CALICUT.db')	
 	cur=conn.cursor()
-	cur.execute("CREATE TABLE {}(item TEXT NOT NULL, def TEXT , price INTEGER NOT NULL,category TEXT)".format(username))
+	cur.execute("CREATE TABLE {}(item TEXT NOT NULL, def TEXT , price INTEGER NOT NULL,category TEXT,dish_image TEXT)".format(username))
 	conn.commit()
 	conn.close()
 	return redirect(url_for('admin'))

@@ -1,21 +1,66 @@
-
-.last{										
-		background-color:rgb(70,70,70);
+.head_left
+{
+		margin-left:50px;
 		color:white;
-		font-family: "Times New Roman",Times,serif;
+		font-family: "Open Sans";
 		font-size:20px;
-		text-align:center;
-		margin-top:10px;
+	
+	
+}.head_right
+{
+		color:white;
+		font-family: "Open Sans";
+		font-size:20px;
+	
+	
+}
+.last{										
+		background-color:rgb(50,50,50);
+		color:white;
+		font-family: "Open Sans";
+		font-size:20px;
+		line-height:1.2em;
+
 		/* for gray background area*/
  
 	}
-.definition{														
-				font-family: "Times New Roman",Times,serif;
+.definition{			
+				margin-left:50px;
+				font-family: "Open Sans";
 				font-size:17px;
-				color:rgb(180,180,180);
+				color:rgb(200,200,200);
 				/*for dark grey handwriting */
 			}
-
+.services{			
+				margin-right:50px;
+				margin-left:500px;
+				font-family: "Open Sans";
+				font-size:17px;
+				color:rgb(200,200,200);
+				
+				/*for dark grey handwriting */
+			}
+			
+.freedom
+{
+				margin-left:50px;
+				font-family: "Open Sans";
+				font-size:17px;
+				color:rgb(200,200,200);
+				/*for dark grey handwriting */
+	
+}
+.bullet {
+  color: rgb(255,102,0); /* bullet color */
+}			
+.motto{			
+				font-family: "Open Sans";
+				font-size:17px;
+				color:rgb(200,200,200);
+				text-align:center;
+				/*for dark grey handwriting */
+			
+			}
 			/* footers */
 .homeul {
     
@@ -39,7 +84,6 @@
 		text-decoration: none;
 	}
 
-
 img {
     opacity: 1;
     filter: alpha(opacity=50); 
@@ -55,7 +99,7 @@ body
 h1 {  	font-family:"Cinzel Decorative Bold";
 		background-color:black;
 		color:white;
-		font-size:60px;
+		font-size:50px;
 		margin:0;
 		/*online food header */
 
@@ -85,7 +129,8 @@ h1 {  	font-family:"Cinzel Decorative Bold";
 
 
 
-.order1{		font-family: "Times New Roman",Times,serif;
+.order1{		
+				font-family: "Open Sans";
 				font-weight:bold;
 				color:black;
 				margin-left:400px;
@@ -95,7 +140,7 @@ h1 {  	font-family:"Cinzel Decorative Bold";
 		}
 		
 
-.order2{  		 font-family: "Times New Roman",Times,serif;
+.order2{  		font-family: "Open Sans";
 				font-size:30px;
 				color:black;
 				margin-left:375px;
@@ -106,33 +151,129 @@ h1 {  	font-family:"Cinzel Decorative Bold";
 }
 
 .place{
-			font-family: "Times New Roman",Times,serif;
-			font-size:25px;
+			font-family: "Open Sans";
+			font-size:18px;
 			color:black;
-			margin-left:550px;
+			margin-left:600px;
 			margin-top:50px;
-			padding:5px;
+			padding:10px;
 			
 		}
 
 
 		
 .showrestaurants{
-					font-family: "Times New Roman",Times,serif;
-					font-size:21px;
+					font-family: "Open Sans";
+					font-size:16px;
 					background-color:black;
 					color:white;
-					margin-left:515px;
-					padding:5px;
+					margin-left:555px;
+					padding:15px;
+					padding-left:35px;
+					padding-right:35px;
 					border-color:black;
+					border-radius:5px;
 			
 	
 				}
 .showrestaurants:hover
 {
-						background-color:white;
-						color:black;
+						background-color:rgb(20,20,20);
+						
 
 	
 }
 
+
+
+
+
+nav
+{
+	position: fixed;
+	left: -15em;					/* can be used to control sidebar position */
+	top: 0;
+	bottom: 0;
+	background:rgba(0,0,0,0.8);
+	border-right: 50px solid rgba(0,0,0,0);	/* side of navigation bar */
+	box-shadow: 4px 0 5px rgba(0,0,0,0.2);
+	z-index: 1;
+}
+
+
+nav:after
+{
+	position: absolute;
+	content: ' ';
+	width: 0;
+	height: 0;
+	right: -70px;
+	top: 50%;
+	border-width: 15px 10px;
+	border-style: solid;
+	border-color: transparent transparent transparent rgb(120,120,120);
+}
+.nava
+{
+	color:white;
+	text-decoration:none;
+	font-size:22px;
+	cursor: pointer;
+
+}
+nav li
+{
+	padding-bottom:10px;
+	padding-top:10px;
+	border-bottom:1px solid black;
+	
+}
+nav li:hover
+{
+		background:rgba(50,50,50,1);
+}
+nav ul
+{
+	width:10em;
+	list-style-type: none;
+	margin: 0;
+	padding: 1em;
+	
+}
+article, article:after, nav, nav *
+{
+
+	transition: all 600ms ease;
+}
+nav:hover
+{
+	left: 0;
+}
+nav:hover ~ article
+{
+	
+	transform: translateX(16em) perspective(600px) rotateY(10deg);
+}
+nav:hover ~ article:after
+{
+	left: 60%;
+}
+
+
+
+
+
+
+.menu_image
+{
+	margin-left:20px;
+	
+}
+.menu_heading
+{
+		font-family:"Cinzel Decorative Bold";
+		color:white;
+		font-size:20px;
+		margin-left:15px;
+	
+}

@@ -18,23 +18,38 @@
  font-family:Cormorant Garamond Medium;
  src:url("{{url_for('static',filename='fonts/CormorantGaramond-Medium.ttf')}}");
 }
-.cell
-{
-		font-family:"Cormorant Garamond Medium";
-		padding:250px;
-}
-.cella
-{
-		font-size:35px;
-		text-decoration:none;
-		color:white;
-}
-.content
-{
-		background-image:url({{url_for('static',filename='homepage_pic.jpg')}});
-		height:700px
-		
 
+body
+{
+	background-color:rgb(180,180,180);
+	margin:0;
+}
+
+.content		/* whole box */
+{
+	background-color:white;
+	margin-left:300px;
+	display:inline-block;
+	margin-right:300px;
+}
+.content1			/* top part of box */
+{
+	background-color:rgb(150,150,150);
+	font-size:22px;
+	width:620px;
+	padding-left:10px;
+	padding-top:10px;
+	text-align:center;
+
+}
+.content2			/* lower part of box */
+{
+	font-family: "Open Sans";
+
+	background-color:white;
+	font-size:15px;
+	padding:15px;
+	
 }
 </style>
 
@@ -46,49 +61,75 @@
 
 ONLINE FOOD
 </span>
+
+<span>
+
+<a href="/help" class="help_no_user">HELP</></a>
+</span>
 </h1>
 
+<br><br><br><br>
 <div class="content">
-<table style="border-left:1px solid rgb(50,50,50)">
-<tr>
-<td class="cell">
-<a href="http://localhost:5000/customer" class="cella">Customer Login</a>
-</td>
-<td class="cell">
-<a href="http://localhost:5000/manager_login" class="cella">Manager login</a>
-</td>
-</tr>
-</table>
-</content>
+	<div class="content1">
+		<b>Help</b>
+	</div>	
+	<div class="content2">
+		
+			<b>Where is my order?</b><br>
+			<br>After you place your order, we send it directly to the restaurant, which starts<br> preparing it immediately.<br><br>
 
-<!-- menu -->
-	<nav>
-		<img class="menu_image" src="{{url_for('static',filename='food.jpg')}}"  width="70" height="70">
-		<br>
-		<span class="menu_heading">La Cantina</span>
-		<ul>
-			<li><a class="nava" href="/">Home</a></li>
-			<li><a class="nava" href="/about">About Us</a></li>
-			<li><a class="nava" href="/contact">Contact</a></li>
-			<li><a class="nava" href="/privacy_policy">Privacy Policy</a></li>
-			<li><a class="nava" href="/security">Security</a></li>		
-		</ul>
-	</nav>
-	
-	
+			Our restaurants do everything they can to get your food delivered as quickly as<br> possible. However, sometimes restaurants receive very large amount of orders, or<br> drivers get stuck in heavy traffic - this unfortunately might cause delays.<br><br>
+
+			If the amount of time you’ve waited has exceeded the estimated delivery time, you<br> can contact us and we’ll look into what’s going on.<br><br>
+			
+			<b>How to order online at foodpanda?</b><br><br>
+			
+			It is really easy, as easy as 1, 2, 3:<br><br>
+
+			1. Tell us where you are: Enter your location so that we can show you which<br> restaurants deliver to you.<br>
+			2. Choose what you would like: Pick a restaurant and select items you’d like to order.<br> You can search by restaurant name, cuisine type, dish name or by keyword.<br>
+			3. Checkout: Enter your exact delivery address, payment method and your phone<br> number. Always make sure that you enter the correct phone number to help us<br> contact you regarding your order, if needed.<br><br>
+
+			Now sit back, relax, and we’ll get your food delivered to your doorstep.<br><br>
+			
+			<b>How long does it take for my order to get delivered?</b><br><br>
+			
+			Delivery time varies from restaurant to restaurant. It also depends on the number of<br> orders that the restaurant has to prepare and on the distance between the restaurant<br> and your delivery address.<br><br>
+			
+			<b>How can I pay for my order?</b><br><br>
+			
+			All our restaurants accept cash on delivery. In addition, there are various online<br> payment methods available. You can check which payment methods are accepted at<br> each restaurant by going to the ‘Info’ tab on the restaurant’s page.<br><br>
+
+			<b>Cash on Delivery</b><br>
+
+			Select ‘Cash on Delivery’ on the checkout page and pay the driver at your doorstep<br> when you receive your order.<br><br>
+
+			<b>Credit Card</b><br>
+
+			Select ‘Credit Card’ on the checkout page. After placing your order you will be<br> redirected to the secure payment page of our payment partner, where you can follow<br> the instructions. Once the payment is confirmed, the<br> order will be transmitted to the restaurant.<br>
+
+		
+	</div>	
+
+</div>
+
+<br><br><br><br>
+
+
+
+
 <div class="last" >
 <br>
 <div class="motto">
 We uphold the motto <span class="bullet">“making online food ordering fast and easy”</span>. Our service allows you<br> to find all of the restaurants available nearby, which can deliver to your house
 </div>
 <br><br>
-
 <b><span class="head_left">Ordering food is easy as ABC Only 4 steps to make the order, easy payment, available 24/7</span>
 </b>
 
 <div class="definition">
 <br><br>
-The <span class="bullet">challenge</span> for us is to make a versatile website that is simple and easy to use.<br>
+The challenge for us is to make a versatile website that is simple and easy to use.<br>
 What we have learned is that ordering food online is way easier, faster and has <br>
 less complications than calling. What makes La Cantina better than the traditional order<br>
 over the phone method?
@@ -106,7 +147,7 @@ meal ahead from the best restaurants near you and avoid the rush hours</span></l
 <b><span class="head_right">Our Services</span></b>
 <br><br>
 Should you have any concerns or would you want to give us feedback, please do not hesitate to contact our customer service
-team by using our Live Chat feature on your foodpanda App or website, or by sending an email at customercare@lacantina.in. 
+team by using our Live Chat feature on your LaCantina App or website, or by sending an email at customercare@variable.in. 
 La Cantina India Corporate Office is located at Kayyath Villa, Kayyath Road , Thalassery.
 </div>
 

@@ -6,12 +6,12 @@
 @font-face 
 {
  font-family:Cinzel Decorative Bold;
- src:url("{{url_for('static',filename='CinzelDecorative-Bold.otf')}}");
+ src:url("{{url_for('static',filename='fonts/CinzelDecorative-Bold.otf')}}");
 } 
 @font-face 
 {
  font-family:Cormorant Garamond Medium;
- src:url("{{url_for('static',filename='CormorantGaramond-Medium.ttf')}}");
+ src:url("{{url_for('static',filename='fonts/CormorantGaramond-Medium.ttf')}}");
 }
 
 ul.tab {
@@ -164,11 +164,13 @@ ONLINE FOOD
 		<br>
 		{%for x in var%}
 		<div class="box">
-				<img class="image" src="{{url_for('static',filename=x[2])}}" height="100" width="100"/>
+				<img class="image" src="{{url_for('static',filename='restaurants/'+x[2])}}" height="100" width="100"/>
 				<br>
-				username={{x[0]}}
+				name={{x[0]}}
 				<br>
 				location={{x[4]}}
+				<br>
+				place={{x[3]}}
 				<br>
 				phone={{x[5]}}
 				<br>
@@ -227,7 +229,7 @@ no message
 		<br>
 		{%for x in var_TLY%}
 		<div class="box">
-				<img class="image" src="{{url_for('static',filename=x[2])}}" height="100" width="100"/>
+				<img class="image" src="{{url_for('static',filename='restaurants/'+x[2])}}" height="100" width="100"/>
 				<br>
 				username={{x[0]}}
 				<br>
@@ -258,7 +260,7 @@ no message
 		<br>
 		{%for x in var_KANNUR%}
 		<div class="box">
-				<img class="image" src="{{url_for('static',filename=x[2])}}" height="100" width="100"/>
+				<img class="image" src="{{url_for('static',filename='restaurants/'+x[2])}}" height="100" width="100"/>
 				<br>
 				username={{x[0]}}
 				<br>
@@ -289,7 +291,7 @@ no message
 		<br>
 		{%for x in var_CALICUT%}
 		<div class="box">
-				<img class="image" src="{{url_for('static',filename=	x[2])}}" height="100" width="100"/>
+				<img class="image" src="{{url_for('static',filename='restaurants/'+x[2])}}" height="100" width="100"/>
 				<br>
 				username={{x[0]}}
 				<br>

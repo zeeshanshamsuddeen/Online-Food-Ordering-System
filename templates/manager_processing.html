@@ -5,19 +5,37 @@
 @font-face 
 {
  font-family:Cinzel Decorative Bold;
- src:url("{{url_for('static',filename='CinzelDecorative-Bold.otf')}}");
+ src:url("{{url_for('static',filename='fonts/CinzelDecorative-Bold.otf')}}");
 } 
 @font-face 
 {
  font-family:Code Bold;
- src:url("{{url_for('static',filename='CODE Bold.otf')}}");
+ src:url("{{url_for('static',filename='fonts/CODE Bold.otf')}}");
 } 
 @font-face 
 {
  font-family:Cormorant Garamond Medium;
- src:url("{{url_for('static',filename='CormorantGaramond-Medium.ttf')}}");
+ src:url("{{url_for('static',filename='fonts/CormorantGaramond-Medium.ttf')}}");
 }
-
+.content1
+{
+		background-size: cover;
+		background-attachment: fixed;         /* scroll div contents without background */
+		background-image:url({{url_for('static',filename='black.jpg')}});
+}
+.content2
+{
+		text-align:center;	
+		font-family:Merriweather;
+		font-size:22px;
+		color:white;
+}
+.gobacka
+{
+	text-decoration:none;
+	color:rgb(200,200,200);
+	font-size:20px;
+}
 </style>
 </head>
 <body>
@@ -33,10 +51,21 @@ ONLINE FOOD
 </span>
 </h1>
 
-<a href="/">goto homepage</a>
 
 
+<div class="content1">	
+	<br>
+	<br>
+	<br><br><br><br>
+	<div class="content2">
+	Your request for membership is being processed by the admin..please wait
+	<br><br>
+	<a class="gobacka" href="/">go back to homepage</a>
+	</div>
+	<br><br><br><br>
+	
 
+</div>
 
 
 
@@ -68,7 +97,7 @@ Onlinefood India Corporate Office is located at Plot no. 82 A, Sector 18, Gurgao
 
 </pre>
 
-
+</div>
 
 
 </body>

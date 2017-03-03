@@ -45,12 +45,12 @@ function required()
 @font-face 
 {
  font-family:Cinzel Decorative Bold;
- src:url("{{url_for('static',filename='CinzelDecorative-Bold.otf')}}");
+ src:url("{{url_for('static',filename='fonts/CinzelDecorative-Bold.otf')}}");
 } 
 @font-face 
 {
  font-family:Cormorant Garamond Medium;
- src:url("{{url_for('static',filename='CormorantGaramond-Medium.ttf')}}");
+ src:url("{{url_for('static',filename='fonts/CormorantGaramond-Medium.ttf')}}");
 }
 .content1
 {				   
@@ -66,7 +66,7 @@ function required()
 .content3			/* whole of login form */
 {
 		margin-left:370px;
-		height:480px;
+		height:550px;
 		width:600px;
 		border:1px solid; 
 		border-radius: 5px;
@@ -101,7 +101,7 @@ function required()
 		background-color:rgb(200,200,200);
 		border-color:rgb(200,200,200);
 		border:1px solid rgb(200,200,200); 
-		height:340px;
+		height:410px;
 		border-bottom-left-radius:5px;
 		border-bottom-right-radius:5px;
 }
@@ -142,6 +142,10 @@ input#gobutton:hover, input#gobutton:focus
 		background-color :#399630;
 		box-shadow: 0 0 1px rgba(0,0,0, .75);
 }
+.image_url
+{
+	margin-left:100px;
+}
 </style>
 </head>
 <body>
@@ -181,7 +185,7 @@ ONLINE FOOD
 <div class="content4">  
 	<br>
 	
-	<form name='form1' onsubmit="required()" method="post">
+	<form name='form1' onsubmit="required()" method="post" enctype="multipart/form-data">
 	<br>
 	<input class="area" type='text' name='item' placeholder="Item">
 	<br>
@@ -193,6 +197,12 @@ ONLINE FOOD
     <br>
     <br>
 	<input class="area" type="number" name="price" placeholder="Price">
+	<br>
+	<br>
+	<span class="image_url">Image URL:
+	</span>
+	<input type="file" name="filename"  placeholder="Image path" title="Enter the complete path of image">
+	<br>
 	<br>
 	<br>
     <input id="gobutton" type="submit" name="submit" value="Add To Menu" />

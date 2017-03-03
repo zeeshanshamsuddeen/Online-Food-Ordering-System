@@ -5,22 +5,22 @@
 @font-face 
 {
  font-family:Cinzel Decorative Bold;
- src:url("{{url_for('static',filename='CinzelDecorative-Bold.otf')}}");
+ src:url("{{url_for('static',filename='fonts/CinzelDecorative-Bold.otf')}}");
 } 
 @font-face 
 {
  font-family:Code Bold;
- src:url("{{url_for('static',filename='CODE Bold.otf')}}");
+ src:url("{{url_for('static',filename='fonts/CODE Bold.otf')}}");
 } 
 @font-face 
 {
  font-family:Cormorant Garamond Medium;
- src:url("{{url_for('static',filename='CormorantGaramond-Medium.ttf')}}");
+ src:url("{{url_for('static',filename='fonts/CormorantGaramond-Medium.ttf')}}");
 } 
 @font-face 
 {
  font-family:Merriweather;
- src:url("{{url_for('static',filename='Merriweather-Regular.ttf')}}");
+ src:url("{{url_for('static',filename='fonts/Merriweather-Regular.ttf')}}");
 }
 body
 {
@@ -60,15 +60,15 @@ body
 <body>
 <h1>
 <a href="/homepage_customer">
-<img src="{{url_for('static',filename='food.jpg')}}"  width="90" height="80"></a>
+<img src="{{url_for('static',filename='food.jpg')}}"  width="80" height="60"></a>
 <span class="h1span">
 
 ONLINE FOOD
 </span>
 <span>
-<a href="/customer_logout" class="login">logout</></a>
-<a href="#help" class="help">help</></a>
-<a href="/cartshow" class="help">cart</a>
+<a href="/customer_logout" class="login">LOGOUT</></a>
+<a href="#help" class="help">HELP</></a>
+<a href="/cartshow" class="help">CART</a>
 </span>
 </h1>
 
@@ -133,6 +133,10 @@ ONLINE FOOD
 <br><br><br><br>
 <div class="last" >
 <br>
+<div class="motto">
+We uphold the motto <span class="bullet">“making online food ordering fast and easy”</span>. Our service allows you<br> to find all of the restaurants available nearby, which can deliver to your house
+</div>
+<br><br>
 <b>Ordering food is easy as ABC Only 4 steps to make the order, easy payment, available 24/7
 </b>
 

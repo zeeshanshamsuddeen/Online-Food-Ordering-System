@@ -1,22 +1,66 @@
-
-
-
-.last{										
-		background-color:rgb(70,70,70);
+.head_left
+{
+		margin-left:50px;
 		color:white;
-		font-family: "Times New Roman",Times,serif;
+		font-family: "Open Sans";
 		font-size:20px;
-		text-align:center;
-		margin-top:0px;
+	
+	
+}
+.head_right
+{
+		color:white;
+		font-family: "Open Sans";
+		font-size:20px;
+	
+	
+}
+.last{										
+		background-color:rgb(50,50,50);
+		color:white;
+		font-family: "Open Sans";
+		font-size:20px;
+		line-height:1.2em;
+
 		/* for gray background area*/
  
 	}
-.definition{														
-				font-family: "Times New Roman",Times,serif;
+.motto{			
+				font-family: "Open Sans";
 				font-size:17px;
-				color:rgb(180,180,180);
+				color:rgb(200,200,200);
+				text-align:center;
 				/*for dark grey handwriting */
 			}
+.definition{			
+				margin-left:50px;
+				font-family: "Open Sans";
+				font-size:17px;
+				color:rgb(200,200,200);
+				/*for dark grey handwriting */
+			}
+.services{			
+				margin-right:50px;
+				margin-left:500px;
+				font-family: "Open Sans";
+				font-size:17px;
+				color:rgb(200,200,200);
+				
+				/*for dark grey handwriting */
+			}
+			
+.freedom
+{
+				margin-left:50px;
+				font-family: "Open Sans";
+				font-size:17px;
+				color:rgb(200,200,200);
+				/*for dark grey handwriting */
+	
+}
+.bullet {
+  color: rgb(255,102,0); /* bullet color */
+}	
 
 			/* footers */
 .homeul {
@@ -43,37 +87,52 @@
 
 
 
+body
+{
+	
+	margin:0;
+}		
+	
 h1 {  	font-family:"Cinzel Decorative Bold";
 		background-color:black;
 		color:white;
-		font-size:60px;
+		font-size:50px;
 		margin:0;
 		/*online food header */
 
-	}
+}
 
 	/*for header*/
 .h1span{
 			position: relative;
-			bottom: 20px;
+			bottom: 0px;
 	
 		}
 		
 
 .login{
-		margin-left:580px;
+		margin-left:730px;
 		
 		font-family:'Times New Roman';
-		font-size:20px;
+		font-size:15px;
 		color:rgb(130,130,130);
 		text-decoration: none;
 		}
-
+.help_no_user
+{
+	
+		margin-left:800px;
+		
+		font-family:'Times New Roman';
+		font-size:15px;
+		color:rgb(130,130,130);
+		text-decoration: none;
+}
 .help {
 		
 		
 		font-family:'Times New Roman';
-		font-size:20px;
+		font-size:15px;
 		color:rgb(130,130,130);
 		text-decoration: none;
 		}
@@ -151,4 +210,74 @@ nav:hover ~ article
 nav:hover ~ article:after
 {
 	left: 60%;
+}
+
+.menu_image
+{
+	margin-left:20px;
+	
+}
+.menu_heading
+{
+		font-family:"Cinzel Decorative Bold";
+		color:white;
+		font-size:20px;
+		margin-left:15px;
+	
+}
+
+
+
+
+
+
+
+
+
+.txt-center {
+    text-align: left;
+}
+.hide {
+    display: none;
+}
+
+.clear {
+    float: none;
+    clear: both;
+}
+
+.rating {
+    width: 160px;
+	font-size:22px;
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    text-align: center;
+    position: relative;
+	display:inline-block;
+}
+
+.rating > label {
+    display: inline;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    width: 1.1em;
+    cursor: pointer;
+    color: #000;
+}
+
+.rating > label:hover,
+.rating > label:hover ~ label,
+.rating > input.radio-btn:checked ~ label {
+    color: transparent;
+}
+
+.rating > label:hover:before,
+.rating > label:hover ~ label:before,
+.rating > input.radio-btn:checked ~ label:before,
+.rating > input.radio-btn:checked ~ label:before {
+    content: "\2605";
+    position: absolute;
+    left: 0;
+    color: #FFD700;
 }

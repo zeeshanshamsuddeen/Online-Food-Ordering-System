@@ -6,12 +6,12 @@
 @font-face 
 {
  font-family:Cinzel Decorative Bold;
- src:url("{{url_for('static',filename='CinzelDecorative-Bold.otf')}}");
+ src:url("{{url_for('static',filename='fonts/CinzelDecorative-Bold.otf')}}");
 } 
 @font-face 
 {
  font-family:Cormorant Garamond Medium;
- src:url("{{url_for('static',filename='CormorantGaramond-Medium.ttf')}}");
+ src:url("{{url_for('static',filename='fonts/CormorantGaramond-Medium.ttf')}}");
 }
 .content1
 {				   
@@ -22,7 +22,7 @@
 {
 		background-size: cover;
 		background-attachment: fixed;         /* scroll div contents without background */
-		background-image:url({{url_for('static',filename='loginback.jpg')}});
+		background-image:url({{url_for('static',filename='black.jpg')}});
 }		
 .content3
 {
@@ -38,50 +38,34 @@
 	margin-bottom:20px;
 	font-size:22px;
 	vertical-align:top;		/*to start div contents from top */
-	width:300px; 
-    max-width:300px;
-    height:150px;
-    max-height:150px;
-    display: inline-block;
-    border-style:solid;
+	width:250px; 
+   max-width:250px;
+   height:250px;
+   max-height:250px;
+   display: inline-block;
+   border-style:solid;
 	border-color:rgb(160,160,160);
     border-width: 1px;
 	position:relative;			
 	font-family:"Cormorant Garamond Medium";
 	font-weight:bold;
-	background-color:rgb(250,250,250);
+	background-color:rgb(245,245,245);
 	   box-shadow: 10px 10px 5px #888888;
 
-} 
+}  
 
-.name
-{	
-		font-weight: 800;
-		font-size:25px;
-		color:rgb(122,5,5);
-		border-style:solid;
-		border-width: 1px;
 
-	  	border-color:rgb(160,160,160);
-		height:40px;
-		line-height:40px;
-		text-align:center;		
-		vertical-align:middle;
-		display:block;		/* to apply properties to whole line till end of container */
-		background-color:rgb(160,160,160);
-}
 .price
 {
 		padding-left:5px;
-		font-size:24px;
+		font-size:21px;
 		color: rgb(100,100,100)
-		
 }
 .desc
 {
 		padding-left:10px;
 		padding-right:10px;
-		font-size:20px;
+		font-size:18px;
 		padding-top:4px;
 }
 .add
@@ -185,6 +169,31 @@
 		transform:scale(1.05);
 
 }
+.sort
+{
+		margin-left:490px;
+		font-size:17px;
+		font-weight:500;
+		height:130;
+		display:inline-block;
+		margin-right:170px;
+		background:rgba(255,255,255,0.8);
+
+}
+.image_rest
+{
+	float:left;
+}
+.rest
+{
+	margin-left:150px;
+	font-family:PT Serif;
+	margin-right:10px;
+}
+.head
+{
+	font-size:20px;
+}
 </style>
 </head>
 
@@ -205,6 +214,17 @@ ONLINE FOOD
 <div class="content2">
 <br>
 <br>
+<br>
+<div class="sort">
+<img class="image_rest" src="{{url_for('static',filename='restaurants/'+ var1[2])}}" width="130" height="130" alt="">
+<div class="rest">
+	<span class="head">{{var1[0]}}</span><br>
+	Location : {{var1[4]}}<br>
+	&phone; :<span style="font-family:'Times New Roman'"> {{var1[5]}}</span><br>
+	Working hours : {{var1[6]}} to {{var1[7]}}<br>
+	Total Rating : {{sum}}/5
+</div>
+</div>
 <br>
 <br>
 <div class="add">
@@ -235,20 +255,23 @@ EDIT PRICE
 	<!--displays menu of different restaurants -->
 
 	<div class="food">
-		<div class="name">
+	<div class="name">
+		<img src="{{url_for('static',filename='dish/'+x[4])}}" height="150" width="250">
+	</div>
+
+	<div class="price">
 		{{x[0]}}
-		</div>
-		<div class="price">
+	<br>
+	 	</div>
+
+	<div class="desc">
+	{{x[1]}} 
+	<br>
+	</div>
+	<div class="price">
 		&#8377;
-		{{x[2]}} 
-		</div>
-		
-		<div class="desc">
-		{{x[1]}} 
-		</div>
-		
-		
-		
+	{{x[2]}}
+	</div>
 	</div>
 
 

@@ -6,12 +6,17 @@
 @font-face 
 {
  font-family:Cinzel Decorative Bold;
- src:url("{{url_for('static',filename='CinzelDecorative-Bold.otf')}}");
+ src:url("{{url_for('static',filename='fonts/CinzelDecorative-Bold.otf')}}");
 } 
 @font-face 
 {
  font-family:Cormorant Garamond Medium;
- src:url("{{url_for('static',filename='CormorantGaramond-Medium.ttf')}}");
+ src:url("{{url_for('static',filename='fonts/CormorantGaramond-Medium.ttf')}}");
+}
+@font-face 
+{
+ font-family:PT Serif;
+ src:url("{{url_for('static',filename='fonts/PT_Serif-Web-Regular.ttf')}}");
 }
 .content1
 {				   
@@ -58,7 +63,7 @@
 {	
 		font-weight: 800;
 		font-size:25px;
-		color:rgb(5,5,200);
+		color:rgb(150,5,5);
 		border-style:solid;
 		border-width: 1px;
 
@@ -80,8 +85,9 @@
 {
 		padding-left:10px;
 		padding-right:10px;
-		font-size:20px;
+		font-size:17px;
 		padding-top:4px;
+		font-family:PT Serif;
 }
 .editprice
 {
@@ -98,7 +104,7 @@
 .editpricea
 {				
 	    font-weight: bold;
-		font-size:23px;
+		font-size:21px;
 		color:rgb(10,10,200);
 		text-decoration:none;
 		display:block;		/* to apply properties to whole line till end of container */
