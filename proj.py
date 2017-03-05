@@ -14,7 +14,10 @@ app.secret_key = 'any random string'
 def homepage():
 	return render_template('homepage.html')
 
-
+#homepage
+@app.route('/homepage2')
+def homepage2():
+	return render_template('homepage_customer_2.html')
 
 @app.route('/privacy_policy')
 def privacy_policy():
@@ -110,11 +113,11 @@ def search():
 	conn=sqlite3.connect('members.db')
 	cur=conn.cursor()
 	cur.execute("DELETE FROM search")
-	cur.execute("SELECT username,filename FROM managers WHERE place='TLY'")
+	cur.execute("SELECT username FROM managers WHERE place='TLY'")
 	var_username_TLY=cur.fetchall()
-	cur.execute("SELECT username,filename FROM managers WHERE place='KANNUR'")
+	cur.execute("SELECT username FROM managers WHERE place='KANNUR'")
 	var_username_KANNUR=cur.fetchall()
-	cur.execute("SELECT username,filename FROM managers WHERE place='CALICUT'")
+	cur.execute("SELECT username FROM managers WHERE place='CALICUT'")
 	var_username_CALICUT=cur.fetchall()
 	conn.commit()
 	conn.close()
@@ -128,7 +131,7 @@ def search():
 			for y in var:
 				conn_temp=sqlite3.connect('members.db')
 				cur_temp=conn_temp.cursor()
-				cur_temp.execute("INSERT INTO search(item,def,price,category,place,rest,filename) VALUES(?,?,?,?,?,?,?); ",(y[0],y[1],y[2],y[3],'TLY',x[0],x[1],))
+				cur_temp.execute("INSERT INTO search(item,def,price,category,place,rest,dish_image) VALUES(?,?,?,?,?,?,?); ",(y[0],y[1],y[2],y[3],'TLY',x[0],y[4],))
 				conn_temp.commit()
 				conn_temp.close()	
 	conn.close()
@@ -136,13 +139,15 @@ def search():
 	conn=sqlite3.connect('KANNUR.db')
 	cur=conn.cursor()
 	for x in var_username_KANNUR:
-		cur.execute("SELECT * FROM {} WHERE item=?".format(x[0]),('%'+data+'%',))
+		print('success')
+		cur.execute("SELECT * FROM {} WHERE item LIKE ?".format(x[0]),('%'+data+'%',))
 		var=cur.fetchall()
 		if var:
 			for y in var:
+				print('ok')
 				conn_temp=sqlite3.connect('members.db')
 				cur_temp=conn_temp.cursor()
-				cur_temp.execute("INSERT INTO search(item,def,price,category,place,rest,filename) VALUES(?,?,?,?,?,?,?); ",(y[0],y[1],y[2],y[3],'KANNUR',x[0],x[1],))
+				cur_temp.execute("INSERT INTO search(item,def,price,category,place,rest,dish_image) VALUES(?,?,?,?,?,?,?); ",(y[0],y[1],y[2],y[3],'KANNUR',x[0],y[4],))
 				conn_temp.commit()
 				conn_temp.close()	
 	conn.close()
@@ -150,13 +155,13 @@ def search():
 	conn=sqlite3.connect('CALICUT.db')
 	cur=conn.cursor()
 	for x in var_username_CALICUT:
-		cur.execute("SELECT * FROM {} WHERE item=?".format(x[0]),('%'+data+'%',))
+		cur.execute("SELECT * FROM {} WHERE item LIKE ?".format(x[0]),('%'+data+'%',))
 		var=cur.fetchall()
 		if var:
 			for y in var:
 				conn_temp=sqlite3.connect('members.db')
 				cur_temp=conn_temp.cursor()
-				cur_temp.execute("INSERT INTO search(item,def,price,category,place,rest,filename) VALUES(?,?,?,?,?,?,?); ",(y[0],y[1],y[2],y[3],'CALICUT',x[0],x[1],))
+				cur_temp.execute("INSERT INTO search(item,def,price,category,place,rest,dish_image) VALUES(?,?,?,?,?,?,?); ",(y[0],y[1],y[2],y[3],'CALICUT',x[0],y[4],))
 				conn_temp.commit()
 				conn_temp.close()	
 	conn.close()
