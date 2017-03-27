@@ -1,0 +1,365 @@
+@font-face 
+{
+ font-family:Cinzel Decorative Bold;
+ src:url("fonts/CinzelDecorative-Bold.otf");
+} 
+@font-face 
+{
+ font-family:Merriweather;
+ src:url("fonts/Merriweather-Regular.ttf");
+}
+@font-face 
+{
+ font-family:Lemonada;
+ src:url("fonts/Lemonada-Regular.ttf");
+}
+@font-face 
+{
+ font-family:PT Serif;
+ src:url("fonts/PT_Serif-Web-Regular.ttf");
+} 
+@font-face 
+{
+ font-family:Open Sans;
+ src:url("fonts/OpenSans-Regular.ttf")
+}
+@font-face 
+{
+ font-family:Cormorant Garamond Medium;
+ src:url("fonts/CormorantGaramond-Medium.ttf");
+}
+@font-face 
+{
+ font-family:Cabin;
+ src:url("fonts/Cabin-Regular.ttf}");
+}
+
+@font-face 
+{
+ font-family:Sansita;
+ src:url("fonts/Sansita-Regular.ttf");
+} 
+@font-face 
+{
+ font-family:Code Bold;
+ src:url("fonts/CODE Bold.otf");
+} 
+@font-face 
+{
+ font-family:Arimo;
+ src:url("fonts/Arimo-Bold.ttf");
+} 
+@font-face 
+{
+ font-family:Baloo Bhaina;
+ src:url("fonts/BalooBhaina-Regular.ttf");
+} 
+@font-face 
+{
+ font-family:Indie Flower;
+ src:url("fonts/IndieFlower.ttf");
+}
+@font-face 
+{
+ font-family:Playfair Display;
+ src:url("fonts/PlayfairDisplay-Bold.ttf");
+}
+@font-face 
+{
+ font-family:Montserrat;
+ src:url("fonts/Montserrat-Regular.ttf");
+}
+@font-face 
+{
+ font-family:Architects Daughter;
+ src:url("fonts/ArchitectsDaughter.ttf");
+}
+
+.head_left
+{
+		margin-left:50px;
+		color:white;
+		font-family: "Open Sans";
+		font-size:20px;
+	
+	
+}
+.head_right
+{
+		color:white;
+		font-family: "Open Sans";
+		font-size:20px;
+	
+	
+}
+.last{										
+		background-color:rgb(50,50,50);
+		color:white;
+		font-family: "Open Sans";
+		font-size:20px;
+		line-height:1.2em;
+
+		/* for gray background area*/
+ 
+	}
+.motto{			
+				font-family: "Open Sans";
+				font-size:17px;
+				color:rgb(200,200,200);
+				text-align:center;
+				/*for dark grey handwriting */
+			}
+.definition{			
+				margin-left:50px;
+				font-family: "Open Sans";
+				font-size:17px;
+				color:rgb(200,200,200);
+				/*for dark grey handwriting */
+			}
+.services{			
+				margin-right:50px;
+				margin-left:500px;
+				font-family: "Open Sans";
+				font-size:17px;
+				color:rgb(200,200,200);
+				
+				/*for dark grey handwriting */
+			}
+			
+.freedom
+{
+				margin-left:50px;
+				font-family: "Open Sans";
+				font-size:17px;
+				color:rgb(200,200,200);
+				/*for dark grey handwriting */
+	
+}
+.bullet {
+  color: rgb(255,102,0); /* bullet color */
+}	
+
+			/* footers */
+.homeul {
+    
+		list-style-type: none;
+		margin-left:350px;
+		padding: 0;
+		overflow: hidden;
+
+    
+		}
+
+.homeli {
+		float: left;
+		}
+
+.homea{
+		display: block;
+		color: white;
+		text-align: center;
+		padding: 16px;
+		text-decoration: none;
+	}
+
+
+
+body
+{
+	
+	margin:0;
+}		
+	
+h1 {  	font-family:"Cinzel Decorative Bold";
+		background-color:black;
+		color:white;
+		font-size:50px;
+		margin:0;
+		/*online food header */
+
+}
+
+	/*for header*/
+.h1span{
+			position: relative;
+			bottom: 0px;
+	
+		}
+		
+
+.login{
+		margin-left:780px;
+		
+		font-family:'Times New Roman';
+		font-size:15px;
+		color:rgb(130,130,130);
+		text-decoration: none;
+		}
+.login:hover,.help:hover
+{
+	color:rgb(240,240,240);
+}		
+	
+.help_no_user
+{
+	
+		margin-left:850px;
+		
+		font-family:'Times New Roman';
+		font-size:15px;
+		color:rgb(130,130,130);
+		text-decoration: none;
+}
+.help {
+		
+		
+		font-family:'Times New Roman';
+		font-size:15px;
+		color:rgb(130,130,130);
+		text-decoration: none;
+		}
+		
+body
+{
+	margin:0;
+}
+nav
+{
+	position: fixed;
+	left: -15em;					/* can be used to control sidebar position */
+	top: 0;
+	bottom: 0;
+	background:rgba(0,0,0,0.8);
+	border-right: 50px solid rgba(0,0,0,0);	/* side of navigation bar */
+	box-shadow: 4px 0 5px rgba(0,0,0,0.2);
+	z-index: 1;
+}
+
+
+nav:after
+{
+	position: absolute;
+	content: ' ';
+	width: 0;
+	height: 0;
+	right: -70px;
+	top: 50%;
+	border-width: 15px 10px;
+	border-style: solid;
+	border-color: transparent transparent transparent rgb(120,120,120);
+}
+.nava
+{
+	color:white;
+	text-decoration:none;
+	font-size:22px;
+	cursor: pointer;
+
+}
+nav li
+{
+	padding-bottom:10px;
+	padding-top:10px;
+	border-bottom:1px solid black;
+	
+}
+nav li:hover
+{
+		background:rgba(50,50,50,1);
+}
+nav ul
+{
+	width:10em;
+	list-style-type: none;
+	margin: 0;
+	padding: 1em;
+	
+}
+article, article:after, nav, nav *
+{
+
+	transition: all 600ms ease;
+}
+nav:hover
+{
+	left: 0;
+}
+nav:hover ~ article
+{
+	
+	transform: translateX(16em) perspective(600px) rotateY(10deg);
+}
+nav:hover ~ article:after
+{
+	left: 60%;
+}
+
+.menu_image
+{
+	margin-left:20px;
+	
+}
+.menu_heading
+{
+		font-family:"Cinzel Decorative Bold";
+		color:white;
+		font-size:20px;
+		margin-left:15px;
+	
+}
+
+
+
+
+
+
+
+
+
+.txt-center {
+    text-align: left;
+}
+.hide {
+    display: none;
+}
+
+.clear {
+    float: none;
+    clear: both;
+}
+
+.rating {
+    width: 160px;
+	font-size:22px;
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    text-align: center;
+    position: relative;
+	display:inline-block;
+}
+
+.rating > label {
+    display: inline;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    width: 1.1em;
+    cursor: pointer;
+    color: #000;
+}
+
+.rating > label:hover,
+.rating > label:hover ~ label,
+.rating > input.radio-btn:checked ~ label {
+    color: transparent;
+}
+
+.rating > label:hover:before,
+.rating > label:hover ~ label:before,
+.rating > input.radio-btn:checked ~ label:before,
+.rating > input.radio-btn:checked ~ label:before {
+    content: "\2605";
+    position: absolute;
+    left: 0;
+    color: #FFD700;
+}

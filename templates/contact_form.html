@@ -1,58 +1,28 @@
 <html>
 <head>
 <link type="text/css" href="{{url_for('static',filename='webpages.css')}}" rel="stylesheet"/>
+
+<script type="text/javascript" src="{{url_for('static',filename='alert/alertify.min.js')}}"></script>
+<link rel="stylesheet" href="{{url_for('static',filename='alert/alertify.default.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='alert/alertify.core.css')}}">
+
+
 <script>
 function required()
 {
 var subject=document.forms["form1"]["subject"].value;
 var message=document.forms["form1"]["message"].value;
 
-if((subject=="")||(message==""))
-{
-	alert("All fields are required");
-	document.form1.action="";
-}
-else
-{
+
 	
-	alert("message sent");
-	document.form1.action="http://localhost:5000/contact_form_submitted";
+	alertify.log( "message sent", "success" );
+	document.form1.action="http://localhost:5000/contact_form_submitted/{{temp}}";
 	document.form1.method="post";
 	
-}
+
 }
 </script>
 <style>
-@font-face 
-{
- font-family:Cinzel Decorative Bold;
- src:url("{{url_for('static',filename='fonts/CinzelDecorative-Bold.otf')}}");
-} 
-@font-face 
-{
- font-family:Open Sans;
- src:url("{{url_for('static',filename='fonts/OpenSans-Regular.ttf')}}");
-}
-@font-face 
-{
- font-family:Code Bold;
- src:url("{{url_for('static',filename='fonts/CODE Bold.otf')}}");
-} 
-@font-face 
-{
- font-family:Arimo;
- src:url("{{url_for('static',filename='fonts/Arimo-Bold.ttf')}}");
-} 
-@font-face 
-{
- font-family:Cormorant Garamond Medium;
- src:url("{{url_for('static',filename='fonts/CormorantGaramond-Medium.ttf')}}");
-} 
-@font-face 
-{
- font-family:Merriweather;
- src:url("{{url_for('static',filename='fonts/Merriweather-Regular.ttf')}}");
-}
 body
 {
 	background-color:rgb(180,180,180);
@@ -169,10 +139,10 @@ LA CANTINA
 		<table>
 				<tr>
 				<td><span class="heading">Subject</span></td>
-				<td><input class="input_name" type='text' name='subject'></td></tr>
+				<td><input class="input_name" type='text' name='subject' required></td></tr>
 				<tr>
 				<td><span class="heading">Message</span></td>
-				<td><textarea class="input_address" type='text' name='message' cols="40" rows="5"></textarea></td></tr>
+				<td><textarea class="input_address" type='text' name='message' cols="40" rows="5" required></textarea></td></tr>
 				
 		</table>
 			<br>
@@ -184,6 +154,25 @@ LA CANTINA
 </div>
 <br><br><br><br>
 
+
+
+<!-- menu -->
+	<nav class="nav">
+		<img class="menu_image" src="{{url_for('static',filename='food.jpg')}}"  width="70" height="70">
+		<br>
+		<span class="menu_heading">La Cantina</span>
+		<ul>
+			<li><a class="nava" href="{{path}}">Home</a></li>
+			<li><a class="nava" href="/about">About Us</a></li>
+			<li><a class="nava" href="/contact">Contact</a></li>
+			<li><a class="nava" href="/privacy_policy">Privacy Policy</a></li>
+			<li><a class="nava" href="/security">Security</a></li>		
+			<li><a class="nava" href="/terms">Terms</a></li>		
+
+		</ul>
+	</nav>
+
+	
 <div class="last" >
 <br>
 <div class="motto">

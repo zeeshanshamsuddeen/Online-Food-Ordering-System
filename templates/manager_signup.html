@@ -1,6 +1,12 @@
 <html>
 <head>
 <link type="text/css" href="{{url_for('static',filename='webpages.css')}}" rel="stylesheet"/>
+
+<script type="text/javascript" src="{{url_for('static',filename='alert/alertify.min.js')}}"></script>
+<link rel="stylesheet" href="{{url_for('static',filename='alert/alertify.default.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='alert/alertify.core.css')}}">
+
+
 <script>
 function required()
 {
@@ -13,12 +19,7 @@ function required()
 	var start_time=document.forms["form1"]["start_time"].value;	
 	var close_time=document.forms["form1"]["close_time"].value;
 	var y=0;
-	if(place==""||username==""||location==''||phone==''||start_time==''||close_time=='')
-	{
-		alert("All fields are neccesary");
-		document.form1.action="";
-	}
-	else if(password==''||password2=='')
+	if(password==''||password2=='')
 	{
 		alert("enter password");
 		document.form1.action="";
@@ -41,12 +42,26 @@ function required()
 					y=1;	
 				}
 		{% endfor %}	
+		{% for x in approval %}
+				if(username=="{{x[0]}}"&&place=="{{x[1]}}")
+				{
+					y=2;	
+				}
+		{% endfor %}
 		if(y==0)
 		{
+			alertify.log( "welcome "+username, "success" );
+
 			document.form1.action="http://localhost:5000/manager_signed_up";
 			document.form1.method="post";
 		}	
-		else
+		else if(y==2)
+		{	
+			alert("you have already submitted a request")
+			document.form1.action="";
+		
+		}
+		else 
 		{
 			alert("username already exists")
 			document.form1.action="";
@@ -56,21 +71,6 @@ function required()
 }
 </script>
 <style>
-@font-face 
-{
- font-family:Cinzel Decorative Bold;
- src:url("{{url_for('static',filename='fonts/CinzelDecorative-Bold.otf')}}");
-} 
-@font-face 
-{
- font-family:Open Sans;
- src:url("{{url_for('static',filename='fonts/OpenSans-Regular.ttf')}}");
-}
-@font-face 
-{
- font-family:Cormorant Garamond Medium;
- src:url("{{url_for('static',filename='fonts/CormorantGaramond-Medium.ttf')}}");
-}
 
 .content1
 {				   
@@ -218,48 +218,48 @@ LA CANTINA
 	<br>
 	<span class="details">Place :
 	</span>
-	<input class="area" type='text' name='place' placeholder="(TLY,KANNUR,CALICUT)" >
+	<input class="area" type='text' name='place' placeholder="(TLY,KANNUR,CALICUT)" required >
 
 	<br>
 	<br>
 	<span class="details">Choose your username :
 	</span>
-	<input class="area" type="text" name="username"  placeholder="Username" title="The username you choose must be unique">
+	<input class="area" type="text" name="username"  placeholder="Username" title="The username you choose must be unique" required>
     <br>
     <br>
 	<span class="details">Create a password :
 	</span>
-	<input class="area" type="password" name="password" placeholder="Password" title=" Don’t use a password from another site, or something too obvious like your pet’s name. ">
+	<input class="area" type="password" name="password" placeholder="Password" title=" Don’t use a password from another site, or something too obvious like your pet’s name. " required>
 	<br>
     <br>
 	<span class="details">Confirm password :
 	</span>
-	<input class="area" type="password" name="password2" placeholder="Password">
+	<input class="area" type="password" name="password2" placeholder="Password" required>
 	<br>
     <br>
 	<span class="details">Location of your restaurant :
 	</span>
-	<input class="area" type="text" name="location" placeholder="Location">
+	<input class="area" type="text" name="location" placeholder="Location" required>
 	<br>
 	<br>
 	<span class="details">Phone number :
 	</span>
-	<input class="area" type="number" name="phone" placeholder="Phone">
+	<input class="area" type="number" name="phone" placeholder="Phone" required min="1000000000" max="9999999999">
 	<br>
 	<br>
 	<span class="details">Staring time :
 	</span>
-	<input class="area" type="time" name="start_time" placeholder="Starting Time">
+	<input class="area" type="time" name="start_time" placeholder="Starting Time" required>
 	<br>
 	<br>
 	<span class="details">Closing time :
 	</span>
-	<input class="area" type="time" name="close_time" placeholder="Closing Time">
+	<input class="area" type="time" name="close_time" placeholder="Closing Time" required>
 	<br>
 	<br>
 	<span class="details">Image URL:
 	</span>
-	<input type="file" name="filename"  placeholder="Image path" title="Enter the complete path of image">
+	<input type="file" name="filename"  placeholder="Image path" title="Enter the complete path of image" required>
     <br>
     <br>
 	<br>
@@ -298,7 +298,9 @@ LA CANTINA
 			<li><a class="nava" href="/about">About Us</a></li>
 			<li><a class="nava" href="/contact">Contact</a></li>
 			<li><a class="nava" href="/privacy_policy">Privacy Policy</a></li>
-			<li><a class="nava" href="/security">Security</a></li>		
+			<li><a class="nava" href="/security">Security</a></li>	
+			<li><a class="nava" href="/terms">Terms</a></li>		
+			
 		</ul>
 	</nav>
 

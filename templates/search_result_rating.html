@@ -1,0 +1,429 @@
+<html>
+<head>
+<link type="text/css" href="{{url_for('static',filename='webpages.css')}}" rel="stylesheet"/>
+<link type="text/css" href="{{url_for('static',filename='hover.css')}}" rel="stylesheet"/>
+
+<style>
+
+
+.background
+{
+		background-size: cover;
+		background-attachment: fixed;         /* scroll div contents without background */
+}
+.box
+{
+		border-style:solid;
+		border-width:1px;
+		border-color:rgb(245,245,245);
+		margin-left:50px;
+		display:inline-block;
+		font-family:"Cormorant Garamond Medium";
+		font-weight:bold;
+		font-size:19px;
+		width:250px; 
+		max-width:250px;	vertical-align:top;		/*to start div contents from top */
+		margin-bottom:80px;
+		padding:5px;
+		background-color:rgb(245,245,245);
+	    box-shadow: 10px 10px 5px #888888;
+	
+}
+.price
+{
+		padding-left:5px;
+		float:right;	
+		font-size:22px;
+		color: rgb(100,100,100)
+}
+.ordernowa
+{
+	text-decoration:none;
+	color:rgb(10,110,10);
+}
+.content5
+{
+	font-family:Merriweather;
+	margin-left:500px;
+	font-size:25px;
+	color:white;
+}
+.contenta
+{
+	text-decoration:none;
+	color:rgb(10,10,110);
+	font-size:24px;
+	color:white;
+
+}
+.content2
+{
+			margin-top:50px;
+			margin-left:200px;
+			margin-right:400px;
+			background:rgba(255,255,255,0.8);
+			
+
+}	
+.table
+{
+		float:right;
+}
+.table::after
+{
+	clear: both;
+	    
+
+}
+td
+{
+			padding: 15px;
+}
+.definition1
+{			
+				font-weight:700;
+				font-family: "Cormorant Garamond Medium";
+				font-size:20px;
+				color:black;
+				width:430px;
+				
+}
+
+.mainrow:hover
+{
+		background:rgba(255,255,255,0.85);
+}
+.defen
+{
+	font-family:"Open Sans";
+	font-size:14px;
+	color:rgb(100,100,100);
+}
+.heading_dish
+{
+	font-size:16px;
+	font-family:"Merriweather";
+}
+.heading
+{
+			font-size:20px;
+			color:white;
+			font-weight:600;
+			font-family:"Lemonada";
+}
+.refine
+{
+	float:left;
+	background:rgba(255,255,255,0.5);
+	font-family:"Merriweather";
+	font-size:17px;
+	height:250px;
+	padding:10px;
+
+}
+.refina
+{
+	text-decoration:none;
+	color:rgb(120,10,10);
+	font-weight:bold;
+	font-family:"PT Serif";
+	
+}
+.main
+{
+			margin-left:170px;
+}
+
+
+
+.image_linka
+{
+ display: block;
+  text-align:center;
+  margin: 0 auto;
+  width: 100%;
+  color: #aaa;
+
+}
+
+.zoom-effect-container {
+    float: left;
+    position: relative;
+    width: 250;
+    height: 150px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.image-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  
+}
+
+.image-card img {
+  -webkit-transition: 0.4s ease;
+  transition: 0.4s ease;
+}
+
+.zoom-effect-container:hover .image-card img {
+  -webkit-transform: scale(1.08);
+  transform: scale(1.08);
+}
+
+.sortby
+{
+	
+	font-size:17px;
+	margin-left:150px;
+
+}
+
+.sorta
+{
+		font-size:20px;
+		color:black;
+		font-weight:600;
+		text-decoration:none; 
+		font-family:"Cormorant Garamond Medium";
+		border:1px hidden white;
+		border-radius:5px;
+		padding:5px;
+
+}
+.sorta:hover
+{
+		background-color:rgb(150,150,150);
+		border:1px solid rgb(150,150,150);
+		border-radius:5px;
+		padding:5px;
+
+}
+</style>
+</head>
+<body>
+<h1>
+<a href="/homepage_customer">
+<img src="{{url_for('static',filename='food.jpg')}}"  width="80" height="60"></a>
+<span class="h1span">
+
+LA CANTINA</span>
+<span>
+<a href="/customer_logout" class="login">LOGOUT</></a>
+<a href="/help" class="help">HELP</></a>
+<a href="/cartshow" class="help">CART</a>
+<a href="/orders" class="help">MY ORDERS</a>
+
+</span>
+</h1>
+<div class="background" style="padding-left:20px; background-image:url({{url_for('static',filename='bread.jpg')}});">
+
+<br><br><br><br>
+
+{% if var or var_rest %}
+
+{%if var%}
+
+
+
+
+
+<span class="heading">Dishes matching your search "{{data}}"</span><br><br><br><br>
+<div class="refine">
+	SORT BY : <br>
+	<br>
+	<a class="refina" href="/search_result_sort/asc/{{data}}">Price (Low to High) </a>
+	<br>
+	<a class="refina" href="/search_result_sort/desc/{{data}}">Price (High to Low) </a>
+	<br><br>
+
+	<a class="refina" href="/search_result_sort/AtoZ/{{data}}">Name (A to Z) </a>
+	<br>
+	<a class="refina" href="/search_result_sort/ZtoA/{{data}}">Name (Z to A)  </a>
+	<br>
+	
+
+</div>
+<div class="main">
+
+{%for x in var%}	
+<div class="box">
+	
+	<div class="zoom-effect-container">
+		<div class="image-card">
+		<a class="image_linka" href="/quantity/{{x[4]}}/{{x[5]}}/{{x[0]}}/{{x[2]}}/{{x[6]}}">
+		<img class="image_link" src="{{url_for('static',filename='dish/'+x[6])}}" height="150" width="250">
+		</a>	
+		</div>
+		</div>
+	<br>
+	<span class="heading_dish">{{x[0]}}</span>
+	<span class="price">
+		&#8377;
+		{{x[2]}}
+	</span>
+	<br>
+	<span class="defen">{{x[1]}}</span>
+	<br>
+	{{x[5]}}
+	<br>
+	{{x[4]}}
+	<br>
+
+	
+</div>	
+{%endfor%}
+</div>
+{%endif%}
+{%if var_rest%}
+<br>
+<br><span class="heading">Restaurants matching your search "{{data}}"</span><br><br>
+
+<div class="content2">
+
+
+<br>
+
+<div class="sortby">SORT BY :
+<a href="/search_result_sort_rest/asc/{{data}}" class="sorta">&nbsp;&nbsp;name(A to Z)</a>
+<a href="/search_result_sort_rest/desc/{{data}}" class="sorta">&nbsp;&nbsp;name(Z to A)</a>
+<a href="/search_result_sort_rest/rating/{{data}}" class="sorta">&nbsp;&nbsp;rating</a>
+</div>
+ 
+ 
+<br>
+<table style="border-left:1px solid rgb(50,50,50)">
+{%for key,value in ord_dict.items()%}
+{%for x in var_rest%}
+{%if key[0]==x[0] and key[1]==x[3]%}
+<tr class="mainrow">
+
+	<td style="padding-left:50px;border-bottom: 1px solid rgb(50,50,50);">
+	<div style="width:200px">
+    <div class="hovereffect">
+        <img class="img-responsive" src="{{url_for('static',filename='restaurants/'+x[2])}}" width="150" height="150" alt="">
+        <div class="overlay">
+          
+           <a class="info" href="/{{x[3]}}/menu/{{x[0]}}">{{x[0]}}</a>
+        </div>
+    </div>
+	</div>
+	</td>
+
+
+	<td style="border-bottom: 1px solid rgb(50,50,50);">
+	<p class="definition1">
+	
+Place : {{x[3]}}<br>
+Location : {{x[4]}}<br>
+&phone; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:<span style="font-family:'Times New Roman';font-size:18px;"> {{x[5]}}</span><br>
+Opens at :<span style="font-family:'Times New Roman';font-size:18px;"> {{x[6]}}</span> <br>
+Closes at : <span style="font-family:'Times New Roman';font-size:18px;"> {{x[7]}}</span><br>
+Rating  &nbsp;&nbsp;&nbsp;  : <span style="font-family:'Times New Roman';font-size:18px;">  {{value}}/5</span>
+
+	
+	</p>
+	</td >
+	
+
+</tr>
+{%endif%}
+{%endfor%}
+{%endfor%}
+</table>
+
+</div>
+
+{%endif%}
+
+{%else%}
+	<div class="content5">
+	No results found
+	<br><br>
+	<a class="contenta" href="/homepage_customer">continue shopping</a>
+	<br>
+	<br><br><br><br>
+	</div>
+
+{%endif%}
+
+<br><br><br><br>
+</div>
+
+
+
+<!-- menu -->
+	<nav>
+		<img class="menu_image" src="{{url_for('static',filename='food.jpg')}}"  width="70" height="70">
+		<br>
+		<span class="menu_heading">La Cantina</span>
+		<ul>
+			<li><a class="nava" href="/homepage_customer">Home</a></li>
+			<li><a class="nava" href="/about">About Us</a></li>
+			<li><a class="nava" href="/contact">Contact</a></li>
+			<li><a class="nava" href="/privacy_policy">Privacy Policy</a></li>
+			<li><a class="nava" href="/security">Security</a></li>	
+			<li><a class="nava" href="/terms">Terms</a></li>		
+			
+		</ul>
+	</nav>
+
+
+
+<div class="last" >
+<br>
+<div class="motto">
+We still uphold the same motto <span class="bullet">“making online food ordering fast and easy”</span>. Our service allows you<br> to find all of the restaurants available nearby, which can deliver to your house
+</div>
+<br><br>
+<b><span class="head_left">Ordering food is easy as ABC Only 4 steps to make the order, easy payment, available 24/7</span>
+</b>
+
+<div class="definition">
+<br><br>
+The <span class="bullet">challenge</span> for us is to make a versatile website that is simple and easy to use.<br>
+What we have learned is that ordering food online is way easier, faster and has <br>
+less complications than calling. What makes La Cantina better than the traditional order<br>
+over the phone method?
+
+<ul class="bullet"><li><span style="color:rgb(200,200,200);">24/7: Our site and app are available 24/7 with the feature to pre-order. You can plan your <br>
+meal ahead from the best restaurants near you and avoid the rush hours</span></li>
+<li><span style="color:rgb(200,200,200);">Free to use: Browse through 4000+ restaurant menus for free</span></li>
+<li><span style="color:rgb(200,200,200);">Order food in 4 simple steps</span></li>
+<li><span style="color:rgb(200,200,200);">Easy Payment: Do you prefer online payment? We accept all major credit cards as well as</li>
+<li><span style="color:rgb(200,200,200);">If you prefer to pay cash on delivery in Indian Rupees, we’ve got that covered too.</span></li>
+</ul>
+</div>
+<br><hr width="90%"><br>
+<div class="services">
+<b><span class="head_right">Our Services</span></b>
+<br><br>
+Should you have any concerns or would you want to give us feedback, please do not hesitate to contact our customer service
+team by using our Live Chat feature on your LaCantina App or website, or by sending an email at customercare@lacantina.in. 
+La Cantina India Corporate Office is located at Kayyath Villa, Kayyath Road , Thalassery.
+</div>
+
+<br><hr width="90%"><br>
+<b><span class="head_left">Freedom of Choice </span></b><br><br>
+<div class="freedom">
+
+<span class="bullet">Breakfast, Lunch, Dinner or Late Night delivery</span> La Cantina is just the right place for you. 
+<br>Simply pick one of the thousands of diverse restaurants available near you. From traditional meals to
+<br>well-known fast food chains like Dominos, Pizza Hut and Box8 along with delicate cuisines such
+<br> as Japanese, Biryani or Punjabi - you can find it all! All it takes is 4 easy steps:
+
+<ol class="bullet"><li><span style="color:rgb(200,200,200);">Choose your city and area</span></li>
+<li><span style="color:rgb(200,200,200);">Pick one of the 10000+ restaurant</span></li>
+<li><span style="color:rgb(200,200,200);">Place your order and pay online or cash on delivery</span></li>
+<li><span style="color:rgb(200,200,200);">Enjoy the freshly prepared food delivered to you!</span></li>
+</ol>
+
+</div>
+
+<br><br>
+
+
+</div>
+</body>
+</html>

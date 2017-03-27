@@ -1,6 +1,12 @@
 <html>
 <head>
 <link type="text/css" href="{{url_for('static',filename='webpages.css')}}" rel="stylesheet"/>
+
+<script type="text/javascript" src="{{url_for('static',filename='alert/alertify.min.js')}}"></script>
+<link rel="stylesheet" href="{{url_for('static',filename='alert/alertify.default.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='alert/alertify.core.css')}}">
+
+
 <script>
 function required()
 {
@@ -11,16 +17,10 @@ var phone=document.forms["form1"]["phone"].value;
 var payment=document.forms["form1"]["payment"].value;
 
 
-if((name=="")||(address=="")||(pincode=="")||(phone==""))
-{
-	alert("All fields are required");
-	document.form1.action="";
-}
-else
-{
+
 	if(payment=='cash')
 	{
-		alert("order successfully placed");
+		alertify.log( "order successfully placed ", "success" );
 		document.form1.action="http://localhost:5000/cartclear";
 	}
 	else
@@ -28,36 +28,12 @@ else
 		document.form1.action="http://localhost:5000/paycard";
 
 	}
-}
+
 }
 </script>
 
 <style>
-@font-face 
-{
- font-family:Cinzel Decorative Bold;
- src:url("{{url_for('static',filename='fonts/CinzelDecorative-Bold.otf')}}");
-} 
-@font-face 
-{
- font-family:Merriweather;
- src:url("{{url_for('static',filename='fonts/Merriweather-Regular.ttf')}}");
-}
-@font-face 
-{
- font-family:Arimo;
- src:url("{{url_for('static',filename='fonts/Arimo-Bold.ttf')}}");
-} 
-@font-face 
-{
- font-family:Cormorant Garamond Medium;
- src:url("{{url_for('static',filename='fonts/CormorantGaramond-Medium.ttf')}}");
-}
-@font-face 
-{
- font-family:Open Sans;
- src:url("{{url_for('static',filename='fonts/OpenSans-Regular.ttf')}}");
-}
+
 .background
 {
 		background-size: cover;
@@ -166,6 +142,8 @@ LA CANTINA</span>
 <a href="/customer_logout" class="login">LOGOUT</></a>
 <a href="/help" class="help">HELP</></a>
 <a href="/cartshow" class="help">CART</a>
+<a href="/orders" class="help">MY ORDERS</a>
+
 </span>
 </h1>
 
@@ -182,19 +160,19 @@ LA CANTINA</span>
 				<table>
 				<tr>
 				<td><span class="heading">Name</span></td>
-				<td><input class="input_name" type='text' name='name'></td></tr>
+				<td><input class="input_name" type='text' name='name' required></td></tr>
 				<tr>
 				<td><span class="heading">Pincode</span></td>
-				<td><input class="input_name" type='number' name='pincode' min="100000" max="999999"></td></tr>
+				<td><input class="input_name" type='number' name='pincode' min="100000" max="999999" required></td></tr>
 				<tr>
 				<td><span class="heading">Address</span></td>
-				<td><textarea class="input_address" type='text' name='address' cols="40" rows="5"></textarea></td></tr>
+				<td><textarea class="input_address" type='text' name='address' cols="40" rows="5" required></textarea></td></tr>
 				<tr>
 				<td><span class="heading">Landmark</span></td>
 				<td><input class="input_name" type='text' name='landmark' placeholder="(optional)"></td></tr>
 				<tr>
 				<td><span class="heading">Phone</span></td>
-				<td><input class="input_name" type='number' name='phone' min="1000000000" max="9999999999"></td></tr>
+				<td><input class="input_name" type='number' name='phone' min="1000000000" max="9999999999" required></td></tr>
 				<tr>
 				<td><span class="heading">Payment</span></td>
 				<td><select class="select" name="payment">
@@ -222,7 +200,8 @@ LA CANTINA</span>
 			<li><a class="nava" href="/about">About Us</a></li>
 			<li><a class="nava" href="/contact">Contact</a></li>
 			<li><a class="nava" href="/privacy_policy">Privacy Policy</a></li>
-			<li><a class="nava" href="/security">Security</a></li>		
+			<li><a class="nava" href="/security">Security</a></li>
+			<li><a class="nava" href="/terms">Terms</a></li>				
 		</ul>
 	</nav>
 

@@ -3,21 +3,6 @@
 <link type="text/css" href="{{url_for('static',filename='webpages.css')}}" rel="stylesheet"/>
 
 <style>
-@font-face 
-{
- font-family:Open Sans;
- src:url("{{url_for('static',filename='fonts/OpenSans-Regular.ttf')}}");
-}
-@font-face 
-{
- font-family:Cinzel Decorative Bold;
- src:url("{{url_for('static',filename='fonts/CinzelDecorative-Bold.otf')}}");
-} 
-@font-face 
-{
- font-family:Cormorant Garamond Medium;
- src:url("{{url_for('static',filename='fonts/CormorantGaramond-Medium.ttf')}}");
-}
 
 body
 {
@@ -55,8 +40,8 @@ body
 
 <body>
 <h1>
-
-<img src="{{url_for('static',filename='food.jpg')}}"  width="80" height="60">
+<a href="/">
+<img src="{{url_for('static',filename='food.jpg')}}"  width="80" height="60"></a>
 <span class="h1span">
 
 LA CANTINA
@@ -115,6 +100,22 @@ LA CANTINA
 
 <br><br><br><br>
 
+
+<!-- menu -->
+	<nav class="nav">
+		<img class="menu_image" src="{{url_for('static',filename='food.jpg')}}"  width="70" height="70">
+		<br>
+		<span class="menu_heading">La Cantina</span>
+		<ul>
+			<li><a class="nava" href="{{path}}">Home</a></li>
+			<li><a class="nava" href="/about">About Us</a></li>
+			<li><a class="nava" href="/contact">Contact</a></li>
+			<li><a class="nava" href="/privacy_policy">Privacy Policy</a></li>
+			<li><a class="nava" href="/security">Security</a></li>		
+			<li><a class="nava" href="/terms">Terms</a></li>		
+
+		</ul>
+	</nav>
 
 
 

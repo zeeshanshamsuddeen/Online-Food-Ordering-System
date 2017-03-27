@@ -1,54 +1,66 @@
 <html>
 <head>
 <link type="text/css" href="{{url_for('static',filename='webpages.css')}}" rel="stylesheet"/>
+
+<script type="text/javascript" src="{{url_for('static',filename='alert/alertify.min.js')}}"></script>
+<link rel="stylesheet" href="{{url_for('static',filename='alert/alertify.default.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='alert/alertify.core.css')}}">
+<script type="text/javascript" src="{{url_for('static',filename='js/rating.js')}}"></script>
+
+
+
+<script type="text/javascript">
+function required()
+{
+	var message=document.forms["form1"]["message"].value;
+	if(message=="")
+	{
+		alert("no message")
+	}
+	else
+	{
+			alertify.log( "feedback submitted ", "success" );
+			document.form1.action="http://localhost:5000/feedback/{{place}}/{{rest}}";
+			document.form1.method="post";
+	}
+
+}
+
+$(document).ready(function(){
+//  Check Radio-box
+    $(".rating input:radio").attr("checked", false);
+    $('.rating input').click(function () {
+        $(".rating span").removeClass('checked');
+        $(this).parent().addClass('checked');
+    });
+
+    $('input:radio').change(
+    function(){
+        var userRating = this.value;
+		{% if var_stars %}
+		window.location.href = "/{{place}}/{{rest}}/rating_change/"+userRating;
+		{%else%}
+		window.location.href = "/{{place}}/{{rest}}/rating/"+userRating;
+		{%endif%}
+    }); 
+});
+</script>
 <style>
-@font-face 
-{
- font-family:Cinzel Decorative Bold;
- src:url("{{url_for('static',filename='fonts/CinzelDecorative-Bold.otf')}}");
-} 
-@font-face 
-{
- font-family:Open Sans;
- src:url("{{url_for('static',filename='fonts/OpenSans-Regular.ttf')}}");
-}
-@font-face 
-{
- font-family:PT Serif;
- src:url("{{url_for('static',filename='fonts/PT_Serif-Web-Regular.ttf')}}");
-} 
-@font-face 
-{
- font-family:Sansita;
- src:url("{{url_for('static',filename='fonts/Sansita-Regular.ttf')}}");
-} 
-@font-face 
-{
- font-family:Code Bold;
- src:url("{{url_for('static',filename='fonts/CODE Bold.otf')}}");
-} 
-@font-face 
-{
- font-family:Cormorant Garamond Medium;
- src:url("{{url_for('static',filename='fonts/CormorantGaramond-Medium.ttf')}}");
-} 
-@font-face 
-{
- font-family:Merriweather;
- src:url("{{url_for('static',filename='fonts/Merriweather-Regular.ttf')}}");
-}
+
 
 .food
 {   
 	margin-left:20px;
+	margin-right:20px;
+
 	margin-top:20px;
 	margin-bottom:20px;
 	font-size:22px;
 	vertical-align:top;		/*to start div contents from top */
 	width:250px; 
    max-width:250px;
-   height:275px;
-   max-height:275px;
+   height:"";
+   max-height:"";
    display: inline-block;
    border-style:solid;
 	border-color:rgb(160,160,160);
@@ -66,7 +78,7 @@
 {
 		padding-left:5px;
 		font-size:21px;
-		color: rgb(100,100,100)
+		color: rgb(100,100,100);
 }
 .desc
 {
@@ -108,6 +120,7 @@
 {
 			margin-left:170px;
 			margin-right:170px;
+			padding-left:60px;
 			background:rgba(255,255,255,0.2);   /* to reduce opacity without effecting inner contents*/
 }
 .others
@@ -138,19 +151,33 @@
 .sort
 {
 		margin-left:170px;
-		font-size:17px;
+		font-size:14px;
 		font-weight:500;
-		height:200;
+		height:230;
 		margin-right:170px;
 		background:rgba(255,255,255,0.8);
+		
 
 }
 .sorta
 {
-		font-size:17px;
+		font-size:20px;
 		color:black;
 		font-weight:600;
-		text-decoration:none;
+		text-decoration:none; 
+		font-family:"Cormorant Garamond Medium";
+		border:1px hidden white;
+		border-radius:5px;
+		padding:5px;
+
+}
+.sorta:hover
+{
+		background-color:rgb(150,150,150);
+		border:1px solid rgb(150,150,150);
+		border-radius:5px;
+		padding:5px;
+
 }
 .image_rest
 {
@@ -158,14 +185,16 @@
 }
 .rest
 {
-	margin-left:210px;
-	font-family:PT Serif;
+	margin-left:240px;
+	font-family:"Lemonada";
 }
 .sortby
 {
-	top:385px;
-	left:380px;			
+	top:410px;
+	left:410px;			
 	position:absolute;
+	font-size:17px;
+
 }
 .menu
 {
@@ -181,9 +210,9 @@
 .rate
 {
 	margin-left:10px;
-	font-size:18px;
+	font-size:16px;
 	font-weight:500;
-	font-family:PT Serif;
+	font-family:"Lemonada";
 
 }
 .head
@@ -195,34 +224,165 @@
 	margin-left:1000px;
 }
 
-</style>
-<script type="text/javascript" src="{{url_for('static',filename='rating.js')}}"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-//  Check Radio-box
-    $(".rating input:radio").attr("checked", false);
-    $('.rating input').click(function () {
-        $(".rating span").removeClass('checked');
-        $(this).parent().addClass('checked');
-    });
 
-    $('input:radio').change(
-    function(){
-        var userRating = this.value;
-		{% if var_stars %}
-		alert("You have already rated this restaurant");
-		{%else%}
-		window.location.href = "rating/{{rest}}/"+userRating;
-		{%endif%}
-    }); 
-});
-</script>
+
+
+.image_linka
+{
+ display: block;
+  text-align:center;
+  margin: 0 auto;
+  width: 100%;
+  color: #aaa;
+
+}
+
+.zoom-effect-container {
+    float: left;
+    position: relative;
+    width: 250;
+    height: 150px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.image-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  
+}
+
+.image-card img {
+  -webkit-transition: 0.4s ease;
+  transition: 0.4s ease;
+}
+
+.zoom-effect-container:hover .image-card img {
+  -webkit-transform: scale(1.08);
+  transform: scale(1.08);
+}
+
+
+
+/* for pop up */
+.button {
+  font-size:18px;
+  padding: 10px;
+  font-family:Sansita;
+  color: #fff;
+  border: 2px solid rgb(10,120,10);
+  border-radius: 20px/50px;
+  text-decoration: none;
+  cursor: pointer;
+margin-left:600px;
+  background:rgba(0,0,0,0.6);
+  transition: all 0.3s ease-out;
+}
+.button:hover {
+  background: rgb(10,120,10);
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+   text-align:center;
+   	font-family:"lemonada";
+
+
+}
+.popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .close:hover {
+  color: #06D85F;
+}
+.popup .content {
+  max-height: 30%;
+  overflow: auto;
+  text-align:center;
+
+}
+
+@media screen and (max-width: 700px){
+  .box{
+    width: 70%;
+  }
+  .popup{
+    width: 70%;
+  }
+}
+.area
+{
+	font-size:15px;
+	border:1px solid black; 
+	height:30px;
+	padding:8px;
+	border-radius:5px;
+
+
+}
+input#gobutton
+{
+		font-family:"Cormorant Garamond Medium";
+		font-weight:bold;
+		font-size:15px;
+		width:100px;
+		cursor:pointer;		 /*forces the cursor to change to a hand when the button is hovered*/
+		padding:5px 25px; 
+		background:rgb(18,124,36);
+		border:1px solid #33842a; 
+		border-radius: 3px;
+
+		box-shadow: 0 0 4px rgba(0,0,0, .75);
+		color:#f3f3f3;
+}
+
+input#gobutton:hover, input#gobutton:focus
+{
+		background-color :#399630;
+		box-shadow: 0 0 1px rgba(0,0,0, .75);
+}
+</style>
+
 
 </head>
 <body>
 <h1>
-<a href="/homepage_customer">
-<img src="{{url_for('static',filename='food.jpg')}}"  width="80" height="60"></a>
+<img src="{{url_for('static',filename='food.jpg')}}"  width="80" height="60">
 <span class="h1span">
 
 LA CANTINA</span>
@@ -230,11 +390,16 @@ LA CANTINA</span>
 <a href="/customer_logout" class="login">LOGOUT</></a>
 <a href="/help" class="help">HELP</></a>
 <a href="/cartshow" class="help">CART</a>
+<a href="/orders" class="help">MY ORDERS</a>
+
 </span>
 </h1>
 
 <div class="background" style="background-image:url({{url_for('static',filename='plate6.jpg')}})"> 
+
+
 <br>
+
 <br>
 <br>
 <span class="menu">MENU</span>
@@ -243,11 +408,11 @@ LA CANTINA</span>
 <br>
 <br>
 <div class="sort">
-<img class="image_rest" src="{{url_for('static',filename='restaurants/'+temp[2])}}" width="200" height="200" alt="">
+<a href="/reviews/{{place}}/{{temp[0]}}"><img class="image_rest" src="{{url_for('static',filename='restaurants/'+temp[2])}}" width="230" height="230" alt=""></a>
 <div class="rest">
 	<span class="head">{{temp[0]}}</span><br>
 	Location : {{temp[4]}}<br>
-	&phone; :<span style="font-family:'Times New Roman'"> {{temp[5]}}</span><br>
+	&phone; :<span> {{temp[5]}}</span><br>
 	Working hours : {{temp[6]}} to {{temp[7]}}<br>
 	Total Rating : {{sum}}/5
 </div>
@@ -270,17 +435,84 @@ LA CANTINA</span>
     </form>
 </div>
 <div class="sortby">SORT BY :
-<a href="/{{place}}/menu/{{rest}}/nameasc" class="sorta">name(ascending) ,</a>
-<a href="/{{place}}/menu/{{rest}}/namedes" class="sorta">name(descending) ,</a>
-<a href="/{{place}}/menu/{{rest}}/pricelh" class="sorta">price(low to high) ,</a>
-<a href="/{{place}}/menu/{{rest}}/pricehl" class="sorta">price(high to low) </a>
+<a href="/{{place}}/menu/{{rest}}/nameasc" class="sorta">&nbsp;&nbsp;name(A to Z)</a>
+<a href="/{{place}}/menu/{{rest}}/namedes" class="sorta">&nbsp;&nbsp;name(Z to A)</a>
+<a href="/{{place}}/menu/{{rest}}/pricelh" class="sorta">&nbsp;&nbsp;price(low to high)</a>
+<a href="/{{place}}/menu/{{rest}}/pricehl" class="sorta">&nbsp;&nbsp;price(high to low)</a>
 </div>
 </div> 
 <br>
+<a class="button" href="#popup1">Ask the seller</a>
+
+<div id="popup1" class="overlay">
+	<div class="popup">
+		<h2>Enquiry</h2>
+		<a class="close" href="#">&times;</a>
+		<div class="content">
+      <form name="form1" onsubmit="required()"">
+        <input class="area" type="text" name="message" placeholder="Your question..">
+		<br>
+		<br>
+		<input id="gobutton" type="submit" name="submit" value="Submit" />
+      </form> 
+    </div>
+	</div>
+</div>
+<br>
+<br>
+<br>
+<br>
 <br>
 <br>
 
 
+
+
+{% if (var_non_veg is defined) and var_non_veg %}
+
+	<div class="content2">
+	<br>
+	<span class="heading">NON-VEG</span>
+	<br>
+	{% for x in var_non_veg %}
+	<!--displays menu of different restaurants -->
+	<div class="food">
+	<div class="name">
+		<div class="zoom-effect-container">
+		<div class="image-card">
+		<a class="image_linka" href="/quantity/{{place}}/{{rest}}/{{x['item']}}/{{x['price']}}/{{x['dish_image']}}">
+		<img class="image_link" src="{{url_for('static',filename='dish/'+x['dish_image'])}}" height="150" width="250">
+		</a>	
+		</div>
+		</div>
+	</div>
+
+	<div class="price">
+		{{x['item']}}
+	<br>
+	 
+	</div>
+
+	<div class="desc">
+	{{x['def']}} 
+	<br>
+	</div>
+	<div class="price">
+		&#8377;
+	<span style="font-family:'Times New Roman'; font-size:18px; "> {{x['price']}}</span>
+	</div>
+	<br>
+
+	<div class="ordernow">
+	<a class="ordernowa" href="/quantity/{{place}}/{{rest}}/{{x['item']}}/{{x['price']}}/{{x['dish_image']}}">order online &rarr; </a>
+	</div>
+
+	</div>
+	{% endfor %}
+	</div>
+{%endif%}
+
+<br>
 
 {% if (var_veg is defined) and var_veg %}
 <div class="content2">
@@ -292,7 +524,13 @@ LA CANTINA</span>
 	<!--displays menu of different restaurants -->
 	<div class="food">
 	<div class="name">
-		<img src="{{url_for('static',filename='dish/'+x['dish_image'])}}" height="150" width="250">
+		<div class="zoom-effect-container">
+		<div class="image-card">
+		<a class="image_linka" href="/quantity/{{place}}/{{rest}}/{{x['item']}}/{{x['price']}}/{{x['dish_image']}}">
+		<img class="image_link" src="{{url_for('static',filename='dish/'+x['dish_image'])}}" height="150" width="250">
+		</a>	
+		</div>
+		</div>
 	</div>
 
 	<div class="price">
@@ -306,7 +544,7 @@ LA CANTINA</span>
 	</div>
 	<div class="price">
 		&#8377;
-	{{x['price']}}
+	<span style="font-family:'Times New Roman'; font-size:18px;"> {{x['price']}}</span>
 	</div>
 	<br>
 
@@ -321,46 +559,7 @@ LA CANTINA</span>
 {%endif%}
 
 
-<br>
 
-
-{% if (var_non_veg is defined) and var_non_veg %}
-
-	<div class="content2">
-	<br>
-	<span class="heading">NON-VEG</span>
-	<br>
-	{% for x in var_non_veg %}
-	<!--displays menu of different restaurants -->
-	<div class="food">
-	<div class="name">
-		<img src="{{url_for('static',filename='dish/'+x['dish_image'])}}" height="150" width="250">
-	</div>
-
-	<div class="price">
-		{{x['item']}}
-	<br>
-	 
-	</div>
-
-	<div class="desc">
-	{{x['def']}} 
-	<br>
-	</div>
-	<div class="price">
-		&#8377;
-	{{x['price']}}
-	</div>
-	<br>
-
-	<div class="ordernow">
-	<a class="ordernowa" href="/quantity/{{place}}/{{rest}}/{{x['item']}}/{{x['price']}}/{{x['dish_image']}}">order online &rarr; </a>
-	</div>
-
-	</div>
-	{% endfor %}
-	</div>
-{%endif%}
 
 <br>
 
@@ -374,7 +573,13 @@ LA CANTINA</span>
 	<!--displays menu of different restaurants -->
 	<div class="food">
 	<div class="name">
-		<img src="{{url_for('static',filename='dish/'+x['dish_image'])}}" height="150" width="250">
+		<div class="zoom-effect-container">
+		<div class="image-card">
+		<a class="image_linka" href="/quantity/{{place}}/{{rest}}/{{x['item']}}/{{x['price']}}/{{x['dish_image']}}">
+		<img class="image_link" src="{{url_for('static',filename='dish/'+x['dish_image'])}}" height="150" width="250">
+		</a>	
+		</div>
+		</div>	
 	</div>
 
 	<div class="price">
@@ -389,7 +594,7 @@ LA CANTINA</span>
 	</div>
 	<div class="price">
 		&#8377;
-	{{x['price']}}
+	<span style="font-family:'Times New Roman'; font-size:18px;"> {{x['price']}}</span>
 	</div>
 	<br>
 
@@ -423,6 +628,8 @@ LA CANTINA</span>
 			<li><a class="nava" href="/contact">Contact</a></li>
 			<li><a class="nava" href="/privacy_policy">Privacy Policy</a></li>
 			<li><a class="nava" href="/security">Security</a></li>		
+			<li><a class="nava" href="/terms">Terms</a></li>		
+
 		</ul>
 	</nav>
 

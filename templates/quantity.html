@@ -1,43 +1,22 @@
 <html>
 <head>
 <link type="text/css" href="{{url_for('static',filename='webpages.css')}}" rel="stylesheet"/>
+
+<script type="text/javascript" src="{{url_for('static',filename='alert/alertify.min.js')}}"></script>
+<link rel="stylesheet" href="{{url_for('static',filename='alert/alertify.default.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='alert/alertify.core.css')}}">
+
+
 <script>
 function required()
 {
 var qty=document.forms["form1"]["qty"].value;
-if(qty=="")
-{
-	alert("please input quantity");
-	document.form1.action="";
-}
-else
-{	
-	alert("item successflly added to cart")
+	alertify.log( "item successfully added to cart", "success" );
 	document.form1.action="http://localhost:5000/postquantity/{{place}}/{{rest}}/{{item}}/{{price}}/{{dish_image}}"
-}
+
 }
 </script>
 <style>
-@font-face 
-{
- font-family:Cinzel Decorative Bold;
- src:url("{{url_for('static',filename='fonts/CinzelDecorative-Bold.otf')}}");
-} 
-@font-face 
-{
- font-family:Open Sans;
- src:url("{{url_for('static',filename='fonts/OpenSans-Regular.ttf')}}");
-}
-@font-face 
-{
- font-family:Cormorant Garamond Medium;
- src:url("{{url_for('static',filename='fonts/CormorantGaramond-Medium.ttf')}}");
-} 	
-@font-face 
-{
- font-family:Merriweather;
- src:url("{{url_for('static',filename='fonts/Merriweather-Regular.ttf')}}");
-} 	
 
 .content2
 {
@@ -130,6 +109,8 @@ LA CANTINA</span>
 <a href="/customer_logout" class="login">LOGOUT</></a>
 <a href="/help" class="help">HELP</></a>
 <a href="/cartshow" class="help">CART</a>
+<a href="/orders" class="help">MY ORDERS</a>
+
 </span>
 </h1>
 
@@ -164,7 +145,7 @@ Your Order
 Enter The Quantity
 </div>
 
-<input class="input" type='number' name='qty' min='1' max='100'>
+<input class="input" type='number' name='qty' required min='1' max='100'>
 <br>
 
 <br><br>
@@ -193,6 +174,8 @@ Enter The Quantity
 			<li><a class="nava" href="/contact">Contact</a></li>
 			<li><a class="nava" href="/privacy_policy">Privacy Policy</a></li>
 			<li><a class="nava" href="/security">Security</a></li>		
+			<li><a class="nava" href="/terms">Terms</a></li>		
+			
 		</ul>
 	</nav>
 

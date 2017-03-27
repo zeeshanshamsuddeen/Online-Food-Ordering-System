@@ -2,22 +2,13 @@
 <head>
 <link type="text/css" href="{{url_for('static',filename='webpages.css')}}" rel="stylesheet"/>
 
+<script type="text/javascript" src="{{url_for('static',filename='alert/alertify.min.js')}}"></script>
+<link rel="stylesheet" href="{{url_for('static',filename='alert/alertify.default.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='alert/alertify.core.css')}}">
+
+
 <style>
-@font-face 
-{
- font-family:Cinzel Decorative Bold;
- src:url("{{url_for('static',filename='fonts/CinzelDecorative-Bold.otf')}}");
-} 
-@font-face 
-{
- font-family:Cormorant Garamond Medium;
- src:url("{{url_for('static',filename='fonts/CormorantGaramond-Medium.ttf')}}");
-}
-@font-face 
-{
- font-family:Open Sans;
- src:url("{{url_for('static',filename='fonts/OpenSans-Regular.ttf')}}");
-}
+
 ul.tab {
     list-style-type: none;
     margin: 0;
@@ -58,6 +49,17 @@ ul.tab li a:focus, .active {
     padding: 6px 12px;
     border: 1px solid #ccc;
     border-top: none;
+    animation: fadeEffect 2s;
+}
+/* Fade in tabs */
+@-webkit-keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
 }
 #manage
 {
@@ -83,6 +85,10 @@ ul.tab li a:focus, .active {
 		border-width:1px;
 		border-color:rgb(245,245,245);
 		margin-right:20px;
+		margin-top:20px;
+		height:"";
+		max-height:"";
+		vertical-align:top;
 		display:inline-block;
 		font-family:"Cormorant Garamond Medium";
 		font-weight:bold;
@@ -90,6 +96,7 @@ ul.tab li a:focus, .active {
 		padding:5px;
 		background-color:rgb(245,245,245);
 	    box-shadow: 10px 10px 5px #888888;
+		width:250px;
 }
 .image
 {
@@ -108,7 +115,9 @@ ul.tab li a:focus, .active {
 		font-weight:bold;
 		font-size:19px;
 		width:80%;
-		padding:5px;
+		padding-bottom:25px;
+		padding-right:5px;
+		padding-left:10px;
 		background-color:rgb(245,245,245);
 	    box-shadow: 10px 10px 5px #888888;
 }
@@ -116,12 +125,41 @@ ul.tab li a:focus, .active {
 {
 		text-decoration:none;
 		color:rgb(150,10,10);
-		margin-left:1000px;
+		float:right;
+		
 }
+.remove_rest_a
+{
+		text-decoration:none;
+		color:rgb(150,10,10);
+}
+
+.no
+{
+		font-size:20px;
+		font-family:"Cormorant Garamond Medium";
+
+}
+.notify
+{
+		text-decoration:none;
+		color:rgb(10,120,10);
+		float:right;
+}
+.replya
+{
+	text-decoration:none;
+	color:rgb(10,120,10);
+	float:left;
+}
+	
 </style>
 
 <script>
-function func(evt, variable) {
+document.getElementsByClassName('tablinks')[0].click();
+
+function func(evt, variable) 
+{
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
@@ -134,8 +172,12 @@ function func(evt, variable) {
     document.getElementById(variable).style.display = "block";
     evt.currentTarget.className += " active";
 }
+
+
+
 </script>
 <body>
+
 <h1>
 
 <img src="{{url_for('static',filename='food.jpg')}}"  width="80" height="60">
@@ -145,8 +187,8 @@ LA CANTINA
 </span>
 
 <span>
-
-<a href="/help" class="help_no_user">HELP</></a>
+<a href="/admin_review" class="help_admin">REVIEWS</a>
+<a href="/help" class="help">HELP</a>
 </span>
 </h1>
 
@@ -182,8 +224,9 @@ LA CANTINA
 				<br>
 				working hours : {{x[6]}} to {{x[7]}}
 				<br>
-				<a href="/admin_remove/{{x[0]}}/{{x[3]}}">remove</a>
-				<a href="/admin_approve/{{x[0]}}/{{x[3]}}">approve</a>	
+				<a class="removea" href="/admin_remove/{{x[0]}}/{{x[3]}}">remove</a>
+				<a class="replya" href="/admin_approve/{{x[0]}}/{{x[3]}}">approve</a>	
+					
 				<br>
 			
 			
@@ -196,7 +239,7 @@ LA CANTINA
 	<br>
 
 {%else%}
-	no requests
+	<span class="no">no requests are pending now</span>
 {%endif%}
 </div>
 
@@ -212,17 +255,21 @@ LA CANTINA
 	<br>
 	message : {{x[2]}}
 	<br>
-	<a class="removea" href="/admin_message_remove/{{x[0]}}/{{x[1]}}">remove</a>
+	{% for y in customers %}
+		{%if x[0] ==y[0]%}
+		<a class="replya" href="/response_form/{{x[0]}}/{{x[1]}}">reply</a>
+		{%endif%}
+	{%endfor%}	
+	<a  class="removea" href="/admin_message_remove/{{x[0]}}/{{x[1]}}">remove</a>
 	</div>
 	<br>
 	{%endfor%}
 	<br><br><br>
 
 {%else%}
-no message
+	<span class="no">no messages recieved</span>
 
 {% endif%}
-
 </div>
 
 <div id="manage" class="tabcontent">
@@ -237,15 +284,19 @@ no message
 		<div class="box">
 				<img class="image" src="{{url_for('static',filename='restaurants/'+x[2])}}" height="100" width="100"/>
 				<br>
-				username={{x[0]}}
+				username : {{x[0]}}
 				<br>
-				location={{x[4]}}
+				location : {{x[4]}}
 				<br>
-				phone={{x[5]}}
+				phone : {{x[5]}}
 				<br>
 				working hours : {{x[6]}} to {{x[7]}}
 				<br>
-				<a href="/admin_manage_remove/{{x[0]}}/{{x[3]}}">remove</a>
+				<a class="remove_rest_a" href="/admin_manage_remove/{{x[0]}}/{{x[3]}}">remove</a>
+				<a href="/notification_form/{{x[0]}}/{{x[3]}}" class="notify" >notify</a>
+
+			
+
 				<br>
 			
 			
@@ -268,15 +319,18 @@ no message
 		<div class="box">
 				<img class="image" src="{{url_for('static',filename='restaurants/'+x[2])}}" height="100" width="100"/>
 				<br>
-				username={{x[0]}}
+				username : {{x[0]}}
 				<br>
-				location={{x[4]}}
+				location : {{x[4]}}
 				<br>
-				phone={{x[5]}}
+				phone : {{x[5]}}
 				<br>
 				working hours : {{x[6]}} to {{x[7]}}
 				<br>
-				<a href="/admin_manage_remove/{{x[0]}}/{{x[3]}}">remove</a>
+				<a class="remove_rest_a" href="/admin_manage_remove/{{x[0]}}/{{x[3]}}">remove</a>
+				<a href="/notification_form/{{x[0]}}/{{x[3]}}" class="notify" >notify</a>
+
+			
 				<br>
 			
 			
@@ -299,15 +353,18 @@ no message
 		<div class="box">
 				<img class="image" src="{{url_for('static',filename='restaurants/'+x[2])}}" height="100" width="100"/>
 				<br>
-				username={{x[0]}}
+				username : {{x[0]}}
 				<br>
-				location={{x[4]}}
+				location : {{x[4]}}
 				<br>
-				phone={{x[5]}}
+				phone : {{x[5]}}
 				<br>
 				working hours : {{x[6]}} to {{x[7]}}
 				<br>
-				<a href="/admin_manage_remove/{{x[0]}}/{{x[3]}}">remove</a>
+				<a class="remove_rest_a" href="/admin_manage_remove/{{x[0]}}/{{x[3]}}">remove</a>
+				<a href="/notification_form/{{x[0]}}/{{x[3]}}" class="notify" >notify</a>
+
+				
 				<br>
 			
 			
@@ -333,6 +390,8 @@ no message
 			<li><a class="nava" href="/contact">Contact</a></li>
 			<li><a class="nava" href="/privacy_policy">Privacy Policy</a></li>
 			<li><a class="nava" href="/security">Security</a></li>		
+			<li><a class="nava" href="/terms">Terms</a></li>		
+
 		</ul>
 	</nav>
 

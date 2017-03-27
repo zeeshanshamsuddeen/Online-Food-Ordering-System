@@ -2,21 +2,21 @@
 <html>
 <head>
 <link type="text/css" href="{{url_for('static',filename='homepage.css')}}" rel="stylesheet"/>
+
+		<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='search/css/default.css')}}" />
+		<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='search/css/component.css')}}" />
+		<script src="{{url_for('static',filename='search/js/modernizr.custom.js')}}"></script>
+		
+		
+	
+		
+		
+		
 <style>
-@font-face 
+
+body
 {
- font-family:Cinzel Decorative Bold;
- src:url("{{url_for('static',filename='fonts/CinzelDecorative-Bold.otf')}}");
-}
-@font-face 
-{
- font-family:Merriweather;
- src:url("{{url_for('static',filename='fonts/Merriweather-Regular.ttf')}}");
-}
-@font-face 
-{
- font-family:Open Sans;
- src:url("{{url_for('static',filename='fonts/OpenSans-Regular.ttf')}}");
+	background-color:white;
 }
 .content{	
 			opacity:0.5;
@@ -36,7 +36,7 @@
 {
 		font-size:18px;
 		position:relative;
-		margin-left:500px;
+		margin-left:410px;
 		bottom:3px;
 		
 }
@@ -62,20 +62,245 @@
 	border-color:black;
 
 }
-@keyframes slide
+
+.top
 {
-  0%
-	{	
-		transform: translate3d(0, 0, 0);
-	}
-  
-  100%
-	{
-		transform: translate3d(-3200px, 0, 0);
-	}
+background:rgba(255,255,255,0.4);
+}
+.crossfade > figure {
+  animation: imageAnimation 20s linear infinite 0s;
+	background-size: cover;
+	
+  color: transparent;
+  height: 800px;
+  opacity: 0;
+  position: absolute;
+  top: 0px;
+  width: 1400px;
+  z-index: -1;
+  margin-left:0px;
+}
+.crossfade > figure:nth-child(1) { background-image: url('{{url_for('static',filename='11.jpg')}}'); }
+
+.crossfade > figure:nth-child(2) {
+  animation-delay: 4s;
+  background-image: url('{{url_for('static',filename='15.jpg')}}');
 }
 
+.crossfade > figure:nth-child(3) {
+  animation-delay: 8s;
+  background-image: url('{{url_for('static',filename='13.jpg')}}');
+}
+
+.crossfade > figure:nth-child(4) {
+  animation-delay: 12s;
+  background-image: url('{{url_for('static',filename='14.jpg')}}');
+}
+
+.crossfade > figure:nth-child(5) {
+  animation-delay: 16s;
+  background-image: url('{{url_for('static',filename='12.jpg')}}');
+}
+@keyframes 
+imageAnimation
+ { 
+ 0% {
+ animation-timing-function: ease-in;
+ opacity: 0;
+}
+ 8% {
+ animation-timing-function: ease-out;
+ opacity: 1;
+}
+ 17% {
+ opacity: 1
+}
+ 25% {
+ opacity: 0
+}
+ 100% {
+ opacity: 0
+}
+}
+
+
+
+/* for pop up */
+.button {
+ 
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+  font-family:'Times New Roman';
+		font-size:15px;
+		color:rgb(130,130,130);
+		text-decoration: none;
+}
+.button:hover {
+	
+	color:rgb(240,240,240);
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+   text-align:center;
+   font-size:16px;
+   font-family:"Lemonada";
+
+}
+.popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .close:hover {
+  color: #06D85F;
+}
+.popup .content22 {
+  max-height: 100%;
+  overflow: auto;
+ 	font-family:"lemonada";
+
+  text-align:center;
+}
+
+@media screen and (max-width: 700px){
+  .box{
+    width: 70%;
+  }
+  .popup{
+    width: 70%;
+  }
+}
+.message_content
+{
+		
+		border-style:solid;
+		border-width:1px;
+		border-color:rgb(245,245,245);
+		font-family:"Cormorant Garamond Medium";
+		font-weight:bold;
+		font-size:19px;
+		width:95%;
+		padding:5px;
+		text-align:center;
+		background-color:rgb(245,245,245);
+	    box-shadow: 10px 10px 5px #888888;
+}
+.remove_pop_a
+{
+		text-decoration:none;
+		color:rgb(150,10,10);
+		font-size:16px;
+		
+}
+.remove_pop_a:hover
+{
+		color:rgb(150,10,10);
+	
+		
+}
+.login_menu
+{
+		margin-left:520px;
+		
+		font-family:'Times New Roman';
+		font-size:15px;
+		color:rgb(130,130,130);
+		text-decoration: none;
+}
+.login_menu:hover
+{
+		color:rgb(240,240,240);
+}
+
+.no
+{
+		font-size:18px;
+		font-family:"Cormorant Garamond Medium";
+}
+
+.most
+{
+	height:200px;
+	max-height:200px;
+	vertical-align:middle;
+	display:inline-block;
+	font-size:20px;
+	margin-left:20px;
+	margin-right:20px;
+	font-weight:bold;
+	font-family:"Architects Daughter";
+}
+
+.image {
+  opacity: 1;
+  width: 250px;
+  height: 150px;
+  transition: .5s ease;
+  backface-visibility: hidden;
+	margin-right:20px;
+ }
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  margin-top:60px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%)
+}
+
+.container:hover .image {
+  opacity: 0.7;
+}
+
+.container:hover .middle {
+  opacity: 1;
+}
+
+.text {
+  background:rgba(255,255,255,0);
+  color: black;
+  font-size: 25px; 
+	font-weight:bold;
+  margin-right:380px;
+ font-family:Indie Flower;
+}
 </style>
+
 <script>
 var makePath = function(form)
 {
@@ -119,24 +344,85 @@ LA CANTINA
 
 <span>
 
-<span class="search">
-	<form name='form1' class="form1" name='form1' onsubmit='required()'>
 
-		<input type="search" class="search-box" name="data" placeholder="search"/>
-		<input type="submit" class="search-icon" value="&#10140;"/>
-	</form>	
-</span>
-
-<a href="/customer_logout" class="login">LOGOUT</></a>
+<a href="/customer_logout" class="login_menu">LOGOUT</></a>
 <a href="/help" class="help">HELP</></a>
 <a href="/cartshow" class="help">CART</a>
+<a href="/orders" class="help">MY ORDERS</a>
+<a class="button" href="#popup1">MESSAGES</a>
+
+
 </span>
 </h1>
 
 
-<div class="content" >
-
+<div id="sb-search" class="sb-search">
+	<form name='form1' onsubmit='required()'>
+			<input class="sb-search-input" placeholder="Enter the dish to search..." type="search " name="data" id="search">
+			<input class="sb-search-submit" type="submit" value="">
+			<span class="sb-icon-search"></span>
+			</form>
 </div>
+	<script src="{{url_for('static',filename='search/js/classie.js')}}"></script>
+		<script src="{{url_for('static',filename='search/js/uisearch.js')}}"></script>
+		<script>
+			new UISearch( document.getElementById( 'sb-search' ) );
+		</script>		
+
+		
+<div id="popup1" class="overlay">
+	<div class="popup">
+		<h2>Messages</h2>
+		<a class="close" href="#">&times;</a>
+		<div class="content22">
+			{%if response%}
+			{%for x in response%}
+			{%if x[2]==admin%}
+			<div class="message_content">
+			from : {{x[3]}}
+			<br>
+			subject : {{x[1]}}
+			<br>
+			response : {{x[2]}}
+			<br>
+			</div>
+			<br>
+			{%endif%}
+			{%if x[2]!=admin%}
+			<div class="message_content">
+			from : {{x[3]}}
+			<br>
+			subject : {{x[1]}}
+			<br>
+			response : {{x[2]}}
+			<br>
+			</div>
+			<br>
+			{%endif%}
+			{%endfor%}
+			<a class="remove_pop_a" href="/remove_response">remove all</a>
+			{%else%}
+			<span class="no">no messages</span>
+			{%endif%}
+    </div>
+	</div>
+	
+
+	
+</div>
+<div class="crossfade">
+
+  <figure></figure>
+
+  <figure></figure>
+
+  <figure></figure>
+
+  <figure></figure>
+
+  <figure></figure>
+
+<div class="top">
 <br>
 <br>
 <br>
@@ -147,7 +433,7 @@ LA CANTINA
 <br>
 <br>
 <span class="order1">
-Order delicious food online!
+“YOU DONT A NEED A SILVER FORK TO EAT GOOD FOOD” 
 </span>
 <br>
 <br>
@@ -160,11 +446,11 @@ Order food online from the best restaurants near you
 <br>
 <form onsubmit='makePath(this);'>
 
-<select id="location" class="place">
-  <option value="#">-select any-</option>
-  <option value="/TLY">Thalassery</option>
-  <option value="/KANNUR">Kannur</option>
-  <option value="/CALICUT">Calicut</option>
+<select id="location" class="place" required>
+  <option class="placeo" value="">None</option>
+  <option class="placeo" value="/TLY">Thalassery</option>
+  <option class="placeo" value="/KANNUR">Kannur</option>
+  <option class="placeo" value="/CALICUT">Calicut</option>
 </select>
 
 <button class="showrestaurants">FIND RESTAURANTS</button>
@@ -189,18 +475,36 @@ Order food online from the best restaurants near you
 <br>
 <br>
 <br>
+</div>
+</div>
 
 
 <img src="{{url_for('static',filename='kfc_homepage.png')}}" width="400" height="250" style="margin-left:50px;margin-top:10px">
 <img src="{{url_for('static',filename='pizza_homepage.jpg')}}" width="400" height="250">
 <img src="{{url_for('static',filename='baskins_homepage.jpg')}}" width="400" height="250">
 <img src="{{url_for('static',filename='robert.jpg')}}" width="" height="">
+
+<br>
+<br>
+<span class="most">MOST ORDERED<br> DISHES</span>
+
+{%for x in most_ordered%}
+<span class="container">
+
+  <a href="/quantity/{{x[0]}}/{{x[1]}}/{{x[2]}}/{{x[5]}}/{{x[4]}}"><img src="{{url_for('static',filename='dish/'+x[4])}}" alt="Avatar" class="image" style="width:250px">
+  <span class="middle">
+    <span class="text">{{x[2]}}<br>Rs.{{x[5]}}</span>
+  </span></span>
+	</a>
+{%endfor%}
+
 <img src="{{url_for('static',filename='ordering.jpg')}}" width="100%" height="450">
 
 
 
+
 <!-- menu -->
-	<nav>
+	<nav class="nav">
 		<img class="menu_image" src="{{url_for('static',filename='food.jpg')}}"  width="70" height="70">
 		<br>
 		<span class="menu_heading">La Cantina</span>
@@ -210,6 +514,8 @@ Order food online from the best restaurants near you
 			<li><a class="nava" href="/contact">Contact</a></li>
 			<li><a class="nava" href="/privacy_policy">Privacy Policy</a></li>
 			<li><a class="nava" href="/security">Security</a></li>		
+			<li><a class="nava" href="/terms">Terms</a></li>		
+
 		</ul>
 	</nav>
 

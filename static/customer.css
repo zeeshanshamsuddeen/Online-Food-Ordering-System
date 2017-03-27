@@ -15,7 +15,7 @@
   width: 100%;
   height:80%;
 
-background: rgb(200,200,200); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+background: rgb(50,50,50); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cfd8dc', endColorstr='#b0bec5',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 
 }

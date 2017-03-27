@@ -2,21 +2,6 @@
 <head>
 <link type="text/css" href="{{url_for('static',filename='webpages.css')}}" rel="stylesheet"/>
 <style>
-@font-face 
-{
- font-family:Open Sans;
- src:url("{{url_for('static',filename='fonts/OpenSans-Regular.ttf')}}");
-}
-@font-face 
-{
- font-family:Cinzel Decorative Bold;
- src:url("{{url_for('static',filename='fonts/CinzelDecorative-Bold.otf')}}");
-} 
-@font-face 
-{
- font-family:Merriweather;
- src:url("{{url_for('static',filename='fonts/Merriweather-Regular.ttf')}}");
-}
 body
 {
 	background-color:rgb(200,200,200);
@@ -47,6 +32,8 @@ LA CANTINA</span>
 <a href="/customer_logout" class="login">LOGOUT</></a>
 <a href="/help" class="help">HELP</></a>
 <a href="/cartshow" class="help">CART</a>
+<a href="/orders" class="help">MY ORDERS</a>
+
 </span>
 </h1>
 
@@ -73,6 +60,8 @@ LA CANTINA</span>
 			<li><a class="nava" href="/contact">Contact</a></li>
 			<li><a class="nava" href="/privacy_policy">Privacy Policy</a></li>
 			<li><a class="nava" href="/security">Security</a></li>		
+			<li><a class="nava" href="/terms">Terms</a></li>		
+		
 		</ul>
 	</nav>
 

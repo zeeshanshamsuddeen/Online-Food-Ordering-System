@@ -1,0 +1,270 @@
+<html>
+<head>
+<link type="text/css" href="{{url_for('static',filename='webpages.css')}}" rel="stylesheet"/>
+
+
+
+<script>
+
+function required()
+{
+
+var password=document.forms["form1"]["password"].value;
+var x=0;
+
+	if(password=="")
+	{
+		alert("enter password");
+		document.form1.action="";
+	}
+	else if(password!="admin")
+	{
+		alert("incorrect password");
+		document.form1.action="";
+	}	
+	else
+	{
+		document.form1.action="http://localhost:5000/admin";
+		
+	}
+}
+
+</script>
+
+<style>
+
+.content1
+{				   
+				height: 20px;
+				background: linear-gradient(rgb(0,0,0), rgb(200,200,200));
+}
+.content2
+{
+		background-image:url({{url_for('static',filename='loginback.jpg')}});
+		height:700px
+		
+}
+.content3			/* whole of login form */
+{
+		margin-left:370px;
+		height:320px;
+		width:600px;
+		border:1px solid; 
+		border-radius: 5px;
+		border-color:rgb(200,200,200);
+
+}
+.oursite
+{
+		background-color:white;
+		border-color:white;
+		height:120px;
+		border-top-left-radius:5px;
+		border-top-right-radius:5px;
+		font-family:"Cormorant Garamond Medium";
+		font-size:23px;
+		padding-left:15px;
+		padding-top:20px;
+		font-color:rgb(200,200,200);
+		
+}
+.image
+{
+		float:right;
+}
+.logon
+{
+		font-size:20px;
+}
+.content4			/* lower part of login form */
+{
+		background-color:rgb(200,200,200);
+		border-color:rgb(200,200,200);
+		border:1px solid rgb(200,200,200); 
+		height:180px;
+		border-bottom-left-radius:5px;
+		border-bottom-right-radius:5px;
+}
+.area
+{		
+		font-family:"Cormorant Garamond Medium";          /* updates placeholder and input*/
+		font-size:18px;
+		border:3px solid rgb(160,160,160); 
+		margin-left:100px;
+		margin-right:60px;
+		border-top-left-radius:3px;
+		border-top-right-radius:3px;
+		border-bottom-left-radius:3px;
+		border-bottom-right-radius:3px;
+		width:400px;
+		height:40px;
+		background-color:rgb(220,220,220)
+}
+input#gobutton
+{
+		font-family:"Cormorant Garamond Medium";
+		font-weight:bold;
+		font-size:20px;
+		margin-left:100px;
+		width:400px;
+		cursor:pointer;		 /*forces the cursor to change to a hand when the button is hovered*/
+		padding:5px 25px; 
+		background:rgb(18,124,36);
+		border:1px solid #33842a; 
+		border-radius: 3px;
+
+		box-shadow: 0 0 4px rgba(0,0,0, .75);
+		color:#f3f3f3;
+}
+
+input#gobutton:hover, input#gobutton:focus
+{
+		background-color :#399630;
+		box-shadow: 0 0 1px rgba(0,0,0, .75);
+}
+.create_account
+{
+		text-decoration:none;
+		margin-left:160px;
+		font-size:18px;
+		color:rgb(120,10,10);
+}
+</style>
+</head>
+<body>
+<h1>
+
+<img src="{{url_for('static',filename='food.jpg')}}"  width="80" height="60">
+<span class="h1span">
+
+LA CANTINA
+</span>
+
+<span>
+
+<a href="/help" class="help_no_user">HELP</></a>
+</span>
+</h1>
+
+<div class="content2">
+<br>
+<br>
+<br>
+<br>
+<div class="content3">
+
+	<div class="oursite">
+		<b>
+		Login to our site (as admin)
+		</b>
+		<img class="image" src="{{url_for('static',filename='lock.jpg')}}"  width="110" height="110">
+		
+		<br>
+		<div class="logon">
+			<br>
+			Enter your admin password 
+		</div>
+	
+	</div>
+<div class="content4">  
+	<br>
+	
+	<form name='form1'onsubmit="required()">
+	<br>
+	
+	<input class="area" type="password" name="password" id="password" placeholder="Password">
+	<br>
+	<br>
+    <input id="gobutton" type="submit" name="submit" value="Sign in" />
+
+	<br>
+
+  
+  </form>
+	
+</div>  
+  
+<br>
+<br>
+<br>
+<br>
+
+</div>
+</div>
+
+
+
+
+<!-- menu -->
+	<nav>
+		<img class="menu_image" src="{{url_for('static',filename='food.jpg')}}"  width="70" height="70">
+		<br>
+		<span class="menu_heading">La Cantina</span>
+		<ul>
+			<li><a class="nava" href="/">Home</a></li>
+			<li><a class="nava" href="/about">About Us</a></li>
+			<li><a class="nava" href="/contact">Contact</a></li>
+			<li><a class="nava" href="/privacy_policy">Privacy Policy</a></li>
+			<li><a class="nava" href="/security">Security</a></li>	
+			<li><a class="nava" href="/terms">Terms</a></li>				
+		</ul>
+	</nav>
+
+
+
+<div class="last" >
+<br>
+<div class="motto">
+We still uphold the same motto <span class="bullet">“making online food ordering fast and easy”</span>. Our service allows you<br> to find all of the restaurants available nearby, which can deliver to your house
+</div>
+<br><br>
+<b><span class="head_left">Ordering food is easy as ABC Only 4 steps to make the order, easy payment, available 24/7</span>
+</b>
+
+<div class="definition">
+<br><br>
+The <span class="bullet">challenge</span> for us is to make a versatile website that is simple and easy to use.<br>
+What we have learned is that ordering food online is way easier, faster and has <br>
+less complications than calling. What makes La Cantina better than the traditional order<br>
+over the phone method?
+
+<ul class="bullet"><li><span style="color:rgb(200,200,200);">24/7: Our site and app are available 24/7 with the feature to pre-order. You can plan your <br>
+meal ahead from the best restaurants near you and avoid the rush hours</span></li>
+<li><span style="color:rgb(200,200,200);">Free to use: Browse through 4000+ restaurant menus for free</span></li>
+<li><span style="color:rgb(200,200,200);">Order food in 4 simple steps</span></li>
+<li><span style="color:rgb(200,200,200);">Easy Payment: Do you prefer online payment? We accept all major credit cards as well as</li>
+<li><span style="color:rgb(200,200,200);">If you prefer to pay cash on delivery in Indian Rupees, we’ve got that covered too.</span></li>
+</ul>
+</div>
+<br><hr width="90%"><br>
+<div class="services">
+<b><span class="head_right">Our Services</span></b>
+<br><br>
+Should you have any concerns or would you want to give us feedback, please do not hesitate to contact our customer service
+team by using our Live Chat feature on your LaCantina App or website, or by sending an email at customercare@lacantina.in. 
+La Cantina India Corporate Office is located at Kayyath Villa, Kayyath Road , Thalassery.
+</div>
+
+<br><hr width="90%"><br>
+<b><span class="head_left">Freedom of Choice </span></b><br><br>
+<div class="freedom">
+
+<span class="bullet">Breakfast, Lunch, Dinner or Late Night delivery</span> La Cantina is just the right place for you. 
+<br>Simply pick one of the thousands of diverse restaurants available near you. From traditional meals to
+<br>well-known fast food chains like Dominos, Pizza Hut and Box8 along with delicate cuisines such
+<br> as Japanese, Biryani or Punjabi - you can find it all! All it takes is 4 easy steps:
+
+<ol class="bullet"><li><span style="color:rgb(200,200,200);">Choose your city and area</span></li>
+<li><span style="color:rgb(200,200,200);">Pick one of the 10000+ restaurant</span></li>
+<li><span style="color:rgb(200,200,200);">Place your order and pay online or cash on delivery</span></li>
+<li><span style="color:rgb(200,200,200);">Enjoy the freshly prepared food delivered to you!</span></li>
+</ol>
+
+</div>
+
+<br><br>
+
+
+</div>
+</body>
+</html>

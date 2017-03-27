@@ -1,0 +1,276 @@
+<html>
+<head>
+<style>
+
+.image
+{	
+		
+	   border: 2px solid black;
+}
+.image:hover
+{
+	opacity:0.5;
+}
+
+.content2
+{
+			margin-left:200px;
+			margin-right:288px;
+			background:rgba(255,255,255,0.8);
+			
+			
+
+}			
+
+.content1
+{				   
+				height: 20px;
+				background: linear-gradient(rgb(0,0,0), rgb(200,200,200));
+}
+
+td
+{
+			padding: 15px;
+}
+.definition1
+{			
+				width:389px;
+				font-weight:700;
+				font-family: "Cormorant Garamond Medium";
+				font-size:20px;
+				color:black;
+				
+}
+.column
+{
+		
+		float: left;
+		padding: 0px;
+		margin-right:30px;
+
+			
+
+}
+
+.table
+{
+		float:right;
+}
+.table::after
+{
+	clear: both;
+	    
+
+}
+.link
+{
+		font-family:'Cormorant Garamond Medium';
+		font-size:22px;
+		font-weight:600;
+		color:rgb(142,9,9);
+		text-decoration: none;
+}
+.background
+{
+		background-size: cover;
+		background-attachment: fixed;         /* scroll div contents without background */
+}
+
+.mainrow:hover
+{
+		background:rgba(255,255,255,0.85);
+}
+.refine
+{
+	font-family:"Merriweather";
+	font-size:17px;
+
+}
+.refina
+{
+	text-decoration:none;
+	color:rgb(120,10,10);
+	font-weight:bold;
+	font-family:"PT Serif";
+	
+}
+</style>
+<link type="text/css" href="{{url_for('static',filename='webpages.css')}}" rel="stylesheet"/>
+<link type="text/css" href="{{url_for('static',filename='hover.css')}}" rel="stylesheet"/>
+
+</head>
+<body>
+<h1>
+
+<img src="{{url_for('static',filename='food.jpg')}}"  width="80" height="60">
+<span class="h1span">
+LA CANTINA
+</span>
+<span>
+<a href="/customer_logout" class="login">LOGOUT</></a>
+<a href="/help" class="help">HELP</></a>
+<a href="/cartshow" class="help">CART</a>
+<a href="/orders" class="help">MY ORDERS</a>
+
+</span>
+</h1>
+
+
+<div class="background" style="background-image:url({{url_for('static',filename='homepage_pic.jpg')}});">
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="content2">
+
+
+
+ <div class="column">
+    <ul style="list-style-type: none;">
+		<li><a class="link" href='/TLY'>Thalassery</a></li>
+		<li><a class="link" href='/KANNUR'>Kannur</a></li>
+		<li><a class="link" href='/CALICUT'>Calicut</a></li><br>
+		<hr width="90%">
+		<li><span class="refine">SORT BY : </span></li>
+		<li><a class="refina" href="/sort/{{place}}/asc">Name (A to Z)</a></li>
+		<li><a class="refina" href="/sort/{{place}}/desc">Name (Z to A)</a></li>
+		<li><a class="refina" href="/sort/{{place}}/rating">Rating</a></li>
+
+
+    </ul>
+ 
+
+ </div>
+ 
+
+
+<!--displays different restaurants in current place -->
+
+
+
+<table style="border-left:1px solid rgb(50,50,50)">
+{%for key,value in ord_dict.items()%}
+{%for x in var%}
+{%if key==x[0]%}
+<!-- single key dictionery as no 2 restaurants in same place will have same name  -->
+<tr class="mainrow">
+
+	<td style="padding-left:50px;border-bottom: 1px solid rgb(50,50,50);">
+	<div style="width:200px">
+    <div class="hovereffect">
+        <img class="img-responsive" src="{{url_for('static',filename='restaurants/'+x[2])}}" width="150" height="150" alt="">
+        <div class="overlay">
+          
+           <a class="info" href="/{{place}}/menu/{{x[0]}}">{{x[0]}}</a>
+        </div>
+    </div>
+	</div>
+	</td>
+
+
+	<td style="border-bottom: 1px solid rgb(50,50,50);">
+	<p class="definition1">
+	
+
+Location : {{x[4]}}<br>
+&phone; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:<span style="font-family:'Times New Roman';font-size:18px;"> {{x[5]}}</span><br>
+Opens at :<span style="font-family:'Times New Roman';font-size:18px;"> {{x[6]}}</span> <br>
+Closes at : <span style="font-family:'Times New Roman';font-size:18px;"> {{x[7]}}</span><br>
+Rating  &nbsp;&nbsp;&nbsp;  : <span style="font-family:'Times New Roman';font-size:18px;">  {{value}}/5</span>
+
+	
+	</p>
+	</td >
+	
+
+</tr>
+{%endif%}
+{%endfor%}
+{%endfor%}
+</table>
+</div>
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+</div>
+
+<!-- menu -->
+	<nav>
+		<img class="menu_image" src="{{url_for('static',filename='food.jpg')}}"  width="70" height="70">
+		<br>
+		<span class="menu_heading">La Cantina</span>
+		<ul>
+			<li><a class="nava" href="/homepage_customer">Home</a></li>
+			<li><a class="nava" href="/about">About Us</a></li>
+			<li><a class="nava" href="/contact">Contact</a></li>
+			<li><a class="nava" href="/privacy_policy">Privacy Policy</a></li>
+			<li><a class="nava" href="/security">Security</a></li>	
+			<li><a class="nava" href="/terms">Terms</a></li>		
+
+		</ul>
+	</nav>
+
+
+<div class="last" >
+<br>
+<div class="motto">
+We uphold the motto <span class="bullet">“making online food ordering fast and easy”</span>. Our service allows you<br> to find all of the restaurants available nearby, which can deliver to your house
+</div>
+<br><br>
+<b><span class="head_left">Ordering food is easy as ABC Only 4 steps to make the order, easy payment, available 24/7</span>
+</b>
+
+<div class="definition">
+<br><br>
+The <span class="bullet">challenge</span> for us is to make a versatile website that is simple and easy to use.<br>
+What we have learned is that ordering food online is way easier, faster and has <br>
+less complications than calling. What makes La Cantina better than the traditional order<br>
+over the phone method?
+
+<ul class="bullet"><li><span style="color:rgb(200,200,200);">24/7: Our site and app are available 24/7 with the feature to pre-order. You can plan your <br>
+meal ahead from the best restaurants near you and avoid the rush hours</span></li>
+<li><span style="color:rgb(200,200,200);">Free to use: Browse through 4000+ restaurant menus for free</span></li>
+<li><span style="color:rgb(200,200,200);">Order food in 4 simple steps</span></li>
+<li><span style="color:rgb(200,200,200);">Easy Payment: Do you prefer online payment? We accept all major credit cards as well as</li>
+<li><span style="color:rgb(200,200,200);">If you prefer to pay cash on delivery in Indian Rupees, we’ve got that covered too.</span></li>
+</ul>
+</div>
+<br><hr width="90%"><br>
+<div class="services">
+<b><span class="head_right">Our Services</span></b>
+<br><br>
+Should you have any concerns or would you want to give us feedback, please do not hesitate to contact our customer service
+team by using our Live Chat feature on your LaCantina App or website, or by sending an email at customercare@lacantina.in. 
+La Cantina India Corporate Office is located at Kayyath Villa, Kayyath Road , Thalassery.
+</div>
+
+<br><hr width="90%"><br>
+<b><span class="head_left">Freedom of Choice </span></b><br><br>
+<div class="freedom">
+
+<span class="bullet">Breakfast, Lunch, Dinner or Late Night delivery</span> La Cantina is just the right place for you. 
+<br>Simply pick one of the thousands of diverse restaurants available near you. From traditional meals to
+<br>well-known fast food chains like Dominos, Pizza Hut and Box8 along with delicate cuisines such
+<br> as Japanese, Biryani or Punjabi - you can find it all! All it takes is 4 easy steps:
+
+<ol class="bullet"><li><span style="color:rgb(200,200,200);">Choose your city and area</span></li>
+<li><span style="color:rgb(200,200,200);">Pick one of the 10000+ restaurant</span></li>
+<li><span style="color:rgb(200,200,200);">Place your order and pay online or cash on delivery</span></li>
+<li><span style="color:rgb(200,200,200);">Enjoy the freshly prepared food delivered to you!</span></li>
+</ol>
+
+</div>
+
+<br><br>
+
+
+</div>
+</body>
+</html>

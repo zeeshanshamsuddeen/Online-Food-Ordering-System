@@ -4,32 +4,26 @@
 <link type="text/css" href="{{url_for('static',filename='webpages.css')}}" rel="stylesheet"/>
 <link rel="stylesheet" href="{{url_for('static',filename='customer.css')}}">
 
+<script type="text/javascript" src="{{url_for('static',filename='alert/alertify.min.js')}}"></script>
+<link rel="stylesheet" href="{{url_for('static',filename='alert/alertify.default.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='alert/alertify.core.css')}}">
+
 <style>
-@font-face 
-{
- font-family:Open Sans;
- src:url("{{url_for('static',filename='fonts/OpenSans-Regular.ttf')}}");
-}
-@font-face 
-{
- font-family:Cinzel Decorative Bold;
- src:url("{{url_for('static',filename='fonts/CinzelDecorative-Bold.otf')}}");
-} 
-@font-face 
-{
- font-family:Cormorant Garamond Medium;
- src:url("{{url_for('static',filename='fonts/CormorantGaramond-Medium.ttf')}}");
-}
 .h1span{
 			position: relative;
 			bottom: 20px;
 	
 		}
+
 	
 </style>
 <script>
+
+
 function required_login()
 {
+
+
 var username=document.forms["form1"]["username"].value;
 var password=document.forms["form1"]["password"].value;
 var x=0;
@@ -56,9 +50,11 @@ var x=0;
 	
 		if(x==1)	
 		{
-			alert("welcome " + username)
-		document.form1.action="http://localhost:5000/customer_logged_in";
-		document.form1.method="post";
+			alertify.log( "welcome "+username, "success" );
+			document.form1.action="http://localhost:5000/customer_logged_in";
+			document.form1.method="post";
+		
+			
 		}
 		else
 		{
@@ -67,6 +63,7 @@ var x=0;
 		}
 	}	
 }
+
 </script>
 <script>
 function required_signup()
@@ -102,7 +99,7 @@ else
 
 	if(y==0)
 	{
-		alert("welcome " + username)
+		alertify.log( "welcome "+username, "success" );
 		document.form2.action="http://localhost:5000/customer_signed_up";
 		document.form2.method="post";
 	}	
@@ -142,6 +139,7 @@ LA CANTINA
 </h1>
 <div class="content_main">
  <div class="cotn_principal">
+ 
 <div class="cont_centrar">
 
   <div class="cont_login">
@@ -226,6 +224,8 @@ LA CANTINA
 			<li><a class="nava" href="/contact">Contact</a></li>
 			<li><a class="nava" href="/privacy_policy">Privacy Policy</a></li>
 			<li><a class="nava" href="/security">Security</a></li>		
+			<li><a class="nava" href="/terms">Terms</a></li>		
+			
 		</ul>
 	</nav>
 	
@@ -283,7 +283,7 @@ La Cantina India Corporate Office is located at Kayyath Villa, Kayyath Road , Th
 <br><br>
 
 </div>
-    <script src="{{url_for('static',filename='customer.js')}}"></script>
+    <script src="{{url_for('static',filename='js/customer.js')}}"></script>
 
 </body>
 </html>

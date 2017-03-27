@@ -1,6 +1,12 @@
 <html>
 <head>
-<link type="text/css" href="{{url_for('static',filename='webpages.css')}}" rel="stylesheet"/>
+<link type="text/css" href="{{url_for('static',filename='webpages_manager.css')}}" rel="stylesheet"/>
+
+<script type="text/javascript" src="{{url_for('static',filename='alert/alertify.min.js')}}"></script>
+<link rel="stylesheet" href="{{url_for('static',filename='alert/alertify.default.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='alert/alertify.core.css')}}">
+
+
 
 <script>
 function required()
@@ -12,8 +18,8 @@ function required()
 	var y=0;
 	if((item=="")||(price=="")||(((category!='veg')&&(category!='non-veg'))&&(category!='others')))
 	{
-		alert("invalid fields")
-		document.form1.action="http://localhost:5000/manager_edit/{{place}}/{{username}}/add"
+		alert("invalid fields");
+		document.form1.action="";
 	}
 	else
 	{
@@ -25,12 +31,13 @@ function required()
 		{% endfor %}	
 		if(y==0)
 		{
-			alert("items successfully added")
+			alertify.log( "item successfully added", "success" );
+			document.form1.enctype="multipart/form-data";
 			document.form1.action="http://localhost:5000/manager_add/{{place}}/{{username}}"
 		}	
 		else
 		{
-			alert("item already exists")
+			alert("item already exists");
 			document.form1.action="";
 		}
 	}
@@ -42,21 +49,6 @@ function required()
 </script>
 
 <style>
-@font-face 
-{
- font-family:Open Sans;
- src:url("{{url_for('static',filename='fonts/OpenSans-Regular.ttf')}}");
-}
-@font-face 
-{
- font-family:Cinzel Decorative Bold;
- src:url("{{url_for('static',filename='fonts/CinzelDecorative-Bold.otf')}}");
-} 
-@font-face 
-{
- font-family:Cormorant Garamond Medium;
- src:url("{{url_for('static',filename='fonts/CormorantGaramond-Medium.ttf')}}");
-}
 .content1
 {				   
 				height: 20px;
@@ -155,8 +147,7 @@ input#gobutton:hover, input#gobutton:focus
 </head>
 <body>
 <h1>
-<a href="/homepage_customer">
-<img src="{{url_for('static',filename='food.jpg')}}"  width="80" height="60"></a>
+<img src="{{url_for('static',filename='food.jpg')}}"  width="80" height="60">
 <span class="h1span">
 
 LA CANTINA</span>
@@ -174,7 +165,7 @@ LA CANTINA</span>
 <div class="content3">
 
 	<div class="oursite">
-		<img class="image" src="{{url_for('static',filename='food.jpg')}}"  width="110" height="110">
+		<img class="image" src="{{url_for('static',filename='dish.jpg')}}"  width="110" height="110">
 		<br>
 		<b>
 		Enter the details regarding the dish
@@ -189,23 +180,23 @@ LA CANTINA</span>
 <div class="content4">  
 	<br>
 	
-	<form name='form1' onsubmit="required()" method="post" enctype="multipart/form-data">
+	<form name='form1' onsubmit="required()" method="post">
 	<br>
-	<input class="area" type='text' name='item' placeholder="Item">
-	<br>
-	<br>
-	<input class="area" type="text" name="category" placeholder="veg/non-veg/others">
+	<input class="area" type='text' name='item' placeholder="Item" required>
 	<br>
 	<br>
-	<input class="area" type="text" name="def"  placeholder="Description">
+	<input class="area" type="text" name="category" placeholder="veg/non-veg/others" required>
+	<br>
+	<br>
+	<input class="area" type="text" name="def"  placeholder="Description" required>
     <br>
     <br>
-	<input class="area" type="number" name="price" placeholder="Price">
+	<input class="area" type="number" name="price" placeholder="Price" required>
 	<br>
 	<br>
 	<span class="image_url">Image URL:
 	</span>
-	<input type="file" name="filename"  placeholder="Image path" title="Enter the complete path of image">
+	<input type="file" name="filename"  placeholder="Image path" title="Enter the complete path of image" required>
 	<br>
 	<br>
 	<br>
@@ -241,7 +232,9 @@ LA CANTINA</span>
 			<li><a class="nava" href="/about">About Us</a></li>
 			<li><a class="nava" href="/contact">Contact</a></li>
 			<li><a class="nava" href="/privacy_policy">Privacy Policy</a></li>
-			<li><a class="nava" href="/security">Security</a></li>		
+			<li><a class="nava" href="/security">Security</a></li>	
+			<li><a class="nava" href="/terms">Terms</a></li>		
+			
 		</ul>
 	</nav>
 

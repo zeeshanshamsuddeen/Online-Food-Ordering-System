@@ -1,22 +1,23 @@
 <html>
 <head>
-<link type="text/css" href="{{url_for('static',filename='webpages.css')}}" rel="stylesheet"/>
+<link type="text/css" href="{{url_for('static',filename='webpages_manager.css')}}" rel="stylesheet"/>
+
+<script type="text/javascript" src="{{url_for('static',filename='alert/alertify.min.js')}}"></script>
+<link rel="stylesheet" href="{{url_for('static',filename='alert/alertify.default.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='alert/alertify.core.css')}}">
+
+
 
 <script>
 function required()
 {
 
 	var price=document.forms["form1"]["price"].value;
-	if(price=="")
-	{
-		alert("enter price");
-		document.form1.action="http://localhost:5000/manager_editprice_newprice/{{place}}/{{username}}/{{item}}";
-	}
-	else
-	{
-		alert("item price updated successfully")
+
+		alertify.log( "item price updated successfully", "success" );
+
 		document.form1.action="http://localhost:5000/manager_editprice_database/{{place}}/{{username}}/{{item}}";	
-	}
+	
 }
 
 </script>
@@ -24,21 +25,6 @@ function required()
 </script>
 
 <style>
-@font-face 
-{
- font-family:Open Sans;
- src:url("{{url_for('static',filename='fonts/OpenSans-Regular.ttf')}}");
-}
-@font-face 
-{
- font-family:Cinzel Decorative Bold;
- src:url("{{url_for('static',filename='fonts/CinzelDecorative-Bold.otf')}}");
-} 
-@font-face 
-{
- font-family:Cormorant Garamond Medium;
- src:url("{{url_for('static',filename='fonts/CormorantGaramond-Medium.ttf')}}");
-}
 
 .content1
 {				   
@@ -151,8 +137,7 @@ input#gobutton:hover, input#gobutton:focus
 </head>
 <body>
 <h1>
-<a href="/homepage_customer">
-<img src="{{url_for('static',filename='food.jpg')}}"  width="80" height="60"></a>
+<img src="{{url_for('static',filename='food.jpg')}}"  width="80" height="60">
 <span class="h1span">
 
 LA CANTINA</span>
@@ -170,7 +155,7 @@ LA CANTINA</span>
 <div class="content3">
 
 	<div class="oursite">
-		<img class="image" src="{{url_for('static',filename='food.jpg')}}"  width="110" height="110">
+		<img class="image" src="{{url_for('static',filename='dish.jpg')}}"  width="110" height="110">
 		<br>
 		<b>
 		Enter the the new price of the dish
@@ -192,7 +177,7 @@ LA CANTINA</span>
 	<br>
     
 
-	<input class="area" type="number" name="price" placeholder="Price">
+	<input class="area" type="number" name="price" placeholder="Price" required>
 	<br>
 	<br>
     <input id="gobutton" type="submit" name="submit" value="Update The Menu" />
@@ -228,6 +213,8 @@ LA CANTINA</span>
 			<li><a class="nava" href="/contact">Contact</a></li>
 			<li><a class="nava" href="/privacy_policy">Privacy Policy</a></li>
 			<li><a class="nava" href="/security">Security</a></li>		
+			<li><a class="nava" href="/terms">Terms</a></li>		
+
 		</ul>
 	</nav>
 

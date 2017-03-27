@@ -1,3 +1,84 @@
+@font-face 
+{
+ font-family:Cinzel Decorative Bold;
+ src:url("fonts/CinzelDecorative-Bold.otf");
+} 
+@font-face 
+{
+ font-family:Merriweather;
+ src:url("fonts/Merriweather-Regular.ttf");
+}
+@font-face 
+{
+ font-family:Lemonada;
+ src:url("fonts/Lemonada-Regular.ttf");
+}
+@font-face 
+{
+ font-family:PT Serif;
+ src:url("fonts/PT_Serif-Web-Regular.ttf");
+} 
+@font-face 
+{
+ font-family:Open Sans;
+ src:url("fonts/OpenSans-Regular.ttf")
+}
+@font-face 
+{
+ font-family:Cormorant Garamond Medium;
+ src:url("fonts/CormorantGaramond-Medium.ttf");
+}
+@font-face 
+{
+ font-family:Cabin;
+ src:url("fonts/Cabin-Regular.ttf}");
+}
+
+@font-face 
+{
+ font-family:Sansita;
+ src:url("fonts/Sansita-Regular.ttf");
+} 
+@font-face 
+{
+ font-family:Code Bold;
+ src:url("fonts/CODE Bold.otf");
+} 
+@font-face 
+{
+ font-family:Arimo;
+ src:url("fonts/Arimo-Bold.ttf");
+} 
+@font-face 
+{
+ font-family:Baloo Bhaina;
+ src:url("fonts/BalooBhaina-Regular.ttf");
+} 
+@font-face 
+{
+ font-family:Indie Flower;
+ src:url("fonts/IndieFlower.ttf");
+}
+@font-face 
+{
+ font-family:Playfair Display;
+ src:url("fonts/PlayfairDisplay-Bold.ttf");
+}
+@font-face 
+{
+ font-family:Montserrat;
+ src:url("fonts/Montserrat-Regular.ttf");
+}
+@font-face 
+{
+ font-family:Architects Daughter;
+ src:url("fonts/ArchitectsDaughter.ttf");
+}
+
+
+
+
+
 .head_left
 {
 		margin-left:50px;
@@ -111,7 +192,7 @@ h1 {  	font-family:"Cinzel Decorative Bold";
 		
 
 .login{
-		margin-left:730px;
+		margin-left:620px;
 		
 		font-family:'Times New Roman';
 		font-size:15px;
@@ -136,6 +217,25 @@ h1 {  	font-family:"Cinzel Decorative Bold";
 		color:rgb(130,130,130);
 		text-decoration: none;
 		}
+	
+.help_admin
+{	
+		margin-left:780px;
+		
+		font-family:'Times New Roman';
+		font-size:15px;
+		color:rgb(130,130,130);
+		text-decoration: none;
+}
+.help_admin:hover
+{
+	color:rgb(240,240,240);
+}		
+
+.login:hover,.help:hover,.help_no_user:hover
+{
+	color:rgb(240,240,240);
+}		
 		
 body
 {

@@ -1,23 +1,9 @@
 <html>
 <head>
-<link type="text/css" href="{{url_for('static',filename='webpages.css')}}" rel="stylesheet"/>
+<link type="text/css" href="{{url_for('static',filename='webpages_manager.css')}}" rel="stylesheet"/>
 
 <style>
-@font-face 
-{
- font-family:Cinzel Decorative Bold;
- src:url("{{url_for('static',filename='fonts/CinzelDecorative-Bold.otf')}}");
-} 
-@font-face 
-{
- font-family:Cormorant Garamond Medium;
- src:url("{{url_for('static',filename='fonts/CormorantGaramond-Medium.ttf')}}");
-}
-@font-face 
-{
- font-family:Open Sans;
- src:url("{{url_for('static',filename='fonts/OpenSans-Regular.ttf')}}");
-}
+
 .content1
 {				   
 				height: 20px;
@@ -32,7 +18,7 @@
 .content3
 {
 		width:1000px;
-		margin-left:200px;
+		margin-left:230px;
 		background:rgba(230,230,230,0);
 
 }
@@ -40,20 +26,21 @@
 {   
 	margin-left:20px;
 	margin-top:20px;
-	margin-bottom:20px;
+	margin-right:30px;
+
+	margin-bottom:50px;
 	font-size:22px;
 	vertical-align:top;		/*to start div contents from top */
 	width:250px; 
    max-width:250px;
-   height:250px;
-   max-height:250px;
+   height:"";
+   max-height:"";
    display: inline-block;
    border-style:solid;
 	border-color:rgb(160,160,160);
     border-width: 1px;
 	position:relative;			
-	font-family:"Cormorant Garamond Medium";
-	font-weight:bold;
+	font-family:"Baloo Bhaina";
 	background-color:rgb(245,245,245);
 	   box-shadow: 10px 10px 5px #888888;
 
@@ -63,15 +50,25 @@
 .price
 {
 		padding-left:5px;
-		font-size:21px;
+		padding-top:5px;
+		font-size:19px;
+		text-align:center;
 		color: rgb(100,100,100)
 }
 .desc
 {
+		font-weight:bold;
 		padding-left:10px;
 		padding-right:10px;
 		font-size:18px;
+		font-family:"Cormorant Garamond Medium";
+}
+.money
+{
+		padding-right:10px;
+		font-size:20px;
 		padding-top:4px;
+		font-family:"Times New Roman";
 }
 .add
 {
@@ -92,11 +89,12 @@
 }
 .adda
 {
-		font-family:"Cormorant Garamond Medium";
+		font-family:"Architects Daughter";
 		font-size:30px;
 		font-weight:900;
 		text-decoration:none;
 		color:white;
+		display:block;
 
 }
 .add:hover
@@ -127,7 +125,7 @@
 }
 .removea
 {
-		font-family:"Cormorant Garamond Medium";
+		font-family:"Architects Daughter";
 		font-size:30px;
 		color:white;
 		font-weight:900;
@@ -161,7 +159,7 @@
 }
 .editpricea
 {
-		font-family:"Cormorant Garamond Medium";
+		font-family:"Architects Daughter";
 		font-size:30px;
 		color:white;
 		font-weight:900;
@@ -176,12 +174,12 @@
 }
 .sort
 {
-		margin-left:490px;
-		font-size:17px;
+		margin-left:360px;
+		font-size:14px;
 		font-weight:500;
-		height:130;
+		height:180;
+		width:"";
 		display:inline-block;
-		margin-right:170px;
 		background:rgba(255,255,255,0.8);
 
 }
@@ -191,27 +189,165 @@
 }
 .rest
 {
-	margin-left:150px;
-	font-family:PT Serif;
+
+	margin-left:190px;
+	font-family:"lemonada";
 	margin-right:10px;
 }
 .head
 {
 	font-size:20px;
 }
+.edit
+{
+
+	float:right;
+}
+.edita
+{
+	text-decoration:none;
+	
+}
+
+/* for pop up */
+.button {
+ 
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+  font-family:'Times New Roman';
+		font-size:15px;
+		color:rgb(130,130,130);
+		text-decoration: none;
+}
+.button:hover {
+	
+	color:rgb(240,240,240);
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+   text-align:center;
+
+}
+.popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .close:hover {
+  color: #06D85F;
+}
+.popup .content {
+  max-height: 100%;
+  overflow: auto;
+ font-family:"lemonada";
+
+  text-align:center;
+}
+
+@media screen and (max-width: 700px){
+  .box{
+    width: 70%;
+  }
+  .popup{
+    width: 70%;
+  }
+}
+.message_content
+{
+		
+		border-style:solid;
+		border-width:1px;
+		border-color:rgb(245,245,245);
+		font-family:"Cormorant Garamond Medium";
+		font-weight:bold;
+		font-size:19px;
+		width:95%;
+		padding:5px;
+		text-align:center;
+		background-color:rgb(245,245,245);
+	    box-shadow: 10px 10px 5px #888888;
+}
+.remove_pop_a
+{
+		text-decoration:none;
+		color:rgb(150,10,10);
+		font-size:16px;
+}
+.login_menu
+{
+		margin-left:480px;
+		
+		font-family:'Times New Roman';
+		font-size:15px;
+		color:rgb(130,130,130);
+		text-decoration: none;
+}
+.login_menu:hover
+{
+		color:rgb(240,240,240);
+}
+.no
+{
+		font-size:18px;
+		font-family:"Cormorant Garamond Medium";
+}
+.replya
+{
+	text-decoration:none;
+	color:rgb(10,120,10);
+	float:right;
+}
 </style>
 </head>
 
 <body>
 <h1>
-<a href="/homepage_customer">
-<img src="{{url_for('static',filename='food.jpg')}}"  width="80" height="60"></a>
+<img src="{{url_for('static',filename='food.jpg')}}"  width="80" height="60">
 <span class="h1span">
 
 LA CANTINA</span>
 <span>
-<a href="/manager_logout" class="login">LOGOUT</></a>
+<a href="/manager_logout" class="login_menu">LOGOUT</></a>
 <a href="/help" class="help">HELP</></a>
+<a class="button" href="#popup1">MESSAGES</a>
+<a class="button" href="#popup2">NOTIFICATIONS</a>
+<a href="/reviews_manager/{{place}}" class="help">REVIEWS</></a>
+
+
 </span>
 </h1>
 
@@ -220,16 +356,74 @@ LA CANTINA</span>
 <br>
 <br>
 <div class="sort">
-<img class="image_rest" src="{{url_for('static',filename='restaurants/'+ var1[2])}}" width="130" height="130" alt="">
+<img class="image_rest" src="{{url_for('static',filename='restaurants/'+ var1[2])}}" width="180" height="180" alt="">
 <div class="rest">
 	<span class="head">{{var1[0]}}</span><br>
 	Location : {{var1[4]}}<br>
-	&phone; :<span style="font-family:'Times New Roman'"> {{var1[5]}}</span><br>
+	&phone; :<span> {{var1[5]}}</span><br>
 	Working hours : {{var1[6]}} to {{var1[7]}}<br>
-	Total Rating : {{sum}}/5
+	Total Rating : {{sum}}/5<br>
+
+	<span class="edit"><a class="edita" href="/manager_edit_restaurant_form/{{place}}/{{username}}/{{var1[4]}}/{{var1[5]}}/{{var1[6]}}/{{var1[7]}}/{{var1[2]}}">edit</a></span>
 </div>
 </div>
 <br>
+
+<div id="popup1" class="overlay">
+	<div class="popup">
+		<h2>Messages</h2>
+		<a class="close" href="#">&times;</a>
+		<div class="content">
+			{%if feedbacks%}
+			{%for x in feedbacks%}
+			<div class="message_content">
+			From : {{x[2]}}
+			<br>
+			feedback : {{x[3]}}
+			<br>
+			<a class="replya" href="/response_form_manager/{{x[2]}}/{{place}}/{{x[3]}}">reply</a>	
+
+			<br>
+
+			</div>
+			<br>
+
+			{%endfor%}
+			<a class="remove_pop_a" href="/remove_feedbacks/{{place}}/{{username}}">remove all</a>
+			{%else%}
+			<span class="no">no messages</span>
+			{%endif%}
+    </div>
+	</div>
+</div>
+
+
+<div id="popup2" class="overlay">
+	<div class="popup">
+		<h2>Notifications</h2>
+		<a class="close" href="#">&times;</a>
+		<div class="content">
+			{%if notification %}
+			{%for x in notification %}
+			<div class="message_content">
+			notification : {{x[2]}}
+			<br>
+		
+			</div>
+			<br>
+
+			{%endfor%}
+			<a class="remove_pop_a" href="/remove_notifications/{{place}}/{{username}}">remove all</a>
+			{%else%}
+			<span class="no">no notifications</span>
+			{%endif%}
+    </div>
+	</div>
+</div>
+
+
+<br>
+
 <br>
 <div class="add">
 <a class="adda" href="http://localhost:5000/manager_edit/{{place}}/{{username}}/add">
@@ -253,6 +447,7 @@ EDIT PRICE
 <br>
 
 
+
 <div class="content3">
 	
 	{% for x in var %}
@@ -265,17 +460,16 @@ EDIT PRICE
 
 	<div class="price">
 		{{x[0]}}
-	<br>
 	 	</div>
 
 	<div class="desc">
 	{{x[1]}} 
-	<br>
-	</div>
-	<div class="price">
-		&#8377;
+	</div>		
+	&nbsp;&nbsp;&#8377;
+
+	<span class="money">
 	{{x[2]}}
-	</div>
+	</span>
 	</div>
 
 
@@ -305,7 +499,9 @@ EDIT PRICE
 			<li><a class="nava" href="/about">About Us</a></li>
 			<li><a class="nava" href="/contact">Contact</a></li>
 			<li><a class="nava" href="/privacy_policy">Privacy Policy</a></li>
-			<li><a class="nava" href="/security">Security</a></li>		
+			<li><a class="nava" href="/security">Security</a></li>	
+			<li><a class="nava" href="/terms">Terms</a></li>		
+			
 		</ul>
 	</nav>
 

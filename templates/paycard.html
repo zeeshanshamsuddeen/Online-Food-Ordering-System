@@ -2,6 +2,12 @@
 <head>
 <link type="text/css" href="{{url_for('static',filename='webpages.css')}}" rel="stylesheet"/>
 
+<script type="text/javascript" src="{{url_for('static',filename='alert/alertify.min.js')}}"></script>
+<link rel="stylesheet" href="{{url_for('static',filename='alert/alertify.default.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='alert/alertify.core.css')}}">
+
+
+
 <script>
 function required()
 {
@@ -11,47 +17,15 @@ var cvv=document.forms["form1"]["cvv"].value;
 var month=document.forms["form1"]["month"].value;
 var year=document.forms["form1"]["year"].value;
 
-if(((cardnumber=="")||(name==""))||(cvv=="")||(month=="")||(year==""))
-{
-	alert("fill all fields");
-	document.form1.action="";
-}	
-else
-{
-	alert("order successfully placed")
-	document.form1.action="http://localhost:5000/cartclear";
-}
+alertify.log( "order successfully placed", "success" );
+document.form1.action="http://localhost:5000/cartclear";
+
 }
 
 </script>
 
 
 <style>
-@font-face 
-{
- font-family:Cinzel Decorative Bold;
- src:url("{{url_for('static',filename='fonts/CinzelDecorative-Bold.otf')}}");
-} 
-@font-face 
-{
- font-family:Montserrat;
- src:url("{{url_for('static',filename='fonts/Montserrat-Regular.ttf')}}");
-}
-@font-face 
-{
- font-family:Arimo;
- src:url("{{url_for('static',filename='fonts/Arimo-Bold.ttf')}}");
-} 
-@font-face 
-{
- font-family:Cormorant Garamond Medium;
- src:url("{{url_for('static',filename='fonts/CormorantGaramond-Medium.ttf')}}");
-}
-@font-face 
-{
- font-family:Open Sans;
- src:url("{{url_for('static',filename='fonts/OpenSans-Regular.ttf')}}");
-}
 .background
 {
 		background-size: cover;
@@ -202,6 +176,8 @@ LA CANTINA</span>
 <a href="/customer_logout" class="login">LOGOUT</></a>
 <a href="/help" class="help">HELP</></a>
 <a href="/cartshow" class="help">CART</a>
+<a href="/orders" class="help">MY ORDERS</a>
+
 </span>
 </h1>
 
@@ -220,22 +196,22 @@ LA CANTINA</span>
 		<form name="form1" onsubmit="required()">
 			<br>
 			<span class="heading">CARD NUMBER</span>
-			<input class="input_number" type='number' name='cardnumber' min="1000000000000000">
+			<input class="input_number" type='number' name='cardnumber' min="1000000000000000" required>
 			<br>
 			<br>
 			<span class="heading">CARD HOLDER NAME</span>
-			<input class="input_number"  type='text' name='name'>
+			<input class="input_number"  type='text' name='name' required>
 			<br>
 			<br>
 			<span class="heading">EXPIRATION DATE</span>
 			<br>
-			<input class="input_month" type='number' name ="month" placeholder="MM" min="1" max="12">
-			<input class="input_year" type='number' name ="year" placeholder="YY" min="2017" max="2030">
+			<input class="input_month" type='number' name ="month" placeholder="MM" min="1" max="12" required>
+			<input class="input_year" type='number' name ="year" placeholder="YY" min="2017" max="2030" required>
 			<br>
 			<br>
 			<span class="heading">CVV</span>
 			<br>
-			<input class="input_cvv" type='number' name='cvv' max='999'>
+			<input class="input_cvv" type='number' name='cvv' max='999' required>
 			<br>					
 			<br>
 			<input id="gobutton" type="submit" name="submit" value="Place Order" />
@@ -264,6 +240,8 @@ LA CANTINA</span>
 			<li><a class="nava" href="/contact">Contact</a></li>
 			<li><a class="nava" href="/privacy_policy">Privacy Policy</a></li>
 			<li><a class="nava" href="/security">Security</a></li>		
+			<li><a class="nava" href="/terms">Terms</a></li>		
+
 		</ul>
 	</nav>
 

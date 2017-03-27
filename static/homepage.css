@@ -1,3 +1,80 @@
+@font-face 
+{
+ font-family:Cinzel Decorative Bold;
+ src:url("fonts/CinzelDecorative-Bold.otf");
+} 
+@font-face 
+{
+ font-family:Merriweather;
+ src:url("fonts/Merriweather-Regular.ttf");
+}
+@font-face 
+{
+ font-family:Lemonada;
+ src:url("fonts/Lemonada-Regular.ttf");
+}
+@font-face 
+{
+ font-family:PT Serif;
+ src:url("fonts/PT_Serif-Web-Regular.ttf");
+} 
+@font-face 
+{
+ font-family:Open Sans;
+ src:url("fonts/OpenSans-Regular.ttf")
+}
+@font-face 
+{
+ font-family:Cormorant Garamond Medium;
+ src:url("fonts/CormorantGaramond-Medium.ttf");
+}
+@font-face 
+{
+ font-family:Cabin;
+ src:url("fonts/Cabin-Regular.ttf}");
+}
+
+@font-face 
+{
+ font-family:Sansita;
+ src:url("fonts/Sansita-Regular.ttf");
+} 
+@font-face 
+{
+ font-family:Code Bold;
+ src:url("fonts/CODE Bold.otf");
+} 
+@font-face 
+{
+ font-family:Arimo;
+ src:url("fonts/Arimo-Bold.ttf");
+} 
+@font-face 
+{
+ font-family:Baloo Bhaina;
+ src:url("fonts/BalooBhaina-Regular.ttf");
+} 
+@font-face 
+{
+ font-family:Indie Flower;
+ src:url("fonts/IndieFlower.ttf");
+}
+@font-face 
+{
+ font-family:Playfair Display;
+ src:url("fonts/PlayfairDisplay-Bold.ttf");
+}
+@font-face 
+{
+ font-family:Montserrat;
+ src:url("fonts/Montserrat-Regular.ttf");
+}
+@font-face 
+{
+ font-family:Architects Daughter;
+ src:url("fonts/ArchitectsDaughter.ttf");
+}
+
 .head_left
 {
 		margin-left:50px;
@@ -111,7 +188,7 @@ h1 {  	font-family:"Cinzel Decorative Bold";
 	
 }
 .login{
-		margin-left:0px;
+		margin-left:630px;
 		font-family:'Times New Roman';
 		font-size:15px;
 		color:rgb(130,130,130);
@@ -127,14 +204,18 @@ h1 {  	font-family:"Cinzel Decorative Bold";
 		text-decoration: none;
 		}
 
-
+.login:hover,.help:hover
+{
+	
+	color:rgb(240,240,240);
+}
 
 .order1{		
 				font-family: "Open Sans";
 				font-weight:bold;
 				color:black;
-				margin-left:400px;
-				font-size:50px;
+				margin-left:200px;
+				font-size:40px;
 
 
 		}
@@ -151,23 +232,30 @@ h1 {  	font-family:"Cinzel Decorative Bold";
 }
 
 .place{
-			font-family: "Open Sans";
-			font-size:18px;
+			font-family: "Architects Daughter";
+			font-size:20px;
 			color:black;
+			font-weight:bold;
 			margin-left:600px;
 			margin-top:50px;
 			padding:10px;
+			border-radius:5px;
+		box-shadow: 0 0 5px #999; 
+			background:rgba(255,255,255,0.5);
+
 			
 		}
 
 
 		
 .showrestaurants{
-					font-family: "Open Sans";
-					font-size:16px;
+					font-family: "Architects Daughter";
+					font-size:20px;
 					background-color:black;
 					color:white;
-					margin-left:555px;
+					font-weight:bold;
+
+					margin-left:535px;
 					padding:15px;
 					padding-left:35px;
 					padding-right:35px;
@@ -188,20 +276,20 @@ h1 {  	font-family:"Cinzel Decorative Bold";
 
 
 
-nav
+.nav
 {
 	position: fixed;
-	left: -15em;					/* can be used to control sidebar position */
+	left: -14em;					/* can be used to control sidebar position */
 	top: 0;
 	bottom: 0;
 	background:rgba(0,0,0,0.8);
-	border-right: 50px solid rgba(0,0,0,0);	/* side of navigation bar */
+	border-right: 35px solid rgba(0,0,0,0);	/* side of navigation bar */
 	box-shadow: 4px 0 5px rgba(0,0,0,0.2);
 	z-index: 1;
 }
 
 
-nav:after
+.nav:after
 {
 	position: absolute;
 	content: ' ';
@@ -221,40 +309,40 @@ nav:after
 	cursor: pointer;
 
 }
-nav li
+.nav li
 {
 	padding-bottom:10px;
 	padding-top:10px;
 	border-bottom:1px solid black;
 	
 }
-nav li:hover
+.nav li:hover
 {
 		background:rgba(50,50,50,1);
 }
-nav ul
+.nav ul
 {
-	width:10em;
+	width:12em;
 	list-style-type: none;
 	margin: 0;
 	padding: 1em;
 	
 }
-article, article:after, nav, nav *
+article, article:after, .nav, .nav *
 {
 
 	transition: all 600ms ease;
 }
-nav:hover
+.nav:hover
 {
 	left: 0;
 }
-nav:hover ~ article
+.nav:hover ~ article
 {
 	
 	transform: translateX(16em) perspective(600px) rotateY(10deg);
 }
-nav:hover ~ article:after
+.nav:hover ~ article:after
 {
 	left: 60%;
 }

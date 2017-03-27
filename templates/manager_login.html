@@ -2,6 +2,11 @@
 <head>
 <link type="text/css" href="{{url_for('static',filename='webpages.css')}}" rel="stylesheet"/>
 
+<script type="text/javascript" src="{{url_for('static',filename='alert/alertify.min.js')}}"></script>
+<link rel="stylesheet" href="{{url_for('static',filename='alert/alertify.default.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='alert/alertify.core.css')}}">
+
+
 
 
 <script>
@@ -14,18 +19,7 @@ var password=document.forms["form1"]["password"].value;
 var x=0;
 if(((location=="TLY")||(location=="KANNUR"))||(location=="CALICUT"))
 {
-	if(username=="")
-	{
-		alert("please input username");
-		document.form1.action="";
-	}
-	else if(password=="")
-	{
-		alert("enter password");
-		document.form1.action="";
-	}
-	else 
-	{
+
 		{% for x in var %}
 
 			if(username=="{{x[0]}}" && password=="{{x[1]}}" && location=="{{x[3]}}")
@@ -37,7 +31,7 @@ if(((location=="TLY")||(location=="KANNUR"))||(location=="CALICUT"))
 	
 		if(x==1)	
 		{
-			alert("welcome " + username)
+			alertify.log( "welcome "+username, "success" );
 			document.form1.action="http://localhost:5000/manager_logged_in";
 			document.form1.method="post";
 		}
@@ -46,7 +40,7 @@ if(((location=="TLY")||(location=="KANNUR"))||(location=="CALICUT"))
 			alert("invalid username/password");
 			document.form1.action="";
 		};
-	}
+	
 	
 }
 else
@@ -63,21 +57,7 @@ else
 </script>
 
 <style>
-@font-face 
-{
- font-family:Cinzel Decorative Bold;
- src:url("{{url_for('static',filename='fonts/CinzelDecorative-Bold.otf')}}");
-} 
-@font-face 
-{
- font-family:Open Sans;
- src:url("{{url_for('static',filename='fonts/OpenSans-Regular.ttf')}}");
-}
-@font-face 
-{
- font-family:Cormorant Garamond Medium;
- src:url("{{url_for('static',filename='fonts/CormorantGaramond-Medium.ttf')}}");
-}
+
 .content1
 {				   
 				height: 20px;
@@ -214,15 +194,15 @@ LA CANTINA
 <div class="content4">  
 	<br>
 	
-	<form name='form1'onsubmit="required()">
+	<form name='form1' onsubmit="required()">
 	<br>
-	<input class="area" type='text' name='location' placeholder="(TLY,KANNUR,CALICUT)">
+	<input class="area" type='text' name='location' placeholder="(TLY,KANNUR,CALICUT)" required>
 	<br>
 	<br>
-	<input class="area" type="text" name="username"  placeholder="Username">
+	<input class="area" type="text" name="username"  placeholder="Username" required>
     <br>
     <br>
-	<input class="area" type="password" name="password" id="password" placeholder="Password">
+	<input class="area" type="password" name="password" id="password" placeholder="Password" required>
 	<br>
 	<br>
     <input id="gobutton" type="submit" name="submit" value="Sign in" />
@@ -258,6 +238,8 @@ LA CANTINA
 			<li><a class="nava" href="/contact">Contact</a></li>
 			<li><a class="nava" href="/privacy_policy">Privacy Policy</a></li>
 			<li><a class="nava" href="/security">Security</a></li>		
+			<li><a class="nava" href="/terms">Terms</a></li>		
+
 		</ul>
 	</nav>
 
