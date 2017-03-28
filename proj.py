@@ -65,7 +65,7 @@ def terms():
 @app.route('/about')
 def about():
 	conn=sqlite3.connect('members.db')
-cur=conn.cursor()
+	cur=conn.cursor()
 	cur.execute("SELECT * FROM customers")
 	varc=cur.fetchall()
 	cur.execute("SELECT * FROM managers")
@@ -841,8 +841,25 @@ def cartshow():
 	if(var1[0]>0):
 		cur.execute("SELECT * FROM {}".format(session['username']))
 		var=cur.fetchall()
-		
+		cur.execute("SELECT * FROM managers")
+		managers=cur.fetchall()
 
+		#to check whether deleted restaurant dishes are in cart	
+		for x in var:
+			temp=0
+			for man in managers:
+				if(x[4]==man[3] and x[5]==man[0]):
+					temp=1
+			if(temp==0):
+				cur.execute("DELETE FROM {} WHERE place =? and rest=?".format(session['username']),(x[4],x[5],))
+
+		conn.commit()
+		conn.close()	
+
+		conn=sqlite3.connect('members.db')
+		cur=conn.cursor()	
+		cur.execute("SELECT * FROM {}".format(session['username']))
+		var=cur.fetchall()
 		#for checking whether deleted dish is in cart
 		for x in var:
 			if(x[4]=='TLY'):
@@ -856,8 +873,11 @@ def cartshow():
 			var_temp=cur_temp.fetchone()
 			if not var_temp:
 				cur.execute("DELETE FROM {} WHERE item=? AND place=? AND rest=?".format(session['username']),(x[0],x[4],x[5],))
-			conn_temp.close()		
-			
+			conn_temp.close()	
+
+
+
+		
 		cur.execute("SELECT * FROM {}".format(session['username']))
 		var=cur.fetchall()
 		conn.commit()				
@@ -868,6 +888,7 @@ def cartshow():
 		else:
 			return render_template("nocart.html")
 	else:
+		conn.close()
 		return render_template("nocart.html")
 
 #to delete an <item> from cart
