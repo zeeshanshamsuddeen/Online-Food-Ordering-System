@@ -11,16 +11,28 @@
 ## QUERY Language
  SQLite 
 
-###members DB
+### members DB
+
 approval(username text NOT NULL ,password text, filename TEXT, place TEXT ,location TEXT, phone INTEGER ,start TEXT, stop TEXT )
+
 customers(username text NOT NULL PRIMARY KEY , password text NOT NULL )
+
 customers(username text NOT NULL PRIMARY KEY , password text NOT NULL )
+
 feedback (place TEXT, rest TEXT, username TEXT, message TEXT)
+
 managers(username text NOT NULL ,password text, filename TEXT, place TEXT ,location TEXT, phone INTEGER ,start TEXT, stop TEXT )
+
 messages(username TEXT, subject TEXT, message TEXT)
+
 most_ordered (place TEXT, rest TEXT, item TEXT, orders INTEGER, dish_image TEXT, price TEXT)
+
 notification (place TEXT, rest TEXT, message TEXT)
+
 rating(place text NOT NULL ,rest TEXT, username TEXT, stars INTEGER)
+
 response (username TEXT, sub TEXT, message TEXT, sender TEXT)
+
 reviews (username TEXT, rest TEXT, place TEXT, date TEXT, rating INTEGER, review TEXT, id INTEGER PRIMARY KEY AUTOINCREMENT)
+
 search (item text NOT NULL, def TEXT, price INTEGER NOT NULL, category TEXT, place TEXT, rest TEXT, dish_image text)
